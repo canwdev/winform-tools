@@ -25,12 +25,8 @@ namespace ra_launcher_remaster
 
         }
 
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        void openUrlByDefaultBrowser(string url)
         {
-            linkLabel1.LinkVisited = true;
-
-            string url = "https://github.com/canwdev/RA-Laucher-Tools";
-
             ProcessStartInfo psi = new ProcessStartInfo
             {
                 FileName = url,
@@ -40,10 +36,37 @@ namespace ra_launcher_remaster
             Process.Start(psi);
         }
 
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            linkLabel1.LinkVisited = true;
+            openUrlByDefaultBrowser("https://github.com/canwdev/ra-launcher-tools");
+        }
+
         private void btnCurDir_Click(object sender, EventArgs e)
         {
             string folderPath = Application.StartupPath;
             Process.Start(folderPath);
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            int tabIndex;
+            if (checkExeIsExist("ra3.exe") || checkExeIsExist("ra3ep1.exe"))
+            {
+                tabIndex = 1;
+                // MessageBox.Show("RA3 is detected", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else if (checkExeIsExist("ra2.exe") || checkExeIsExist("ra2md.exe"))
+            {
+                tabIndex = 0;
+            }
+            else
+            {
+                tabIndex = 2;
+                MessageBox.Show("请将此程序放在红警2/3文件夹内！", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            // Set the default tab
+            tabControl1.SelectedTab = tabControl1.TabPages[tabIndex];
         }
 
         void fnStartProgram(string exeName, string args="")
@@ -57,7 +80,7 @@ namespace ra_launcher_remaster
             {
                 string errorMessage = $"An error occurred: {ex.Message}";
                 Console.WriteLine(errorMessage);
-                MessageBox.Show(errorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, exeName +" "+ args, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -127,24 +150,25 @@ namespace ra_launcher_remaster
 
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void btnRa3Ep1Launch_Click(object sender, EventArgs e)
         {
-            int tabIndex;
-            if (checkExeIsExist("ra3.exe") || checkExeIsExist("ra3ep1.exe"))
-            {
-                tabIndex = 1;
-                // MessageBox.Show("RA3 is detected", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else if (checkExeIsExist("ra2.exe") || checkExeIsExist("ra2md.exe"))
-            {
-                tabIndex = 0;
-            } else
-            {
-                tabIndex = 2;
-                MessageBox.Show("请将此程序放在红警2/3文件夹内！", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            // Set the default tab
-            tabControl1.SelectedTab = tabControl1.TabPages[tabIndex];
+            fnStartProgram("ra3ep1.exe");
+        }
+
+        private void btnRa3Ep1LaunchWin_Click(object sender, EventArgs e)
+        {
+            fnStartProgram("ra3ep1.exe", "-win");
+        }
+
+        private void btnRa3Ep1Exit_Click(object sender, EventArgs e)
+        {
+            KillProcess("ra3ep1.exe");
+            KillProcess("ra3ep1_1.0.game"); // TODO: Auto
+        }
+
+        private void btnDdrawPatch_Click(object sender, EventArgs e)
+        {
+            openUrlByDefaultBrowser("https://github.com/narzoul/DDrawCompat");
         }
     }
 }
