@@ -7,6 +7,8 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -58,12 +60,12 @@ namespace ra_launcher_remaster
         private void Form1_Load(object sender, EventArgs e)
         {
             int tabIndex;
-            if (checkExeIsExist("ra3.exe") || checkExeIsExist("ra3ep1.exe"))
+            if (CheckExeIsExist("ra3.exe") || CheckExeIsExist("ra3ep1.exe"))
             {
                 tabIndex = 1;
                 // MessageBox.Show("RA3 is detected", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            else if (checkExeIsExist("ra2.exe") || checkExeIsExist("ra2md.exe"))
+            else if (CheckExeIsExist("ra2.exe") || CheckExeIsExist("ra2md.exe"))
             {
                 tabIndex = 0;
             }
@@ -87,9 +89,17 @@ namespace ra_launcher_remaster
 
             // Set the default selected item
             ra3ResComboBox.SelectedItem = "";
+
+            // 设置缩放列表
+            zoomRatioComboBox.Items.Add("100");
+            zoomRatioComboBox.Items.Add("125");
+            zoomRatioComboBox.Items.Add("150");
+            zoomRatioComboBox.Items.Add("175");
+            zoomRatioComboBox.Items.Add("200");
+            zoomRatioComboBox.SelectedItem = "100";
         }
 
-        void fnStartCurDirProgram(string exeName, string args="")
+        void FnStartCurDirProgram(string exeName, string args = "")
         {
             try
             {
@@ -108,7 +118,7 @@ namespace ra_launcher_remaster
         {
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.FileName = "cmd.exe";   // 启动命令提示符
-            startInfo.Arguments = "/c taskkill /f /im "+ processname;   // 执行 taskkill 命令，/c 参数表示执行完命令后关闭命令提示符
+            startInfo.Arguments = "/c taskkill /f /im " + processname;   // 执行 taskkill 命令，/c 参数表示执行完命令后关闭命令提示符
             startInfo.CreateNoWindow = true;  // 不创建进程窗口
             startInfo.WindowStyle = ProcessWindowStyle.Hidden;  // 隐藏窗口样式
             Process.Start(startInfo);
@@ -116,12 +126,12 @@ namespace ra_launcher_remaster
 
         private void btnRa2Launch_Click(object sender, EventArgs e)
         {
-            fnStartCurDirProgram("ra2.exe", "-speedcontrol");
+            FnStartCurDirProgram("ra2.exe", "-speedcontrol");
         }
 
         private void btnRa2LaunchWin_Click(object sender, EventArgs e)
         {
-            fnStartCurDirProgram("ra2.exe", "-win -speedcontrol");
+            FnStartCurDirProgram("ra2.exe", "-win -speedcontrol");
         }
 
         private void btnRa2Exit_Click(object sender, EventArgs e)
@@ -130,7 +140,7 @@ namespace ra_launcher_remaster
             KillProcess("game.exe");
         }
 
-        void fnOptRa2Ini(string iniFileName = "ra2.ini")
+        void FnOptRa2Ini(string iniFileName = "ra2.ini")
         {
             Process.Start("notepad", $".\\{iniFileName}");
 
@@ -151,22 +161,22 @@ StretchMovies=no
 
         private void btnRa2IniOpt_Click(object sender, EventArgs e)
         {
-            fnOptRa2Ini();
+            FnOptRa2Ini();
         }
 
         private void btnRa2YrIniOpt_Click_Click(object sender, EventArgs e)
         {
-            fnOptRa2Ini("ra2md.ini");
+            FnOptRa2Ini("ra2md.ini");
         }
 
         private void btnRa2YrLaunch_Click(object sender, EventArgs e)
         {
-            fnStartCurDirProgram("ra2md.exe", "-speedcontrol");
+            FnStartCurDirProgram("ra2md.exe", "-speedcontrol");
         }
 
         private void btnRa2YrLaunchWin_Click(object sender, EventArgs e)
         {
-            fnStartCurDirProgram("ra2md.exe", "-win -speedcontrol");
+            FnStartCurDirProgram("ra2md.exe", "-win -speedcontrol");
         }
 
         private void btnRa2YrExit_Click(object sender, EventArgs e)
@@ -175,7 +185,7 @@ StretchMovies=no
             KillProcess("gamemd.exe");
         }
 
-        string fnGetRa3StartParams(string para = "")
+        string FnGetRa3StartParams(string para = "")
         {
             if (checkBoxIsRa3Ui.Checked)
             {
@@ -189,14 +199,16 @@ StretchMovies=no
                     int width = Screen.FromControl(this).Bounds.Width;
                     int height = Screen.FromControl(this).Bounds.Height;
                     para += $" -xres {width} -yres {height}";
-                } else if (resValue.Contains("x"))
+                }
+                else if (resValue.Contains("x"))
                 {
                     // 字符串包含"x"，执行相关操作
                     string[] parts = resValue.Split('x');
                     int width = int.Parse(parts[0]);
                     int height = int.Parse(parts[1]);
                     para += $" -xres {width} -yres {height}";
-                } else
+                }
+                else
                 {
                     MessageBox.Show("应该使用类似于 1024x768 的格式！", "错误的输入格式", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
@@ -206,12 +218,12 @@ StretchMovies=no
 
         private void btnRa3Launch_Click(object sender, EventArgs e)
         {
-            fnStartCurDirProgram("ra3.exe", fnGetRa3StartParams());
+            FnStartCurDirProgram("ra3.exe", FnGetRa3StartParams());
         }
 
         private void btnRa3LaunchWin_Click(object sender, EventArgs e)
         {
-            fnStartCurDirProgram("ra3.exe", fnGetRa3StartParams("-win"));
+            FnStartCurDirProgram("ra3.exe", FnGetRa3StartParams("-win"));
         }
 
         private void btnRa3Exit_Click(object sender, EventArgs e)
@@ -220,7 +232,7 @@ StretchMovies=no
             KillProcess("ra3_1.12.game"); // TODO: Auto
         }
 
-        bool checkExeIsExist(string exeName)
+        bool CheckExeIsExist(string exeName)
         {
             string filePath = Path.Combine(Application.StartupPath, exeName);
 
@@ -230,12 +242,12 @@ StretchMovies=no
 
         private void btnRa3Ep1Launch_Click(object sender, EventArgs e)
         {
-            fnStartCurDirProgram("ra3ep1.exe", fnGetRa3StartParams());
+            FnStartCurDirProgram("ra3ep1.exe", FnGetRa3StartParams());
         }
 
         private void btnRa3Ep1LaunchWin_Click(object sender, EventArgs e)
         {
-            fnStartCurDirProgram("ra3ep1.exe", fnGetRa3StartParams("-win"));
+            FnStartCurDirProgram("ra3ep1.exe", FnGetRa3StartParams("-win"));
         }
 
         private void btnRa3Ep1Exit_Click(object sender, EventArgs e)
@@ -244,23 +256,20 @@ StretchMovies=no
             KillProcess("ra3ep1_1.0.game"); // TODO: Auto
         }
 
-        private void btnDdrawPatch_Click(object sender, EventArgs e)
+        string FnExtractResources(string filename)
         {
-            // 本地开发时，请下载最新版 ddraw.dll https://github.com/narzoul/DDrawCompat/releases
-            // 并放置在 Resources 目录下
-
-            // 获取要提取的dll文件路径
+            // 获取要提取的资源文件路径
             string localNameSpace = this.GetType().Namespace; //获取工作空间
-            string dllFilePath = localNameSpace + ".Resources.ddraw.dll";
-            Console.WriteLine(dllFilePath);
+            string resFilePath = localNameSpace + ".Resources." + filename;
+            Console.WriteLine(resFilePath);
 
             // 获取提取后dll文件的目标路径
-            string targetFilePath = Path.Combine(Application.StartupPath, "ddraw.dll");
+            string targetFilePath = Path.Combine(Application.StartupPath, filename);
             Console.WriteLine(targetFilePath);
 
 
             // 从资源文件中读取dll文件并复制
-            using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(dllFilePath))
+            using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resFilePath))
             {
                 using (FileStream fileStream = new FileStream(targetFilePath, FileMode.Create))
                 {
@@ -268,11 +277,66 @@ StretchMovies=no
                 }
             }
 
-            MessageBox.Show($"补丁已放置在目录\n{targetFilePath}", "操作成功", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            return targetFilePath;
+        }
+
+        private void btnDdrawPatch_Click(object sender, EventArgs e)
+        {
+            // 本地开发时，请下载最新版 ddraw.dll https://github.com/narzoul/DDrawCompat/releases
+            // 并放置在 Resources 目录下
+            FnExtractResources("ddraw.dll");
+            FnExtractResources("ddraw.ini");
+
+            MessageBox.Show($"ddraw.dll, ddraw.ini 补丁已放置在当前目录", "操作成功", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             // 加载提取后的dll文件
             // Assembly assembly = Assembly.LoadFile(targetFilePath);
             // 使用加载的dll文件
+        }
+
+        private void btnUnZoom_Click(object sender, EventArgs e)
+        {
+            // 获取程序集中的资源流
+            // 获取要提取的资源文件路径
+            string localNameSpace = this.GetType().Namespace; //获取工作空间
+            string resFilePath = localNameSpace + ".Resources." + "SetDpi.exe";
+            System.IO.Stream resourceStream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream(resFilePath);
+
+            // 将资源流写入临时文件
+            string tempFilePath = Path.GetTempFileName();
+            using (FileStream fileStream = File.Create(tempFilePath))
+            {
+                resourceStream.CopyTo(fileStream);
+            }
+
+            Console.WriteLine(tempFilePath);
+
+            string resValue = ra3ResComboBox.SelectedItem != null ? (string)zoomRatioComboBox.SelectedItem : "100";
+
+            // 启动临时文件中的程序
+            Process process = new Process();
+            process.StartInfo.FileName = tempFilePath;
+            process.StartInfo.Arguments = resValue;
+            process.StartInfo.UseShellExecute = false;
+            process.StartInfo.RedirectStandardOutput = true;
+            process.StartInfo.CreateNoWindow = true;  // 不创建进程窗口
+            process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;  // 隐藏窗口样式
+
+            process.Start();
+            string output = process.StandardOutput.ReadToEnd();
+            Console.WriteLine("output: " + output);
+
+            process.WaitForExit();
+            process.Dispose();
+
+
+            // 删除临时文件
+            File.Delete(tempFilePath);
+        }
+
+        private void btnOpenResolutionControl_Click(object sender, EventArgs e)
+        {
+            Process.Start("control.exe", "desk.cpl,@0,3");
         }
     }
 }

@@ -103,12 +103,14 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Resources\ddraw.ini" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon-ra3.ico" />
+    <EmbeddedResource Include="Resources\SetDpi.exe" />
     <EmbeddedResource Include="Resources\ddraw.dll" />
     <None Include="Resources\bitmap12.bmp" />
     <None Include="Resources\bitmap11.bmp" />
