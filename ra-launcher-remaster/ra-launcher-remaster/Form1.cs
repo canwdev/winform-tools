@@ -96,6 +96,12 @@ namespace ra_launcher_remaster
             zoomRatioComboBox.Items.Add("150");
             zoomRatioComboBox.Items.Add("175");
             zoomRatioComboBox.Items.Add("200");
+            zoomRatioComboBox.Items.Add("225");
+            zoomRatioComboBox.Items.Add("250");
+            zoomRatioComboBox.Items.Add("275");
+            zoomRatioComboBox.Items.Add("300");
+            zoomRatioComboBox.Items.Add("400");
+            zoomRatioComboBox.Items.Add("500");
             zoomRatioComboBox.SelectedItem = "100";
         }
 
@@ -294,29 +300,42 @@ StretchMovies=no
             // 使用加载的dll文件
         }
 
-        private void btnUnZoom_Click(object sender, EventArgs e)
+
+        // 定义全局变量
+        private string setDpiTempPath = "";
+        // 修改之前的屏幕DPI
+        private string previousDpi = "";
+
+        void initSetDpi()
         {
             // 获取程序集中的资源流
             // 获取要提取的资源文件路径
             string localNameSpace = this.GetType().Namespace; //获取工作空间
             string resFilePath = localNameSpace + ".Resources." + "SetDpi.exe";
-            System.IO.Stream resourceStream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream(resFilePath);
+            Stream resourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resFilePath);
 
             // 将资源流写入临时文件
-            string tempFilePath = Path.GetTempFileName();
-            using (FileStream fileStream = File.Create(tempFilePath))
+            setDpiTempPath = Path.GetTempFileName();
+            using (FileStream fileStream = File.Create(setDpiTempPath))
             {
                 resourceStream.CopyTo(fileStream);
             }
 
-            Console.WriteLine(tempFilePath);
+            Console.WriteLine(setDpiTempPath);
 
-            string resValue = ra3ResComboBox.SelectedItem != null ? (string)zoomRatioComboBox.SelectedItem : "100";
+
+        }
+        string FnGetDpi()
+        {
+            if (string.IsNullOrEmpty(setDpiTempPath))
+            {
+                initSetDpi();
+            }
 
             // 启动临时文件中的程序
             Process process = new Process();
-            process.StartInfo.FileName = tempFilePath;
-            process.StartInfo.Arguments = resValue;
+            process.StartInfo.FileName = setDpiTempPath;
+            process.StartInfo.Arguments = "value";
             process.StartInfo.UseShellExecute = false;
             process.StartInfo.RedirectStandardOutput = true;
             process.StartInfo.CreateNoWindow = true;  // 不创建进程窗口
@@ -324,19 +343,74 @@ StretchMovies=no
 
             process.Start();
             string output = process.StandardOutput.ReadToEnd();
-            Console.WriteLine("output: " + output);
 
-            process.WaitForExit();
-            process.Dispose();
+            Console.WriteLine("output:" + output);
 
+            return output;
 
-            // 删除临时文件
-            File.Delete(tempFilePath);
+        }
+
+        void FnSetDpi(string args="100")
+        {
+            if (string.IsNullOrEmpty(setDpiTempPath))
+            {
+                initSetDpi();
+            }
+
+            // 启动临时文件中的程序
+            Process process = new Process();
+            process.StartInfo.FileName = setDpiTempPath;
+            process.StartInfo.Arguments = args;
+            process.StartInfo.UseShellExecute = false;
+            process.StartInfo.RedirectStandardOutput = true;
+            process.StartInfo.CreateNoWindow = true;  // 不创建进程窗口
+            process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;  // 隐藏窗口样式
+
+            process.Start();
+            process.StandardOutput.ReadToEnd();
+        }
+        private void btnSetDpi_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(previousDpi))
+            {
+                previousDpi = FnGetDpi();
+                btnDpiReset.Visible = true;
+            }
+            string resValue = ra3ResComboBox.SelectedItem != null ? (string)zoomRatioComboBox.SelectedItem : "100";
+            FnSetDpi(resValue);
         }
 
         private void btnOpenResolutionControl_Click(object sender, EventArgs e)
         {
             Process.Start("control.exe", "desk.cpl,@0,3");
+        }
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // 调用清理方法
+            if (!string.IsNullOrEmpty(setDpiTempPath))
+            {
+                // 删除临时文件
+                File.Delete(setDpiTempPath);
+                Console.WriteLine("Clean");
+            }
+        }
+
+        private void btnDpiReset_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(previousDpi))
+            {
+                return;
+            }
+            FnSetDpi(previousDpi);
+            btnDpiReset.Visible = false;
+            previousDpi = "";
+        }
+
+        private void labelDpi_Click(object sender, EventArgs e)
+        {
+            previousDpi = FnGetDpi();
+            zoomRatioComboBox.SelectedItem = previousDpi;
+            btnDpiReset.Visible = true;
         }
     }
 }
