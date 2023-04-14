@@ -117,6 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="richTextBox1.Text" xml:space="preserve">
+    <value># 红警2/3 启动器
+
+把此程序放在红警2/3文件夹内, 即可使用
+此程序使用 WinForm 技术构建, 十分小巧
+
+## 常用工具
+
+- ddraw.dll补丁 https://github.com/narzoul/DDrawCompat
+- Magpie轻量级的窗口缩放工具 https://github.com/Blinue/Magpie
+
+## 红警 2 说明
+
+- 建议以管理员身份运行此程序
+- 窗口模式(-win)需在兼容性中设置16位色
+- 默认开启了游戏任务中的调速功能(-speedcontrol)
+
+## 红警 3 说明
+
+- 支持开启控制台和窗口模式(-ui -win)
+- 支持自定义分辨率(-xres 1024 -yres 768)
+
+
+</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

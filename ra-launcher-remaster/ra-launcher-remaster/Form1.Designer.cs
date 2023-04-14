@@ -34,12 +34,12 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.btnDdrawPatch = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btnRa2YrIniOpt_Click = new System.Windows.Forms.Button();
             this.btnRa2YrExit = new System.Windows.Forms.Button();
             this.btnRa2YrLaunchWin = new System.Windows.Forms.Button();
             this.btnRa2YrLaunch = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnRa2IniOpt = new System.Windows.Forms.Button();
             this.btnRa2Exit = new System.Windows.Forms.Button();
             this.btnRa2LaunchWin = new System.Windows.Forms.Button();
             this.btnRa2Launch = new System.Windows.Forms.Button();
@@ -57,6 +57,13 @@
             this.btnCurDir = new System.Windows.Forms.Button();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.checkBoxIsRa3Ui = new System.Windows.Forms.CheckBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.ra3ResComboBox = new System.Windows.Forms.ComboBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabControl1.SuspendLayout();
             this.RA2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -66,6 +73,10 @@
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.About.SuspendLayout();
+            this.groupBox6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -73,7 +84,8 @@
             this.tabControl1.Controls.Add(this.RA2);
             this.tabControl1.Controls.Add(this.RA3);
             this.tabControl1.Controls.Add(this.About);
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
+            this.tabControl1.Location = new System.Drawing.Point(8, 7);
+            this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(275, 369);
@@ -94,6 +106,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.pictureBox3);
             this.groupBox3.Controls.Add(this.btnDdrawPatch);
             this.groupBox3.Location = new System.Drawing.Point(8, 218);
             this.groupBox3.Name = "groupBox3";
@@ -114,7 +127,7 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.button3);
+            this.groupBox2.Controls.Add(this.btnRa2YrIniOpt_Click);
             this.groupBox2.Controls.Add(this.btnRa2YrExit);
             this.groupBox2.Controls.Add(this.btnRa2YrLaunchWin);
             this.groupBox2.Controls.Add(this.btnRa2YrLaunch);
@@ -125,15 +138,15 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "YURI (ra2md.exe)";
             // 
-            // button3
+            // btnRa2YrIniOpt_Click
             // 
-            this.button3.Enabled = false;
-            this.button3.Location = new System.Drawing.Point(133, 53);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(111, 23);
-            this.button3.TabIndex = 4;
-            this.button3.Text = "ra2md.ini 优化";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btnRa2YrIniOpt_Click.Location = new System.Drawing.Point(133, 53);
+            this.btnRa2YrIniOpt_Click.Name = "btnRa2YrIniOpt_Click";
+            this.btnRa2YrIniOpt_Click.Size = new System.Drawing.Size(111, 23);
+            this.btnRa2YrIniOpt_Click.TabIndex = 4;
+            this.btnRa2YrIniOpt_Click.Text = "ra2md.ini 优化";
+            this.btnRa2YrIniOpt_Click.UseVisualStyleBackColor = true;
+            this.btnRa2YrIniOpt_Click.Click += new System.EventHandler(this.btnRa2YrIniOpt_Click_Click);
             // 
             // btnRa2YrExit
             // 
@@ -167,7 +180,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.button2);
+            this.groupBox1.Controls.Add(this.btnRa2IniOpt);
             this.groupBox1.Controls.Add(this.btnRa2Exit);
             this.groupBox1.Controls.Add(this.btnRa2LaunchWin);
             this.groupBox1.Controls.Add(this.btnRa2Launch);
@@ -178,15 +191,15 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "RA2 (ra2.exe)";
             // 
-            // button2
+            // btnRa2IniOpt
             // 
-            this.button2.Enabled = false;
-            this.button2.Location = new System.Drawing.Point(133, 53);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(111, 23);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "ra2.ini 优化";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnRa2IniOpt.Location = new System.Drawing.Point(133, 53);
+            this.btnRa2IniOpt.Name = "btnRa2IniOpt";
+            this.btnRa2IniOpt.Size = new System.Drawing.Size(111, 23);
+            this.btnRa2IniOpt.TabIndex = 3;
+            this.btnRa2IniOpt.Text = "ra2.ini 优化";
+            this.btnRa2IniOpt.UseVisualStyleBackColor = true;
+            this.btnRa2IniOpt.Click += new System.EventHandler(this.btnRa2IniOpt_Click);
             // 
             // btnRa2Exit
             // 
@@ -220,6 +233,7 @@
             // 
             // RA3
             // 
+            this.RA3.Controls.Add(this.groupBox6);
             this.RA3.Controls.Add(this.groupBox5);
             this.RA3.Controls.Add(this.groupBox4);
             this.RA3.Location = new System.Drawing.Point(4, 24);
@@ -232,6 +246,7 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.pictureBox2);
             this.groupBox5.Controls.Add(this.btnRa3Ep1Exit);
             this.groupBox5.Controls.Add(this.btnRa3Ep1LaunchWin);
             this.groupBox5.Controls.Add(this.btnRa3Ep1Launch);
@@ -274,6 +289,7 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.pictureBox1);
             this.groupBox4.Controls.Add(this.btnRa3Exit);
             this.groupBox4.Controls.Add(this.btnRa3LaunchWin);
             this.groupBox4.Controls.Add(this.btnRa3Launch);
@@ -366,18 +382,88 @@
             this.richTextBox1.Location = new System.Drawing.Point(0, 0);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(271, 315);
+            this.richTextBox1.Size = new System.Drawing.Size(267, 315);
             this.richTextBox1.TabIndex = 1;
-            this.richTextBox1.Text = "# 红警2/3 启动器\n\n把此程序放在红警2/3文件夹内，即可使用\n\n## 红警 2 说明\n\n- 建议以管理员身份运行此程序\n- 窗口模式(-win)需16位色\n" +
-    "- 游戏在任务中可以调速(-speedcontrol)\n\n## 红警 3 说明\n\n- 支持开启控制台和窗口模式(-ui -win)\n- 支持自定义分辨率(-xr" +
-    "es 1024 -yres 768)";
+            this.richTextBox1.Text = resources.GetString("richTextBox1.Text");
+            this.richTextBox1.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.richTextBox1_LinkClicked);
             this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.ra3ResComboBox);
+            this.groupBox6.Controls.Add(this.label1);
+            this.groupBox6.Controls.Add(this.checkBoxIsRa3Ui);
+            this.groupBox6.Location = new System.Drawing.Point(8, 218);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(250, 100);
+            this.groupBox6.TabIndex = 5;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "高级功能";
+            // 
+            // checkBoxIsRa3Ui
+            // 
+            this.checkBoxIsRa3Ui.AutoSize = true;
+            this.checkBoxIsRa3Ui.Location = new System.Drawing.Point(7, 23);
+            this.checkBoxIsRa3Ui.Name = "checkBoxIsRa3Ui";
+            this.checkBoxIsRa3Ui.Size = new System.Drawing.Size(117, 19);
+            this.checkBoxIsRa3Ui.TabIndex = 0;
+            this.checkBoxIsRa3Ui.Text = "启动控制台 (-ui)";
+            this.checkBoxIsRa3Ui.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(7, 50);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(85, 15);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "自定义分辨率";
+            // 
+            // ra3ResComboBox
+            // 
+            this.ra3ResComboBox.FormattingEnabled = true;
+            this.ra3ResComboBox.Location = new System.Drawing.Point(98, 47);
+            this.ra3ResComboBox.Name = "ra3ResComboBox";
+            this.ra3ResComboBox.Size = new System.Drawing.Size(121, 23);
+            this.ra3ResComboBox.TabIndex = 3;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.BackgroundImage = global::ra_launcher_remaster.Properties.Resources.bitmap12;
+            this.pictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox3.Location = new System.Drawing.Point(194, 44);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(50, 50);
+            this.pictureBox3.TabIndex = 1;
+            this.pictureBox3.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BackgroundImage = global::ra_launcher_remaster.Properties.Resources.bitmap11;
+            this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox2.InitialImage = null;
+            this.pictureBox2.Location = new System.Drawing.Point(199, 49);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(45, 45);
+            this.pictureBox2.TabIndex = 7;
+            this.pictureBox2.TabStop = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackgroundImage = global::ra_launcher_remaster.Properties.Resources.bitmap1;
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox1.InitialImage = null;
+            this.pictureBox1.Location = new System.Drawing.Point(199, 49);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(45, 45);
+            this.pictureBox1.TabIndex = 6;
+            this.pictureBox1.TabStop = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(274, 371);
+            this.ClientSize = new System.Drawing.Size(289, 383);
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -395,6 +481,11 @@
             this.groupBox4.ResumeLayout(false);
             this.About.ResumeLayout(false);
             this.About.PerformLayout();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -419,8 +510,8 @@
         private System.Windows.Forms.Label labelCopyright;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button btnDdrawPatch;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnRa2YrIniOpt_Click;
+        private System.Windows.Forms.Button btnRa2IniOpt;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Button btnRa3Exit;
         private System.Windows.Forms.Button btnRa3LaunchWin;
@@ -429,6 +520,13 @@
         private System.Windows.Forms.Button btnRa3Ep1Exit;
         private System.Windows.Forms.Button btnRa3Ep1LaunchWin;
         private System.Windows.Forms.Button btnRa3Ep1Launch;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox checkBoxIsRa3Ui;
+        private System.Windows.Forms.ComboBox ra3ResComboBox;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.PictureBox pictureBox3;
     }
 }
 

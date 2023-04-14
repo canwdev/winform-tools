@@ -6,10 +6,12 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace ra_launcher_remaster
 {
@@ -23,6 +25,11 @@ namespace ra_launcher_remaster
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
 
+        }
+        private void richTextBox1_LinkClicked(object sender, LinkClickedEventArgs e)
+        {
+            // Call Process.Start method to open a browser, with link text as URL
+            System.Diagnostics.Process.Start(e.LinkText); // call default browser
         }
 
         void openUrlByDefaultBrowser(string url)
@@ -63,13 +70,26 @@ namespace ra_launcher_remaster
             else
             {
                 tabIndex = 2;
-                MessageBox.Show("请将此程序放在红警2/3文件夹内！", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // MessageBox.Show("请将此程序放在红警2/3文件夹内！", "Alert!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             // Set the default tab
             tabControl1.SelectedTab = tabControl1.TabPages[tabIndex];
+
+            // 设置RA3分辨率列表
+            // Add items to the combo box
+            ra3ResComboBox.Items.Add("");
+            ra3ResComboBox.Items.Add("Auto");
+            ra3ResComboBox.Items.Add("800x600");
+            ra3ResComboBox.Items.Add("1024x768");
+            ra3ResComboBox.Items.Add("1360x768");
+            ra3ResComboBox.Items.Add("1920x1080");
+            ra3ResComboBox.Items.Add("2560x1440");
+
+            // Set the default selected item
+            ra3ResComboBox.SelectedItem = "";
         }
 
-        void fnStartProgram(string exeName, string args="")
+        void fnStartCurDirProgram(string exeName, string args="")
         {
             try
             {
@@ -80,7 +100,7 @@ namespace ra_launcher_remaster
             {
                 string errorMessage = $"An error occurred: {ex.Message}";
                 Console.WriteLine(errorMessage);
-                MessageBox.Show(ex.Message, exeName +" "+ args, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(exeName + " " + args, "启动失败！\n" + ex.Message, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -96,12 +116,12 @@ namespace ra_launcher_remaster
 
         private void btnRa2Launch_Click(object sender, EventArgs e)
         {
-            fnStartProgram("ra2.exe", "-speedcontrol");
+            fnStartCurDirProgram("ra2.exe", "-speedcontrol");
         }
 
         private void btnRa2LaunchWin_Click(object sender, EventArgs e)
         {
-            fnStartProgram("ra2.exe", "-win -speedcontrol");
+            fnStartCurDirProgram("ra2.exe", "-win -speedcontrol");
         }
 
         private void btnRa2Exit_Click(object sender, EventArgs e)
@@ -110,14 +130,43 @@ namespace ra_launcher_remaster
             KillProcess("game.exe");
         }
 
+        void fnOptRa2Ini(string iniFileName = "ra2.ini")
+        {
+            Process.Start("notepad", $".\\{iniFileName}");
+
+            int width = Screen.FromControl(this).Bounds.Width;
+            int height = Screen.FromControl(this).Bounds.Height;
+            string configString = $@"[Video]
+AllowHiResModes=yes
+VideoBackBuffer=no
+AllowVRAMSidebar=no
+ScreenWidth={width}
+ScreenHeight={height}
+StretchMovies=no
+";
+            FormTextDisplay form2 = new FormTextDisplay(configString, $"请手动复制并替换 {iniFileName} 中的 [Video] 配置值"); // 创建一个新的窗口对象，并传递参数
+            form2.Show(); // 显示新的窗口
+
+        }
+
+        private void btnRa2IniOpt_Click(object sender, EventArgs e)
+        {
+            fnOptRa2Ini();
+        }
+
+        private void btnRa2YrIniOpt_Click_Click(object sender, EventArgs e)
+        {
+            fnOptRa2Ini("ra2md.ini");
+        }
+
         private void btnRa2YrLaunch_Click(object sender, EventArgs e)
         {
-            fnStartProgram("ra2md.exe", "-speedcontrol");
+            fnStartCurDirProgram("ra2md.exe", "-speedcontrol");
         }
 
         private void btnRa2YrLaunchWin_Click(object sender, EventArgs e)
         {
-            fnStartProgram("ra2md.exe", "-win -speedcontrol");
+            fnStartCurDirProgram("ra2md.exe", "-win -speedcontrol");
         }
 
         private void btnRa2YrExit_Click(object sender, EventArgs e)
@@ -126,14 +175,43 @@ namespace ra_launcher_remaster
             KillProcess("gamemd.exe");
         }
 
+        string fnGetRa3StartParams(string para = "")
+        {
+            if (checkBoxIsRa3Ui.Checked)
+            {
+                para += " -ui";
+            }
+            string resValue = ra3ResComboBox.SelectedItem != null ? (string)ra3ResComboBox.SelectedItem : ra3ResComboBox.Text;
+            if (resValue != "")
+            {
+                if (resValue == "Auto")
+                {
+                    int width = Screen.FromControl(this).Bounds.Width;
+                    int height = Screen.FromControl(this).Bounds.Height;
+                    para += $" -xres {width} -yres {height}";
+                } else if (resValue.Contains("x"))
+                {
+                    // 字符串包含"x"，执行相关操作
+                    string[] parts = resValue.Split('x');
+                    int width = int.Parse(parts[0]);
+                    int height = int.Parse(parts[1]);
+                    para += $" -xres {width} -yres {height}";
+                } else
+                {
+                    MessageBox.Show("应该使用类似于 1024x768 的格式！", "错误的输入格式", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            return para;
+        }
+
         private void btnRa3Launch_Click(object sender, EventArgs e)
         {
-            fnStartProgram("ra3.exe");
+            fnStartCurDirProgram("ra3.exe", fnGetRa3StartParams());
         }
 
         private void btnRa3LaunchWin_Click(object sender, EventArgs e)
         {
-            fnStartProgram("ra3.exe", "-win");
+            fnStartCurDirProgram("ra3.exe", fnGetRa3StartParams("-win"));
         }
 
         private void btnRa3Exit_Click(object sender, EventArgs e)
@@ -152,12 +230,12 @@ namespace ra_launcher_remaster
 
         private void btnRa3Ep1Launch_Click(object sender, EventArgs e)
         {
-            fnStartProgram("ra3ep1.exe");
+            fnStartCurDirProgram("ra3ep1.exe", fnGetRa3StartParams());
         }
 
         private void btnRa3Ep1LaunchWin_Click(object sender, EventArgs e)
         {
-            fnStartProgram("ra3ep1.exe", "-win");
+            fnStartCurDirProgram("ra3ep1.exe", fnGetRa3StartParams("-win"));
         }
 
         private void btnRa3Ep1Exit_Click(object sender, EventArgs e)
@@ -168,7 +246,33 @@ namespace ra_launcher_remaster
 
         private void btnDdrawPatch_Click(object sender, EventArgs e)
         {
-            openUrlByDefaultBrowser("https://github.com/narzoul/DDrawCompat");
+            // 本地开发时，请下载最新版 ddraw.dll https://github.com/narzoul/DDrawCompat/releases
+            // 并放置在 Resources 目录下
+
+            // 获取要提取的dll文件路径
+            string localNameSpace = this.GetType().Namespace; //获取工作空间
+            string dllFilePath = localNameSpace + ".Resources.ddraw.dll";
+            Console.WriteLine(dllFilePath);
+
+            // 获取提取后dll文件的目标路径
+            string targetFilePath = Path.Combine(Application.StartupPath, "ddraw.dll");
+            Console.WriteLine(targetFilePath);
+
+
+            // 从资源文件中读取dll文件并复制
+            using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(dllFilePath))
+            {
+                using (FileStream fileStream = new FileStream(targetFilePath, FileMode.Create))
+                {
+                    stream.CopyTo(fileStream);
+                }
+            }
+
+            MessageBox.Show($"补丁已放置在目录\n{targetFilePath}", "操作成功", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            // 加载提取后的dll文件
+            // Assembly assembly = Assembly.LoadFile(targetFilePath);
+            // 使用加载的dll文件
         }
     }
 }
