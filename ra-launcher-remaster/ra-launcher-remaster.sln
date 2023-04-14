@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33530.505
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ra-launcher-remaster", "ra-launcher-remaster\ra-launcher-remaster.csproj", "{28ED3186-B5B0-44D6-9446-30C3130B5FCE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{28ED3186-B5B0-44D6-9446-30C3130B5FCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28ED3186-B5B0-44D6-9446-30C3130B5FCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28ED3186-B5B0-44D6-9446-30C3130B5FCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28ED3186-B5B0-44D6-9446-30C3130B5FCE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DEDE14DF-4E90-493A-926A-17A33BC86B7E}
+	EndGlobalSection
+EndGlobal
