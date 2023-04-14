@@ -81,14 +81,17 @@
             // 
             // tabControl1
             // 
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.RA2);
             this.tabControl1.Controls.Add(this.RA3);
             this.tabControl1.Controls.Add(this.About);
-            this.tabControl1.Location = new System.Drawing.Point(8, 7);
+            this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(275, 369);
+            this.tabControl1.Size = new System.Drawing.Size(285, 383);
             this.tabControl1.TabIndex = 0;
             // 
             // RA2
@@ -99,7 +102,7 @@
             this.RA2.Location = new System.Drawing.Point(4, 24);
             this.RA2.Name = "RA2";
             this.RA2.Padding = new System.Windows.Forms.Padding(3);
-            this.RA2.Size = new System.Drawing.Size(267, 341);
+            this.RA2.Size = new System.Drawing.Size(277, 355);
             this.RA2.TabIndex = 0;
             this.RA2.Text = "RA2";
             this.RA2.UseVisualStyleBackColor = true;
@@ -108,9 +111,9 @@
             // 
             this.groupBox3.Controls.Add(this.pictureBox3);
             this.groupBox3.Controls.Add(this.btnDdrawPatch);
-            this.groupBox3.Location = new System.Drawing.Point(8, 218);
+            this.groupBox3.Location = new System.Drawing.Point(8, 228);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(250, 100);
+            this.groupBox3.Size = new System.Drawing.Size(263, 100);
             this.groupBox3.TabIndex = 4;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "高级功能";
@@ -119,7 +122,7 @@
             // 
             this.btnDdrawPatch.Location = new System.Drawing.Point(7, 23);
             this.btnDdrawPatch.Name = "btnDdrawPatch";
-            this.btnDdrawPatch.Size = new System.Drawing.Size(111, 23);
+            this.btnDdrawPatch.Size = new System.Drawing.Size(120, 30);
             this.btnDdrawPatch.TabIndex = 0;
             this.btnDdrawPatch.Text = "ddraw.dll 补丁";
             this.btnDdrawPatch.UseVisualStyleBackColor = true;
@@ -131,18 +134,18 @@
             this.groupBox2.Controls.Add(this.btnRa2YrExit);
             this.groupBox2.Controls.Add(this.btnRa2YrLaunchWin);
             this.groupBox2.Controls.Add(this.btnRa2YrLaunch);
-            this.groupBox2.Location = new System.Drawing.Point(8, 112);
+            this.groupBox2.Location = new System.Drawing.Point(8, 122);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(250, 100);
+            this.groupBox2.Size = new System.Drawing.Size(263, 100);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "YURI (ra2md.exe)";
             // 
             // btnRa2YrIniOpt_Click
             // 
-            this.btnRa2YrIniOpt_Click.Location = new System.Drawing.Point(133, 53);
+            this.btnRa2YrIniOpt_Click.Location = new System.Drawing.Point(133, 59);
             this.btnRa2YrIniOpt_Click.Name = "btnRa2YrIniOpt_Click";
-            this.btnRa2YrIniOpt_Click.Size = new System.Drawing.Size(111, 23);
+            this.btnRa2YrIniOpt_Click.Size = new System.Drawing.Size(120, 30);
             this.btnRa2YrIniOpt_Click.TabIndex = 4;
             this.btnRa2YrIniOpt_Click.Text = "ra2md.ini 优化";
             this.btnRa2YrIniOpt_Click.UseVisualStyleBackColor = true;
@@ -150,9 +153,9 @@
             // 
             // btnRa2YrExit
             // 
-            this.btnRa2YrExit.Location = new System.Drawing.Point(7, 53);
+            this.btnRa2YrExit.Location = new System.Drawing.Point(7, 59);
             this.btnRa2YrExit.Name = "btnRa2YrExit";
-            this.btnRa2YrExit.Size = new System.Drawing.Size(111, 23);
+            this.btnRa2YrExit.Size = new System.Drawing.Size(120, 30);
             this.btnRa2YrExit.TabIndex = 2;
             this.btnRa2YrExit.Text = "结束进程 (&D)";
             this.btnRa2YrExit.UseVisualStyleBackColor = true;
@@ -162,7 +165,7 @@
             // 
             this.btnRa2YrLaunchWin.Location = new System.Drawing.Point(133, 23);
             this.btnRa2YrLaunchWin.Name = "btnRa2YrLaunchWin";
-            this.btnRa2YrLaunchWin.Size = new System.Drawing.Size(111, 23);
+            this.btnRa2YrLaunchWin.Size = new System.Drawing.Size(120, 30);
             this.btnRa2YrLaunchWin.TabIndex = 1;
             this.btnRa2YrLaunchWin.Text = "窗口模式 (&S)";
             this.btnRa2YrLaunchWin.UseVisualStyleBackColor = true;
@@ -172,7 +175,7 @@
             // 
             this.btnRa2YrLaunch.Location = new System.Drawing.Point(7, 23);
             this.btnRa2YrLaunch.Name = "btnRa2YrLaunch";
-            this.btnRa2YrLaunch.Size = new System.Drawing.Size(111, 23);
+            this.btnRa2YrLaunch.Size = new System.Drawing.Size(120, 30);
             this.btnRa2YrLaunch.TabIndex = 0;
             this.btnRa2YrLaunch.Text = "启动 (&A)";
             this.btnRa2YrLaunch.UseVisualStyleBackColor = true;
@@ -186,16 +189,16 @@
             this.groupBox1.Controls.Add(this.btnRa2Launch);
             this.groupBox1.Location = new System.Drawing.Point(8, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(250, 100);
+            this.groupBox1.Size = new System.Drawing.Size(263, 110);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "RA2 (ra2.exe)";
             // 
             // btnRa2IniOpt
             // 
-            this.btnRa2IniOpt.Location = new System.Drawing.Point(133, 53);
+            this.btnRa2IniOpt.Location = new System.Drawing.Point(133, 59);
             this.btnRa2IniOpt.Name = "btnRa2IniOpt";
-            this.btnRa2IniOpt.Size = new System.Drawing.Size(111, 23);
+            this.btnRa2IniOpt.Size = new System.Drawing.Size(120, 30);
             this.btnRa2IniOpt.TabIndex = 3;
             this.btnRa2IniOpt.Text = "ra2.ini 优化";
             this.btnRa2IniOpt.UseVisualStyleBackColor = true;
@@ -203,9 +206,9 @@
             // 
             // btnRa2Exit
             // 
-            this.btnRa2Exit.Location = new System.Drawing.Point(7, 53);
+            this.btnRa2Exit.Location = new System.Drawing.Point(7, 59);
             this.btnRa2Exit.Name = "btnRa2Exit";
-            this.btnRa2Exit.Size = new System.Drawing.Size(111, 23);
+            this.btnRa2Exit.Size = new System.Drawing.Size(120, 30);
             this.btnRa2Exit.TabIndex = 2;
             this.btnRa2Exit.Text = "结束进程 (&E)";
             this.btnRa2Exit.UseVisualStyleBackColor = true;
@@ -215,7 +218,7 @@
             // 
             this.btnRa2LaunchWin.Location = new System.Drawing.Point(133, 23);
             this.btnRa2LaunchWin.Name = "btnRa2LaunchWin";
-            this.btnRa2LaunchWin.Size = new System.Drawing.Size(111, 23);
+            this.btnRa2LaunchWin.Size = new System.Drawing.Size(120, 30);
             this.btnRa2LaunchWin.TabIndex = 1;
             this.btnRa2LaunchWin.Text = "窗口模式 (&W)";
             this.btnRa2LaunchWin.UseVisualStyleBackColor = true;
@@ -225,7 +228,7 @@
             // 
             this.btnRa2Launch.Location = new System.Drawing.Point(7, 23);
             this.btnRa2Launch.Name = "btnRa2Launch";
-            this.btnRa2Launch.Size = new System.Drawing.Size(111, 23);
+            this.btnRa2Launch.Size = new System.Drawing.Size(120, 30);
             this.btnRa2Launch.TabIndex = 0;
             this.btnRa2Launch.Text = "启动 (&Q)";
             this.btnRa2Launch.UseVisualStyleBackColor = true;
@@ -239,7 +242,7 @@
             this.RA3.Location = new System.Drawing.Point(4, 24);
             this.RA3.Name = "RA3";
             this.RA3.Padding = new System.Windows.Forms.Padding(3);
-            this.RA3.Size = new System.Drawing.Size(267, 341);
+            this.RA3.Size = new System.Drawing.Size(277, 355);
             this.RA3.TabIndex = 1;
             this.RA3.Text = "RA3";
             this.RA3.UseVisualStyleBackColor = true;
@@ -250,18 +253,18 @@
             this.groupBox5.Controls.Add(this.btnRa3Ep1Exit);
             this.groupBox5.Controls.Add(this.btnRa3Ep1LaunchWin);
             this.groupBox5.Controls.Add(this.btnRa3Ep1Launch);
-            this.groupBox5.Location = new System.Drawing.Point(8, 112);
+            this.groupBox5.Location = new System.Drawing.Point(8, 124);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(250, 100);
+            this.groupBox5.Size = new System.Drawing.Size(263, 111);
             this.groupBox5.TabIndex = 4;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "起义时刻 (ra3ep1.exe)";
             // 
             // btnRa3Ep1Exit
             // 
-            this.btnRa3Ep1Exit.Location = new System.Drawing.Point(7, 53);
+            this.btnRa3Ep1Exit.Location = new System.Drawing.Point(7, 60);
             this.btnRa3Ep1Exit.Name = "btnRa3Ep1Exit";
-            this.btnRa3Ep1Exit.Size = new System.Drawing.Size(111, 23);
+            this.btnRa3Ep1Exit.Size = new System.Drawing.Size(120, 30);
             this.btnRa3Ep1Exit.TabIndex = 2;
             this.btnRa3Ep1Exit.Text = "结束进程 (&D)";
             this.btnRa3Ep1Exit.UseVisualStyleBackColor = true;
@@ -271,7 +274,7 @@
             // 
             this.btnRa3Ep1LaunchWin.Location = new System.Drawing.Point(133, 23);
             this.btnRa3Ep1LaunchWin.Name = "btnRa3Ep1LaunchWin";
-            this.btnRa3Ep1LaunchWin.Size = new System.Drawing.Size(111, 23);
+            this.btnRa3Ep1LaunchWin.Size = new System.Drawing.Size(120, 30);
             this.btnRa3Ep1LaunchWin.TabIndex = 1;
             this.btnRa3Ep1LaunchWin.Text = "窗口模式 (&S)";
             this.btnRa3Ep1LaunchWin.UseVisualStyleBackColor = true;
@@ -281,7 +284,7 @@
             // 
             this.btnRa3Ep1Launch.Location = new System.Drawing.Point(7, 23);
             this.btnRa3Ep1Launch.Name = "btnRa3Ep1Launch";
-            this.btnRa3Ep1Launch.Size = new System.Drawing.Size(111, 23);
+            this.btnRa3Ep1Launch.Size = new System.Drawing.Size(120, 30);
             this.btnRa3Ep1Launch.TabIndex = 0;
             this.btnRa3Ep1Launch.Text = "启动 (&A)";
             this.btnRa3Ep1Launch.UseVisualStyleBackColor = true;
@@ -295,16 +298,16 @@
             this.groupBox4.Controls.Add(this.btnRa3Launch);
             this.groupBox4.Location = new System.Drawing.Point(8, 6);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(250, 100);
+            this.groupBox4.Size = new System.Drawing.Size(263, 112);
             this.groupBox4.TabIndex = 1;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "RA3 (ra3.exe)";
             // 
             // btnRa3Exit
             // 
-            this.btnRa3Exit.Location = new System.Drawing.Point(7, 53);
+            this.btnRa3Exit.Location = new System.Drawing.Point(7, 59);
             this.btnRa3Exit.Name = "btnRa3Exit";
-            this.btnRa3Exit.Size = new System.Drawing.Size(111, 23);
+            this.btnRa3Exit.Size = new System.Drawing.Size(120, 30);
             this.btnRa3Exit.TabIndex = 2;
             this.btnRa3Exit.Text = "结束进程 (&E)";
             this.btnRa3Exit.UseVisualStyleBackColor = true;
@@ -314,7 +317,7 @@
             // 
             this.btnRa3LaunchWin.Location = new System.Drawing.Point(133, 23);
             this.btnRa3LaunchWin.Name = "btnRa3LaunchWin";
-            this.btnRa3LaunchWin.Size = new System.Drawing.Size(111, 23);
+            this.btnRa3LaunchWin.Size = new System.Drawing.Size(120, 30);
             this.btnRa3LaunchWin.TabIndex = 1;
             this.btnRa3LaunchWin.Text = "窗口模式 (&W)";
             this.btnRa3LaunchWin.UseVisualStyleBackColor = true;
@@ -324,7 +327,7 @@
             // 
             this.btnRa3Launch.Location = new System.Drawing.Point(7, 23);
             this.btnRa3Launch.Name = "btnRa3Launch";
-            this.btnRa3Launch.Size = new System.Drawing.Size(111, 23);
+            this.btnRa3Launch.Size = new System.Drawing.Size(120, 30);
             this.btnRa3Launch.TabIndex = 0;
             this.btnRa3Launch.Text = "启动 (&Q)";
             this.btnRa3Launch.UseVisualStyleBackColor = true;
@@ -339,7 +342,7 @@
             this.About.Location = new System.Drawing.Point(4, 24);
             this.About.Name = "About";
             this.About.Padding = new System.Windows.Forms.Padding(3);
-            this.About.Size = new System.Drawing.Size(267, 341);
+            this.About.Size = new System.Drawing.Size(277, 355);
             this.About.TabIndex = 2;
             this.About.Text = "关于";
             this.About.UseVisualStyleBackColor = true;
@@ -347,7 +350,7 @@
             // labelCopyright
             // 
             this.labelCopyright.AutoSize = true;
-            this.labelCopyright.Location = new System.Drawing.Point(120, 321);
+            this.labelCopyright.Location = new System.Drawing.Point(180, 318);
             this.labelCopyright.Name = "labelCopyright";
             this.labelCopyright.Size = new System.Drawing.Size(94, 15);
             this.labelCopyright.TabIndex = 4;
@@ -355,9 +358,9 @@
             // 
             // btnCurDir
             // 
-            this.btnCurDir.Location = new System.Drawing.Point(3, 317);
+            this.btnCurDir.Location = new System.Drawing.Point(4, 321);
             this.btnCurDir.Name = "btnCurDir";
-            this.btnCurDir.Size = new System.Drawing.Size(75, 23);
+            this.btnCurDir.Size = new System.Drawing.Size(80, 30);
             this.btnCurDir.TabIndex = 3;
             this.btnCurDir.Text = "当前目录";
             this.btnCurDir.UseVisualStyleBackColor = true;
@@ -366,7 +369,7 @@
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(218, 321);
+            this.linkLabel1.Location = new System.Drawing.Point(228, 337);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(43, 15);
             this.linkLabel1.TabIndex = 2;
@@ -382,7 +385,7 @@
             this.richTextBox1.Location = new System.Drawing.Point(0, 0);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(267, 315);
+            this.richTextBox1.Size = new System.Drawing.Size(277, 315);
             this.richTextBox1.TabIndex = 1;
             this.richTextBox1.Text = resources.GetString("richTextBox1.Text");
             this.richTextBox1.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.richTextBox1_LinkClicked);
@@ -393,9 +396,9 @@
             this.groupBox6.Controls.Add(this.ra3ResComboBox);
             this.groupBox6.Controls.Add(this.label1);
             this.groupBox6.Controls.Add(this.checkBoxIsRa3Ui);
-            this.groupBox6.Location = new System.Drawing.Point(8, 218);
+            this.groupBox6.Location = new System.Drawing.Point(8, 241);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(250, 100);
+            this.groupBox6.Size = new System.Drawing.Size(263, 100);
             this.groupBox6.TabIndex = 5;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "高级功能";
@@ -431,7 +434,7 @@
             // 
             this.pictureBox3.BackgroundImage = global::ra_launcher_remaster.Properties.Resources.bitmap12;
             this.pictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox3.Location = new System.Drawing.Point(194, 44);
+            this.pictureBox3.Location = new System.Drawing.Point(207, 44);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(50, 50);
             this.pictureBox3.TabIndex = 1;
@@ -442,7 +445,7 @@
             this.pictureBox2.BackgroundImage = global::ra_launcher_remaster.Properties.Resources.bitmap11;
             this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pictureBox2.InitialImage = null;
-            this.pictureBox2.Location = new System.Drawing.Point(199, 49);
+            this.pictureBox2.Location = new System.Drawing.Point(212, 60);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(45, 45);
             this.pictureBox2.TabIndex = 7;
@@ -453,7 +456,7 @@
             this.pictureBox1.BackgroundImage = global::ra_launcher_remaster.Properties.Resources.bitmap1;
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pictureBox1.InitialImage = null;
-            this.pictureBox1.Location = new System.Drawing.Point(199, 49);
+            this.pictureBox1.Location = new System.Drawing.Point(212, 61);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(45, 45);
             this.pictureBox1.TabIndex = 6;
@@ -463,9 +466,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(289, 383);
+            this.ClientSize = new System.Drawing.Size(309, 407);
             this.Controls.Add(this.tabControl1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Form1";

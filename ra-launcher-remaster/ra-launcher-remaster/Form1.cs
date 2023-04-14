@@ -100,7 +100,7 @@ namespace ra_launcher_remaster
             {
                 string errorMessage = $"An error occurred: {ex.Message}";
                 Console.WriteLine(errorMessage);
-                MessageBox.Show(exeName + " " + args, "启动失败！\n" + ex.Message, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(exeName + " " + args + "\n" + ex.Message, "启动失败！", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
