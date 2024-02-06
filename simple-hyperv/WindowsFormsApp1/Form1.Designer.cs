@@ -35,6 +35,8 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.buttonMstsc = new System.Windows.Forms.Button();
+            this.buttonMmcHyperV = new System.Windows.Forms.Button();
             this.buttonConnect = new System.Windows.Forms.Button();
             this.buttonStop = new System.Windows.Forms.Button();
             this.buttonStart = new System.Windows.Forms.Button();
@@ -49,12 +51,12 @@
             // 
             // btnCurDir
             // 
-            this.btnCurDir.Location = new System.Drawing.Point(500, 428);
+            this.btnCurDir.Location = new System.Drawing.Point(643, 428);
             this.btnCurDir.Margin = new System.Windows.Forms.Padding(5);
             this.btnCurDir.Name = "btnCurDir";
-            this.btnCurDir.Size = new System.Drawing.Size(184, 37);
+            this.btnCurDir.Size = new System.Drawing.Size(41, 37);
             this.btnCurDir.TabIndex = 3;
-            this.btnCurDir.Text = "Current Folder";
+            this.btnCurDir.Text = ".";
             this.btnCurDir.UseVisualStyleBackColor = true;
             this.btnCurDir.Click += new System.EventHandler(this.btnCurDir_Click);
             // 
@@ -77,12 +79,13 @@
             this.listBox1.Size = new System.Drawing.Size(678, 196);
             this.listBox1.TabIndex = 6;
             this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            this.listBox1.DoubleClick += new System.EventHandler(this.listBox1_DoubleClick);
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(6, 450);
+            this.progressBar1.Location = new System.Drawing.Point(587, 528);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(110, 15);
+            this.progressBar1.Size = new System.Drawing.Size(121, 26);
             this.progressBar1.TabIndex = 7;
             // 
             // tabControl1
@@ -99,11 +102,12 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.buttonMstsc);
+            this.tabPage1.Controls.Add(this.buttonMmcHyperV);
             this.tabPage1.Controls.Add(this.buttonConnect);
             this.tabPage1.Controls.Add(this.buttonStop);
             this.tabPage1.Controls.Add(this.buttonStart);
             this.tabPage1.Controls.Add(this.btnCurDir);
-            this.tabPage1.Controls.Add(this.progressBar1);
             this.tabPage1.Controls.Add(this.listBox1);
             this.tabPage1.Controls.Add(this.buttonRefresh);
             this.tabPage1.Location = new System.Drawing.Point(4, 33);
@@ -114,8 +118,31 @@
             this.tabPage1.Text = "VM";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // buttonMstsc
+            // 
+            this.buttonMstsc.Location = new System.Drawing.Point(380, 428);
+            this.buttonMstsc.Margin = new System.Windows.Forms.Padding(5);
+            this.buttonMstsc.Name = "buttonMstsc";
+            this.buttonMstsc.Size = new System.Drawing.Size(85, 37);
+            this.buttonMstsc.TabIndex = 14;
+            this.buttonMstsc.Text = "mstsc";
+            this.buttonMstsc.UseVisualStyleBackColor = true;
+            this.buttonMstsc.Click += new System.EventHandler(this.buttonMstsc_Click);
+            // 
+            // buttonMmcHyperV
+            // 
+            this.buttonMmcHyperV.Location = new System.Drawing.Point(475, 428);
+            this.buttonMmcHyperV.Margin = new System.Windows.Forms.Padding(5);
+            this.buttonMmcHyperV.Name = "buttonMmcHyperV";
+            this.buttonMmcHyperV.Size = new System.Drawing.Size(158, 37);
+            this.buttonMmcHyperV.TabIndex = 13;
+            this.buttonMmcHyperV.Text = "virtmgmt.msc";
+            this.buttonMmcHyperV.UseVisualStyleBackColor = true;
+            this.buttonMmcHyperV.Click += new System.EventHandler(this.buttonMmcHyperV_Click);
+            // 
             // buttonConnect
             // 
+            this.buttonConnect.ForeColor = System.Drawing.SystemColors.Highlight;
             this.buttonConnect.Location = new System.Drawing.Point(262, 251);
             this.buttonConnect.Name = "buttonConnect";
             this.buttonConnect.Size = new System.Drawing.Size(122, 36);
@@ -174,22 +201,24 @@
             // 
             // textBoxCommand
             // 
+            this.textBoxCommand.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxCommand.Location = new System.Drawing.Point(16, 524);
             this.textBoxCommand.Name = "textBoxCommand";
             this.textBoxCommand.ReadOnly = true;
-            this.textBoxCommand.Size = new System.Drawing.Size(692, 30);
+            this.textBoxCommand.Size = new System.Drawing.Size(692, 29);
             this.textBoxCommand.TabIndex = 9;
-            this.textBoxCommand.Text = "Command";
             // 
             // textBoxOutput
             // 
+            this.textBoxOutput.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxOutput.Location = new System.Drawing.Point(16, 560);
             this.textBoxOutput.Multiline = true;
             this.textBoxOutput.Name = "textBoxOutput";
             this.textBoxOutput.ReadOnly = true;
+            this.textBoxOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.textBoxOutput.Size = new System.Drawing.Size(692, 228);
             this.textBoxOutput.TabIndex = 10;
-            this.textBoxOutput.Text = "Console Output";
+            this.textBoxOutput.WordWrap = false;
             // 
             // Form1
             // 
@@ -198,6 +227,7 @@
             this.ClientSize = new System.Drawing.Size(724, 800);
             this.Controls.Add(this.textBoxOutput);
             this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.textBoxCommand);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -228,6 +258,8 @@
         private System.Windows.Forms.Button buttonStop;
         private System.Windows.Forms.Button buttonStart;
         private System.Windows.Forms.TextBox textBoxOutput;
+        private System.Windows.Forms.Button buttonMmcHyperV;
+        private System.Windows.Forms.Button buttonMstsc;
     }
 }
 
