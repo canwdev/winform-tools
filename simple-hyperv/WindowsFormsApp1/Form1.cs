@@ -124,6 +124,9 @@ namespace WindowsFormsApp1
             }
 
             buttonRefresh.Enabled = true;
+
+            AutoSetButtonsEnabled();
+
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -134,30 +137,36 @@ namespace WindowsFormsApp1
                 PSObject selectedVmDetails = VMList[listBox1.SelectedIndex];
                 // Display the details in the textbox
                 textBoxCommand.Text = selectedVmDetails.BaseObject.ToString();
-
             }
+
+            AutoSetButtonsEnabled();
         }
+
+        private bool CheckVmIsStarted(PSObject vm)
+        {
+
+            if (null != vm)
+            {
+                string state = "" + vm.Properties["State"].Value;
+                return state != "Off";
+            }
+            return false;
+        }
+
         private void listBox1_DoubleClick(object sender, EventArgs e)
         {
             // 在此处添加双击列表框项时要执行的操作
             PSObject vm = getSelectedVM();
             if (null != vm)
             {
-
-                /*foreach (var result in VMList)
-                {
-                    AppendLog("?" + result.Properties["State"].Value);
-                }*/
-                string state = "" + vm.Properties["State"].Value;
-                if (state == "Off")
-                {
-                    buttonStart_Click(this, EventArgs.Empty);
-                }
-                else
+                if (CheckVmIsStarted(vm))
                 {
                     buttonStop_Click(this, EventArgs.Empty);
                 }
-
+                else
+                {
+                    buttonStart_Click(this, EventArgs.Empty);
+                }
             }
         }
 
@@ -172,6 +181,39 @@ namespace WindowsFormsApp1
             }
 
             return null;
+        }
+
+        private void SetButtonsEnabled(bool isEnabled)
+        {
+            buttonStart.Enabled = isEnabled;
+            buttonStop.Enabled = isEnabled;
+            buttonConnect.Enabled = isEnabled;
+        }
+        private void AutoSetButtonsEnabled()
+        {
+            if (listBox1.SelectedIndex != -1)
+            {
+                SetButtonsEnabled(true);
+            }
+            else
+            {
+                SetButtonsEnabled(false);
+            }
+
+            PSObject vm = getSelectedVM();
+            if (null != vm)
+            {
+                if (CheckVmIsStarted(vm))
+                {
+                    buttonStart.Enabled = false;
+                    buttonStop.Enabled = true;
+                }
+                else
+                {
+                    buttonStart.Enabled = true;
+                    buttonStop.Enabled = false;
+                }
+            }
         }
 
         private void buttonStart_Click(object sender, EventArgs e)
@@ -225,16 +267,30 @@ objShell.ShellExecute ""{programName}"", ""{paramsText}"", """", ""runas"", 1";
             PSObject vm = getSelectedVM();
             if (null != vm)
             {
-                string commandPath = @"C:\Windows\System32\vmconnect.exe";
-                /*string system32Path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "vmconnect.exe");
+                string paramsStr = " localhost \"" + vm.Properties["Name"].Value + "\"";
 
-                Console.WriteLine(system32Path);
-                RunCmdCommand(system32Path);*/
+                // 优先使用程序同目录下的 vmconnect.exe 以避免下面的问题
+                string localPath = Path.Combine(Application.StartupPath, "vmconnect.exe");
+                if (File.Exists(localPath))
+                {
+                    FileHelper.StartCurDirProgram("vmconnect.exe", paramsStr);
+                    return;
+                }
+                
+                //string commandPath = @"C:\Windows\System32\vmconnect.exe";
+                // 只有这条路径可以正常运行，但为了保证兼容性，请手动复制 vmconnect.exe 到程序同目录
+                //string commandPath2 = @"C:\Windows\Microsoft.NET\assembly\GAC_64\vmconnect\v4.0_10.0.0.0__31bf3856ad364e35\vmconnect.exe";
+                string system32Path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "vmconnect.exe");
 
+                /*Console.WriteLine(system32Path);*/
+                // 这些代码不能正常运行，提示：An attempt was made to reference a token that does not exist，测试环境：Win11 22631
+                // RunCmdCommand(system32Path+" "+paramsStr);
+
+                // 经过测试，即使是vbs脚本，也不能正常运行
                 // 注意：这里有两对双引号，是为了适应vbs脚本
-                string str = " localhost \"\"" + vm.Properties["Name"].Value + "\"\"";
+                string paramsStrVbs = " localhost \"\"" + vm.Properties["Name"].Value + "\"\"";
 
-                FileHelper.WriteToFile("start-vmconnect.vbs", GenerateVbsScript(commandPath, str), true);
+                FileHelper.WriteToFile("start-vmconnect.vbs", GenerateVbsScript(system32Path, paramsStrVbs), true);
                 FileHelper.StartCurDirProgram("start-vmconnect.vbs");
             }
         }

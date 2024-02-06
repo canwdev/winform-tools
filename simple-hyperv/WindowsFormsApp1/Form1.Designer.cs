@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.btnCurDir = new System.Windows.Forms.Button();
             this.buttonRefresh = new System.Windows.Forms.Button();
@@ -45,13 +46,14 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.textBoxCommand = new System.Windows.Forms.TextBox();
             this.textBoxOutput = new System.Windows.Forms.TextBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnCurDir
             // 
-            this.btnCurDir.Location = new System.Drawing.Point(643, 428);
+            this.btnCurDir.Location = new System.Drawing.Point(643, 353);
             this.btnCurDir.Margin = new System.Windows.Forms.Padding(5);
             this.btnCurDir.Name = "btnCurDir";
             this.btnCurDir.Size = new System.Drawing.Size(41, 37);
@@ -83,7 +85,7 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(587, 528);
+            this.progressBar1.Location = new System.Drawing.Point(587, 456);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(121, 26);
             this.progressBar1.TabIndex = 7;
@@ -97,7 +99,7 @@
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(700, 510);
+            this.tabControl1.Size = new System.Drawing.Size(700, 435);
             this.tabControl1.TabIndex = 9;
             // 
             // tabPage1
@@ -113,14 +115,14 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 33);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(692, 473);
+            this.tabPage1.Size = new System.Drawing.Size(692, 398);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "VM";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // buttonMstsc
             // 
-            this.buttonMstsc.Location = new System.Drawing.Point(380, 428);
+            this.buttonMstsc.Location = new System.Drawing.Point(380, 353);
             this.buttonMstsc.Margin = new System.Windows.Forms.Padding(5);
             this.buttonMstsc.Name = "buttonMstsc";
             this.buttonMstsc.Size = new System.Drawing.Size(85, 37);
@@ -131,7 +133,7 @@
             // 
             // buttonMmcHyperV
             // 
-            this.buttonMmcHyperV.Location = new System.Drawing.Point(475, 428);
+            this.buttonMmcHyperV.Location = new System.Drawing.Point(475, 353);
             this.buttonMmcHyperV.Margin = new System.Windows.Forms.Padding(5);
             this.buttonMmcHyperV.Name = "buttonMmcHyperV";
             this.buttonMmcHyperV.Size = new System.Drawing.Size(158, 37);
@@ -142,12 +144,14 @@
             // 
             // buttonConnect
             // 
+            this.buttonConnect.Cursor = System.Windows.Forms.Cursors.Help;
             this.buttonConnect.ForeColor = System.Drawing.SystemColors.Highlight;
             this.buttonConnect.Location = new System.Drawing.Point(262, 251);
             this.buttonConnect.Name = "buttonConnect";
             this.buttonConnect.Size = new System.Drawing.Size(122, 36);
             this.buttonConnect.TabIndex = 12;
             this.buttonConnect.Text = "Connect";
+            this.toolTip1.SetToolTip(this.buttonConnect, "为了保证兼容性，请手动复制 C:\\Windows\\System32\\vmconnect.exe 到程序同目录，否则可能无法正常运行");
             this.buttonConnect.UseVisualStyleBackColor = true;
             this.buttonConnect.Click += new System.EventHandler(this.buttonConnect_Click);
             // 
@@ -176,7 +180,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 33);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(692, 473);
+            this.tabPage2.Size = new System.Drawing.Size(692, 398);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Network";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -185,7 +189,7 @@
             // 
             this.tabPage3.Location = new System.Drawing.Point(4, 33);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(692, 473);
+            this.tabPage3.Size = new System.Drawing.Size(692, 398);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Switch";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -194,7 +198,7 @@
             // 
             this.tabPage4.Location = new System.Drawing.Point(4, 33);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(692, 473);
+            this.tabPage4.Size = new System.Drawing.Size(692, 398);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "NetNat";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -202,7 +206,7 @@
             // textBoxCommand
             // 
             this.textBoxCommand.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxCommand.Location = new System.Drawing.Point(16, 524);
+            this.textBoxCommand.Location = new System.Drawing.Point(16, 453);
             this.textBoxCommand.Name = "textBoxCommand";
             this.textBoxCommand.ReadOnly = true;
             this.textBoxCommand.Size = new System.Drawing.Size(692, 29);
@@ -211,7 +215,7 @@
             // textBoxOutput
             // 
             this.textBoxOutput.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxOutput.Location = new System.Drawing.Point(16, 560);
+            this.textBoxOutput.Location = new System.Drawing.Point(16, 488);
             this.textBoxOutput.Multiline = true;
             this.textBoxOutput.Name = "textBoxOutput";
             this.textBoxOutput.ReadOnly = true;
@@ -224,7 +228,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(724, 800);
+            this.ClientSize = new System.Drawing.Size(724, 726);
             this.Controls.Add(this.textBoxOutput);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.progressBar1);
@@ -260,6 +264,7 @@
         private System.Windows.Forms.TextBox textBoxOutput;
         private System.Windows.Forms.Button buttonMmcHyperV;
         private System.Windows.Forms.Button buttonMstsc;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
 
