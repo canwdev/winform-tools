@@ -5,31 +5,43 @@ using System.Windows.Forms;
 // C:\Windows\assembly\GAC_MSIL\System.Management.Automation\1.0.0.0__31bf3856ad364e35
 using System.Management.Automation;
 using System.IO;
-using MyUtils;
+using MyUtilsNamespace;
+using SimpleHyperV;
 
 namespace WindowsFormsApp1
 {
     public partial class Form1 : Form
     {
+        private RunUtils runUtils;
         public Form1()
         {
             InitializeComponent();
+            // 实例化 ToolClass 并传递 Form 实例到构造函数
+            runUtils = new RunUtils(this);
+
             progressBar1.Style = ProgressBarStyle.Marquee; // 设置进度条为滚动条样式，表示正在进行中
             progressBar1.Visible = false;
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-            // this.Close();
-        }
-
-
         private void Form1_Load(object sender, EventArgs e)
         {
             // this.Text = "自定义标题";
-            buttonRefresh_Click_1(this, EventArgs.Empty);
+            buttonVmRefresh.PerformClick();
         }
+        private void tabControl1_Selected(object sender, TabControlEventArgs e)
+        {
+            //TabPage selectedTab = tabControl1.SelectedTab;
+            //string selectedTabName = selectedTab.Text;
+            int selectedIndex = tabControl1.SelectedIndex;
+            if (selectedIndex == 0)
+            {
+                buttonVmRefresh_Click_1(this, EventArgs.Empty);
+            } else if (selectedIndex == 3)
+            {
+                buttonNatRefresh_Click(this, EventArgs.Empty);
+            }
+        }
+        /* VM START */
 
         private void btnCurDir_Click(object sender, EventArgs e)
         {
@@ -37,80 +49,18 @@ namespace WindowsFormsApp1
             Process.Start(folderPath);
         }
 
-        // 将运行结果日志显示在 textBoxOutput 控件中
-        private void AppendLog(string log)
-        {
-            if (textBoxOutput.Text.Length + log.Length > textBoxOutput.MaxLength)
-            {
-                int excessLength = (textBoxOutput.Text.Length + log.Length) - textBoxOutput.MaxLength;
-                textBoxOutput.Text = textBoxOutput.Text.Remove(0, excessLength);
-            }
-            textBoxOutput.AppendText(log + Environment.NewLine);
-            textBoxOutput.SelectionStart = textBoxOutput.Text.Length;
-            textBoxOutput.ScrollToCaret();
-        }
 
         // 声明 PSOutput 为全局变量
         private Collection<PSObject> VMList;
+        private int lastSelectedIndex = -1;
 
-        private Collection<PSObject> RunPowerShellScript(string script)
+        private void buttonVmRefresh_Click_1(object sender, EventArgs e)
         {
-            using (PowerShell PowerShellInstance = PowerShell.Create())
-            {
-                progressBar1.Visible = true;
-                AppendLog(">>> " + script);
+            buttonVmRefresh.Enabled = false;
+            VMList = runUtils.RunPowerShellScript("Get-VM");
 
-
-                PowerShellInstance.AddScript(script);
-                Collection<PSObject> PSOutput = PowerShellInstance.Invoke();
-
-                foreach (var result in PSOutput)
-                {
-                    AppendLog(result.ToString());
-                }
-
-
-                // 执行完成后隐藏进度条
-                progressBar1.Visible = false;
-
-                return PSOutput;
-            }
-        }
-
-        private string RunCmdCommand(string command)
-        {
-            progressBar1.Visible = true;
-            AppendLog(">>> " + command);
-
-            ProcessStartInfo processStartInfo = new ProcessStartInfo
-            {
-                FileName = "cmd.exe",
-                Arguments = "/C " + command,
-                RedirectStandardOutput = true,
-                UseShellExecute = false,
-                CreateNoWindow = true
-            };
-
-            using (Process process = new Process())
-            {
-                process.StartInfo = processStartInfo;
-                process.Start();
-
-                string result = process.StandardOutput.ReadToEnd();
-
-                AppendLog(result);
-                progressBar1.Visible = false;
-                return result;
-            }
-        }
-
-
-        private void buttonRefresh_Click_1(object sender, EventArgs e)
-        {
-            buttonRefresh.Enabled = false;
-            VMList = RunPowerShellScript("Get-VM");
-
-            listBox1.Items.Clear(); // 清空 ListBox 中的所有项
+            lastSelectedIndex = listBoxVM.SelectedIndex;
+            listBoxVM.Items.Clear(); // 清空 ListBox 中的所有项
             foreach (PSObject outputItem in VMList)
             {
                 if (outputItem != null)
@@ -119,27 +69,19 @@ namespace WindowsFormsApp1
                     // 例如，将结果添加到 ListBox 
                     // listBox1.Items.Add(outputItem.BaseObject.ToString());
 
-                    listBox1.Items.Add(outputItem.Properties["Name"].Value + " - " + outputItem.Properties["State"].Value);
+                    listBoxVM.Items.Add(outputItem.Properties["Name"].Value + " [" + outputItem.Properties["State"].Value + "]");
                 }
             }
+            listBoxVM.SelectedIndex = lastSelectedIndex;
+            buttonVmRefresh.Enabled = true;
 
-            buttonRefresh.Enabled = true;
-
-            AutoSetButtonsEnabled();
+            AutoSetVmButtonsEnabled();
 
         }
 
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void listBoxVM_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listBox1.SelectedIndex != -1)
-            {
-                // Get the selected virtual machine details using index
-                PSObject selectedVmDetails = VMList[listBox1.SelectedIndex];
-                // Display the details in the textbox
-                textBoxCommand.Text = selectedVmDetails.BaseObject.ToString();
-            }
-
-            AutoSetButtonsEnabled();
+            AutoSetVmButtonsEnabled();
         }
 
         private bool CheckVmIsStarted(PSObject vm)
@@ -153,7 +95,7 @@ namespace WindowsFormsApp1
             return false;
         }
 
-        private void listBox1_DoubleClick(object sender, EventArgs e)
+        private void listBoxVM_DoubleClick(object sender, EventArgs e)
         {
             // 在此处添加双击列表框项时要执行的操作
             PSObject vm = getSelectedVM();
@@ -172,10 +114,10 @@ namespace WindowsFormsApp1
 
         private PSObject getSelectedVM()
         {
-            if (listBox1.SelectedIndex != -1)
+            if (listBoxVM.SelectedIndex != -1)
             {
                 // Get the selected virtual machine details using index
-                PSObject selectedVmDetails = VMList[listBox1.SelectedIndex];
+                PSObject selectedVmDetails = VMList[listBoxVM.SelectedIndex];
                 // Display the details in the textbox
                 return selectedVmDetails;
             }
@@ -183,21 +125,21 @@ namespace WindowsFormsApp1
             return null;
         }
 
-        private void SetButtonsEnabled(bool isEnabled)
+        private void SetVmButtonsEnabled(bool isEnabled)
         {
             buttonStart.Enabled = isEnabled;
             buttonStop.Enabled = isEnabled;
             buttonConnect.Enabled = isEnabled;
         }
-        private void AutoSetButtonsEnabled()
+        private void AutoSetVmButtonsEnabled()
         {
-            if (listBox1.SelectedIndex != -1)
+            if (listBoxVM.SelectedIndex != -1)
             {
-                SetButtonsEnabled(true);
+                SetVmButtonsEnabled(true);
             }
             else
             {
-                SetButtonsEnabled(false);
+                SetVmButtonsEnabled(false);
             }
 
             PSObject vm = getSelectedVM();
@@ -222,9 +164,9 @@ namespace WindowsFormsApp1
             if (null != vm)
             {
                 string script = "Start-VM -Name \"" + vm.Properties["Name"].Value + "\"";
-                RunPowerShellScript(script);
+                runUtils.RunPowerShellScript(script);
 
-                buttonRefresh_Click_1(this, EventArgs.Empty);
+                buttonVmRefresh.PerformClick();
             }
         }
 
@@ -234,32 +176,15 @@ namespace WindowsFormsApp1
             if (null != vm)
             {
 
-                DialogResult result = MessageBox.Show("Shut down selected VM?", "Confirm", MessageBoxButtons.OKCancel);
+                DialogResult result = MessageBox.Show(this, "Shut down selected VM?", "Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if (result == DialogResult.OK)
                 {
                     string script = "Stop-VM -Name \"" + vm.Properties["Name"].Value + "\"";
-                    RunPowerShellScript(script);
+                    runUtils.RunPowerShellScript(script);
 
-                    buttonRefresh_Click_1(this, EventArgs.Empty);
+                    buttonVmRefresh.PerformClick();
                 }
-
             }
-        }
-
-
-        static string GenerateVbsScript(string programName, string paramsText)
-        {
-            /*
-            objShell.ShellExecute 是 VBScript 中用于执行外部程序的方法。它接受四个参数，分别是：
-            1.要执行的程序的路径或者文件名
-            2.要传递给程序的参数
-            3.工作目录（可选）
-            4.运行程序的方式（比如以最大化窗口运行，隐藏窗口运行等）
-            Set objShell = CreateObject("Shell.Application")
-            objShell.ShellExecute "C:\Windows\System32\vmconnect.exe", "localhost ""Win7Mini""", "", "runas", 1
-             */
-            return $@"Set objShell = CreateObject(""Shell.Application"")
-objShell.ShellExecute ""{programName}"", ""{paramsText}"", """", ""runas"", 1";
         }
 
         private void buttonConnect_Click(object sender, EventArgs e)
@@ -273,7 +198,7 @@ objShell.ShellExecute ""{programName}"", ""{paramsText}"", """", ""runas"", 1";
                 string localPath = Path.Combine(Application.StartupPath, "vmconnect.exe");
                 if (File.Exists(localPath))
                 {
-                    FileHelper.StartCurDirProgram("vmconnect.exe", paramsStr);
+                    MyUtils.StartCurDirProgram("vmconnect.exe", paramsStr);
                     return;
                 }
                 
@@ -290,8 +215,8 @@ objShell.ShellExecute ""{programName}"", ""{paramsText}"", """", ""runas"", 1";
                 // 注意：这里有两对双引号，是为了适应vbs脚本
                 string paramsStrVbs = " localhost \"\"" + vm.Properties["Name"].Value + "\"\"";
 
-                FileHelper.WriteToFile("start-vmconnect.vbs", GenerateVbsScript(system32Path, paramsStrVbs), true);
-                FileHelper.StartCurDirProgram("start-vmconnect.vbs");
+                MyUtils.WriteToFile("start-vmconnect.vbs", MyUtils.GenerateVbsScript(system32Path, paramsStrVbs), true);
+                MyUtils.StartCurDirProgram("start-vmconnect.vbs");
             }
         }
 
@@ -303,13 +228,110 @@ objShell.ShellExecute ""{programName}"", ""{paramsText}"", """", ""runas"", 1";
             procAD.Start();*/
             // 以上方式不能启动，可能是权限问题，因此必须使用外部bat脚本启动
 
-            FileHelper.WriteToFile("start-virtmgmt.bat", "mmc.exe virtmgmt.msc");
-            FileHelper.StartCurDirProgram("start-virtmgmt.bat");
+            /*MyUtils.WriteToFile("start-virtmgmt.bat", "mmc.exe virtmgmt.msc");
+            MyUtils.StartCurDirProgram("start-virtmgmt.bat");*/
+
+            MyUtils.WriteToFile("start-virtmgmt.vbs", MyUtils.GenerateVbsScript("mmc.exe", "virtmgmt.msc"));
+            MyUtils.StartCurDirProgram("start-virtmgmt.vbs");
         }
 
         private void buttonMstsc_Click(object sender, EventArgs e)
         {
-            RunCmdCommand("mstsc");
+            Process.Start("mstsc");
         }
+        private void buttonLogs_Click(object sender, EventArgs e)
+        {
+            textBoxOutput.Visible = !textBoxOutput.Visible;
+
+            if (textBoxOutput.Visible)
+            {
+                this.Height = this.Height + textBoxOutput.Height;
+            }
+            else
+            {
+                this.Height = this.Height - textBoxOutput.Height;
+            }
+        }
+
+        /* VM END */
+
+        /* ============================================================ */
+
+        /* NAT START */
+
+        private Collection<PSObject> NatList;
+        private PSObject getSelectedNat()
+        {
+            if (listBoxNat.SelectedIndex != -1)
+            {
+                return NatList[listBoxNat.SelectedIndex];
+            }
+            return null;
+        }
+        private void buttonNatRefresh_Click(object sender, EventArgs e)
+        {
+            buttonNatRefresh.Enabled = false;
+            NatList = runUtils.RunPowerShellScript("Get-NetNat");
+
+            listBoxNat.Items.Clear(); // 清空 ListBox 中的所有项
+            foreach (PSObject outputItem in NatList)
+            {
+                if (outputItem != null)
+                {
+                    listBoxNat.Items.Add(outputItem.Properties["Name"].Value+"");
+                }
+            }
+
+            buttonNatRefresh.Enabled = true;
+        }
+
+        private void listViewNat_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonNatDelete_Click(object sender, EventArgs e)
+        {
+            PSObject item = getSelectedNat();
+            if (null != item)
+            {
+                DialogResult result = MessageBox.Show(this, "Delete selected NAT?", "Confirm", MessageBoxButtons.OKCancel);
+                if (result == DialogResult.OK)
+                {
+                    string script = "Remove-NetNat -Name \"" + item.Properties["Name"].Value + "\" -Confirm:$false";
+                    runUtils.RunPowerShellScript(script);
+
+                    buttonNatRefresh.PerformClick();
+                }
+            }
+        }
+
+        private void buttonNatCreate_Click(object sender, EventArgs e)
+        {
+
+            PopupNatCreate popup = new PopupNatCreate();
+            if (popup.ShowDialog() == DialogResult.OK)
+            {
+                string name = popup.textBoxName.Text;
+                string ipAddress = popup.textBoxIP.Text;
+
+                string script = "New-NetNat -Name \"" + name + "\" -InternalIPInterfaceAddressPrefix " + ipAddress;
+                runUtils.RunPowerShellScript(script);
+
+                buttonNatRefresh.PerformClick();
+            }
+        }
+
+        private void buttonNetwork_Click(object sender, EventArgs e)
+        {
+            runUtils.RunCmdCommand("control.exe netconnections");
+        }
+
+
+
+
+
+
+        /* NAT END */
     }
 }
