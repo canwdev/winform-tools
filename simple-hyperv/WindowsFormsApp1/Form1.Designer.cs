@@ -43,7 +43,7 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.buttonSwitchCreate = new System.Windows.Forms.Button();
             this.buttonSwitchDelete = new System.Windows.Forms.Button();
-            this.buttonSwitch = new System.Windows.Forms.Button();
+            this.buttonSwitchRefresh = new System.Windows.Forms.Button();
             this.listBoxSwitch = new System.Windows.Forms.ListBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.buttonNatCreate = new System.Windows.Forms.Button();
@@ -155,7 +155,7 @@
             this.buttonConnect.Text = "&Connect";
             this.toolTip1.SetToolTip(this.buttonConnect, "为了保证兼容性，请手动复制 C:\\Windows\\System32\\vmconnect.exe 到程序同目录，否则可能无法正常运行");
             this.buttonConnect.UseVisualStyleBackColor = true;
-            this.buttonConnect.Click += new System.EventHandler(this.buttonConnect_Click);
+            this.buttonConnect.Click += new System.EventHandler(this.buttonVmConnect_Click);
             // 
             // buttonStop
             // 
@@ -166,7 +166,7 @@
             this.buttonStop.TabIndex = 11;
             this.buttonStop.Text = "St&op";
             this.buttonStop.UseVisualStyleBackColor = true;
-            this.buttonStop.Click += new System.EventHandler(this.buttonStop_Click);
+            this.buttonStop.Click += new System.EventHandler(this.buttonVmStop_Click);
             // 
             // buttonStart
             // 
@@ -177,7 +177,7 @@
             this.buttonStart.TabIndex = 10;
             this.buttonStart.Text = "&Start";
             this.buttonStart.UseVisualStyleBackColor = true;
-            this.buttonStart.Click += new System.EventHandler(this.buttonStart_Click);
+            this.buttonStart.Click += new System.EventHandler(this.buttonVmStart_Click);
             // 
             // tabPage2
             // 
@@ -194,7 +194,7 @@
             // 
             this.tabPage3.Controls.Add(this.buttonSwitchCreate);
             this.tabPage3.Controls.Add(this.buttonSwitchDelete);
-            this.tabPage3.Controls.Add(this.buttonSwitch);
+            this.tabPage3.Controls.Add(this.buttonSwitchRefresh);
             this.tabPage3.Controls.Add(this.listBoxSwitch);
             this.tabPage3.ImageKey = "shell32.dll(176).ico";
             this.tabPage3.Location = new System.Drawing.Point(4, 33);
@@ -214,6 +214,7 @@
             this.buttonSwitchCreate.TabIndex = 20;
             this.buttonSwitchCreate.Text = "&New Switch";
             this.buttonSwitchCreate.UseVisualStyleBackColor = true;
+            this.buttonSwitchCreate.Click += new System.EventHandler(this.buttonSwitchCreate_Click);
             // 
             // buttonSwitchDelete
             // 
@@ -225,15 +226,17 @@
             this.buttonSwitchDelete.TabIndex = 19;
             this.buttonSwitchDelete.Text = "&Delete";
             this.buttonSwitchDelete.UseVisualStyleBackColor = true;
+            this.buttonSwitchDelete.Click += new System.EventHandler(this.buttonSwitchDelete_Click);
             // 
-            // buttonSwitch
+            // buttonSwitchRefresh
             // 
-            this.buttonSwitch.Location = new System.Drawing.Point(6, 253);
-            this.buttonSwitch.Name = "buttonSwitch";
-            this.buttonSwitch.Size = new System.Drawing.Size(134, 45);
-            this.buttonSwitch.TabIndex = 18;
-            this.buttonSwitch.Text = "&Refresh";
-            this.buttonSwitch.UseVisualStyleBackColor = true;
+            this.buttonSwitchRefresh.Location = new System.Drawing.Point(6, 253);
+            this.buttonSwitchRefresh.Name = "buttonSwitchRefresh";
+            this.buttonSwitchRefresh.Size = new System.Drawing.Size(134, 45);
+            this.buttonSwitchRefresh.TabIndex = 18;
+            this.buttonSwitchRefresh.Text = "&Refresh";
+            this.buttonSwitchRefresh.UseVisualStyleBackColor = true;
+            this.buttonSwitchRefresh.Click += new System.EventHandler(this.buttonSwitchRefresh_Click);
             // 
             // listBoxSwitch
             // 
@@ -245,6 +248,7 @@
             this.listBoxSwitch.Name = "listBoxSwitch";
             this.listBoxSwitch.Size = new System.Drawing.Size(678, 244);
             this.listBoxSwitch.TabIndex = 16;
+            this.listBoxSwitch.SelectedIndexChanged += new System.EventHandler(this.listBoxSwitch_SelectedIndexChanged);
             // 
             // tabPage4
             // 
@@ -462,7 +466,7 @@
         private System.Windows.Forms.Button buttonNetwork;
         private System.Windows.Forms.Button buttonSwitchCreate;
         private System.Windows.Forms.Button buttonSwitchDelete;
-        private System.Windows.Forms.Button buttonSwitch;
+        private System.Windows.Forms.Button buttonSwitchRefresh;
         private System.Windows.Forms.ListBox listBoxSwitch;
         private System.Windows.Forms.Button buttonLogs;
     }

@@ -1,6 +1,6 @@
 ﻿namespace SimpleHyperV
 {
-    partial class PopupNatCreate
+    partial class PopupNetworkCreateForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PopupNatCreate));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PopupNetworkCreateForm));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxName = new System.Windows.Forms.TextBox();
@@ -42,18 +42,18 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(150, 24);
+            this.label1.Size = new System.Drawing.Size(113, 24);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Input Nat Name";
+            this.label1.Text = "Input Name";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(12, 81);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(525, 24);
+            this.label2.Size = new System.Drawing.Size(407, 24);
             this.label2.TabIndex = 1;
-            this.label2.Text = "Input InternalIPInterfaceAddressPrefix (eg: 192.168.56.0/24)";
+            this.label2.Text = "Input IP Address / Prefix (eg: 192.168.56.0/24)";
             // 
             // textBoxName
             // 
@@ -97,7 +97,7 @@
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
-            // PopupNatCreate
+            // PopupNetworkCreateForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -111,10 +111,10 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "PopupNatCreate";
+            this.Name = "PopupNetworkCreateForm";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "PopupNatCreate";
+            this.Text = "Create Network";
             this.ResumeLayout(false);
             this.PerformLayout();
 

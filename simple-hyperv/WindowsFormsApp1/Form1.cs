@@ -27,28 +27,81 @@ namespace WindowsFormsApp1
         {
             // this.Text = "自定义标题";
             buttonVmRefresh.PerformClick();
+            isVMLoaded = true;
         }
+
+        private bool isVMLoaded = false;
+        private bool isSwitchLoaded = false;
+        private bool isNatLoaded = false;
+        
         private void tabControl1_Selected(object sender, TabControlEventArgs e)
         {
             //TabPage selectedTab = tabControl1.SelectedTab;
             //string selectedTabName = selectedTab.Text;
             int selectedIndex = tabControl1.SelectedIndex;
-            if (selectedIndex == 0)
+            if (selectedIndex == 0 && !isVMLoaded)
             {
                 buttonVmRefresh_Click_1(this, EventArgs.Empty);
-            } else if (selectedIndex == 3)
+                isVMLoaded = true;
+            }
+            else if (selectedIndex == 2 && !isSwitchLoaded)
+            {
+                buttonSwitchRefresh_Click(this, EventArgs.Empty);
+                isSwitchLoaded = true;
+            }
+            else if (selectedIndex == 3 && !isNatLoaded)
             {
                 buttonNatRefresh_Click(this, EventArgs.Empty);
+                isNatLoaded = true;
             }
         }
-        /* VM START */
 
+
+        private void buttonMmcHyperV_Click(object sender, EventArgs e)
+        {
+            /*Process procAD = new Process();
+            procAD.StartInfo.FileName = "C:\\Windows\\System32\\mmc.exe";
+            procAD.StartInfo.Arguments = "C:\\Windows\\System32\\virtmgmt.msc";
+            procAD.Start();*/
+            // 以上方式不能启动，可能是权限问题，因此必须使用外部bat脚本启动
+
+            /*MyUtils.WriteToFile("start-virtmgmt.bat", "mmc.exe virtmgmt.msc");
+            MyUtils.StartCurDirProgram("start-virtmgmt.bat");*/
+
+            MyUtils.WriteToFile("start-virtmgmt.vbs", MyUtils.GenerateVbsScript("mmc.exe", "virtmgmt.msc"));
+            MyUtils.StartCurDirProgram("start-virtmgmt.vbs");
+        }
+
+        private void buttonMstsc_Click(object sender, EventArgs e)
+        {
+            Process.Start("mstsc");
+        }
+        private void buttonLogs_Click(object sender, EventArgs e)
+        {
+            textBoxOutput.Visible = !textBoxOutput.Visible;
+
+            if (textBoxOutput.Visible)
+            {
+                this.Height = this.Height + textBoxOutput.Height;
+            }
+            else
+            {
+                this.Height = this.Height - textBoxOutput.Height;
+            }
+        }
         private void btnCurDir_Click(object sender, EventArgs e)
         {
             string folderPath = Application.StartupPath;
             Process.Start(folderPath);
         }
+        private void buttonNetwork_Click(object sender, EventArgs e)
+        {
+            runUtils.RunCmdCommand("control.exe netconnections");
+        }
 
+        /* ============================================================ */
+
+        /* VM START */
 
         // 声明 PSOutput 为全局变量
         private Collection<PSObject> VMList;
@@ -103,11 +156,11 @@ namespace WindowsFormsApp1
             {
                 if (CheckVmIsStarted(vm))
                 {
-                    buttonStop_Click(this, EventArgs.Empty);
+                    buttonVmStop_Click(this, EventArgs.Empty);
                 }
                 else
                 {
-                    buttonStart_Click(this, EventArgs.Empty);
+                    buttonVmStart_Click(this, EventArgs.Empty);
                 }
             }
         }
@@ -158,7 +211,7 @@ namespace WindowsFormsApp1
             }
         }
 
-        private void buttonStart_Click(object sender, EventArgs e)
+        private void buttonVmStart_Click(object sender, EventArgs e)
         {
             PSObject vm = getSelectedVM();
             if (null != vm)
@@ -170,7 +223,7 @@ namespace WindowsFormsApp1
             }
         }
 
-        private void buttonStop_Click(object sender, EventArgs e)
+        private void buttonVmStop_Click(object sender, EventArgs e)
         {
             PSObject vm = getSelectedVM();
             if (null != vm)
@@ -187,7 +240,7 @@ namespace WindowsFormsApp1
             }
         }
 
-        private void buttonConnect_Click(object sender, EventArgs e)
+        private void buttonVmConnect_Click(object sender, EventArgs e)
         {
             PSObject vm = getSelectedVM();
             if (null != vm)
@@ -220,38 +273,6 @@ namespace WindowsFormsApp1
             }
         }
 
-        private void buttonMmcHyperV_Click(object sender, EventArgs e)
-        {
-            /*Process procAD = new Process();
-            procAD.StartInfo.FileName = "C:\\Windows\\System32\\mmc.exe";
-            procAD.StartInfo.Arguments = "C:\\Windows\\System32\\virtmgmt.msc";
-            procAD.Start();*/
-            // 以上方式不能启动，可能是权限问题，因此必须使用外部bat脚本启动
-
-            /*MyUtils.WriteToFile("start-virtmgmt.bat", "mmc.exe virtmgmt.msc");
-            MyUtils.StartCurDirProgram("start-virtmgmt.bat");*/
-
-            MyUtils.WriteToFile("start-virtmgmt.vbs", MyUtils.GenerateVbsScript("mmc.exe", "virtmgmt.msc"));
-            MyUtils.StartCurDirProgram("start-virtmgmt.vbs");
-        }
-
-        private void buttonMstsc_Click(object sender, EventArgs e)
-        {
-            Process.Start("mstsc");
-        }
-        private void buttonLogs_Click(object sender, EventArgs e)
-        {
-            textBoxOutput.Visible = !textBoxOutput.Visible;
-
-            if (textBoxOutput.Visible)
-            {
-                this.Height = this.Height + textBoxOutput.Height;
-            }
-            else
-            {
-                this.Height = this.Height - textBoxOutput.Height;
-            }
-        }
 
         /* VM END */
 
@@ -308,8 +329,8 @@ namespace WindowsFormsApp1
 
         private void buttonNatCreate_Click(object sender, EventArgs e)
         {
-
-            PopupNatCreate popup = new PopupNatCreate();
+            PopupNetworkCreateForm popup = new PopupNetworkCreateForm();
+            popup.Text = "Create NetNat";
             if (popup.ShowDialog() == DialogResult.OK)
             {
                 string name = popup.textBoxName.Text;
@@ -321,17 +342,80 @@ namespace WindowsFormsApp1
                 buttonNatRefresh.PerformClick();
             }
         }
+        /* NAT END */
 
-        private void buttonNetwork_Click(object sender, EventArgs e)
+        /* ============================================================ */
+
+        /* SWITCH START */
+
+        private Collection<PSObject> SwitchList;
+        private PSObject getSelectedSwitch()
         {
-            runUtils.RunCmdCommand("control.exe netconnections");
+            if (listBoxSwitch.SelectedIndex != -1)
+            {
+                return SwitchList[listBoxSwitch.SelectedIndex];
+            }
+            return null;
+        }
+        private void buttonSwitchRefresh_Click(object sender, EventArgs e)
+        {
+
+            buttonSwitchRefresh.Enabled = false;
+            SwitchList = runUtils.RunPowerShellScript("Get-VMSwitch");
+
+            listBoxSwitch.Items.Clear(); // 清空 ListBox 中的所有项
+            foreach (PSObject outputItem in SwitchList)
+            {
+                if (outputItem != null)
+                {
+                    listBoxSwitch.Items.Add(outputItem.Properties["Name"].Value + "");
+                }
+            }
+
+            buttonSwitchRefresh.Enabled = true;
         }
 
+        private void listBoxSwitch_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
+        }
 
+        private void buttonSwitchDelete_Click(object sender, EventArgs e)
+        {
+            PSObject item = getSelectedSwitch();
+            if (null != item)
+            {
+                DialogResult result = MessageBox.Show(this, "Delete selected Switch?", "Confirm", MessageBoxButtons.OKCancel);
+                if (result == DialogResult.OK)
+                {
+                    string script = "Remove-VMSwitch -Name \"" + item.Properties["Name"].Value + "\" -Force";
+                    runUtils.RunPowerShellScript(script);
 
+                    buttonSwitchRefresh.PerformClick();
+                }
+            }
+        }
 
+        private void buttonSwitchCreate_Click(object sender, EventArgs e)
+        {
+            PopupNetworkCreateForm popup = new PopupNetworkCreateForm();
+            popup.Text = "Create Internal Switch With Static IP";
+            if (popup.ShowDialog() == DialogResult.OK)
+            {
+                string name = popup.textBoxName.Text;
+                string ipAddressWithPrefix = popup.textBoxIP.Text;
+                string[] parts = ipAddressWithPrefix.Split('/');
+                string ipAddress = parts[0]; // "192.168.56.1"
+                string subnet = parts[1]; // "24"
 
-        /* NAT END */
+                runUtils.RunPowerShellScript("New-VMSwitch -SwitchName \"" + name + "\" -SwitchType Internal");
+                string ifindex = runUtils.RunPowerShellScript("Get-NetAdapter -Name \"vEthernet (" + name + ")\" | Select-Object -ExpandProperty 'ifIndex'")[0].ToString();
+                runUtils.RunPowerShellScript("New-NetIPAddress -IPAddress "+ ipAddress + " -PrefixLength "+ subnet + " -InterfaceIndex "+ ifindex);
+
+                buttonSwitchRefresh.PerformClick();
+            }
+        }
+
+        /* SWITCH END */
     }
 }

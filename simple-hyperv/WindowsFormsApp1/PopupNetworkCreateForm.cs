@@ -11,9 +11,9 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace SimpleHyperV
 {
-    public partial class PopupNatCreate : Form
+    public partial class PopupNetworkCreateForm : Form
     {
-        public PopupNatCreate()
+        public PopupNetworkCreateForm()
         {
             InitializeComponent();
         }
@@ -22,7 +22,7 @@ namespace SimpleHyperV
         {
             if (string.IsNullOrWhiteSpace(textBoxName.Text) || string.IsNullOrWhiteSpace(textBoxIP.Text))
             {
-                MessageBox.Show(this, "Please fill Name and InternalIPInterfaceAddressPrefix", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(this, "Please fill Name and IP Address / Prefix", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
