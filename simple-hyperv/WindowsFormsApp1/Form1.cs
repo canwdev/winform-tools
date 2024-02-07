@@ -7,6 +7,8 @@ using System.Management.Automation;
 using System.IO;
 using MyUtilsNamespace;
 using SimpleHyperV;
+using SimpleHyperV.Properties;
+using System.Drawing;
 
 namespace WindowsFormsApp1
 {
@@ -24,11 +26,101 @@ namespace WindowsFormsApp1
             progressBar1.Visible = false;
         }
 
+        /* 单例模式相关 START */
+        protected override void WndProc(ref Message m)
+        {
+            if (m.Msg == NativeMethods.WM_SHOWME)
+            {
+                MessageBox.Show("Application already started!", "", MessageBoxButtons.OK);
+                NotifyIconRestore(this, EventArgs.Empty);
+            }
+            base.WndProc(ref m);
+        }
+        /* 单例模式相关 END */
+
         private void Form1_Load(object sender, EventArgs e)
         {
             // this.Text = "自定义标题";
             buttonVmRefresh.PerformClick();
             isVMLoaded = true;
+
+            // 还原窗口大小和位置
+            if (Settings.Default.WindowSize != new System.Drawing.Size(0, 0))
+            {
+                this.Size = Settings.Default.WindowSize;
+            }
+            if (Settings.Default.WindowLocation != new System.Drawing.Point(0, 0))
+            {
+                this.Location = Settings.Default.WindowLocation;
+            }
+
+            // 加载设置配置
+            LoadSettings();
+
+            // 通知区域图标
+            SetupNotifyIcon();
+
+        }
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
+            // 保存窗口大小和位置
+            Settings.Default.WindowSize = this.Size;
+            Settings.Default.WindowLocation = this.Location;
+            Settings.Default.Save();
+
+
+            if (checkBoxCloseToTray.Checked && e.CloseReason == CloseReason.UserClosing)
+            {
+                WindowState = FormWindowState.Minimized;
+                notifyIcon.Visible = true;
+                ShowInTaskbar = false;
+                e.Cancel = true; // Prevent the form from closing
+            }
+        }
+
+        // 通知区域图标
+        private NotifyIcon notifyIcon;
+        private ContextMenuStrip notifyIconContextMenu;
+        private ToolStripMenuItem restoreToolStripMenuItem;
+        private ToolStripMenuItem exitToolStripMenuItem;
+        private void SetupNotifyIcon()
+        {
+            // 创建一个 NotifyIcon 控件并设置图标
+            notifyIcon = new NotifyIcon();
+            notifyIcon.Icon = Resources.icon;
+            // notifyIcon.Visible = true;
+
+            notifyIconContextMenu = new ContextMenuStrip();
+            restoreToolStripMenuItem = new ToolStripMenuItem("Restore");
+            restoreToolStripMenuItem.Click += NotifyIconRestore;
+            notifyIconContextMenu.Items.Add(restoreToolStripMenuItem);
+
+            exitToolStripMenuItem = new ToolStripMenuItem("Exit");
+            exitToolStripMenuItem.Click += NotifyIcon_Exit_Click;
+            notifyIconContextMenu.Items.Add(exitToolStripMenuItem);
+
+            notifyIcon.MouseClick += NotifyIcon_MouseClick;
+            notifyIcon.ContextMenuStrip = notifyIconContextMenu;
+        }
+        private void NotifyIcon_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                NotifyIconRestore(this, EventArgs.Empty);
+            }
+        }
+        public void NotifyIconRestore(object sender, EventArgs e)
+        {
+            // 双击通知区域图标时恢复窗口
+            WindowState = FormWindowState.Normal;
+            notifyIcon.Visible = false;
+            ShowInTaskbar = true;
+        }
+        public void NotifyIcon_Exit_Click(object sender, EventArgs e)
+        {
+            // Perform any cleanup or save operations before exiting
+            Application.Exit();
         }
 
         private bool isVMLoaded = false;
@@ -77,7 +169,7 @@ namespace WindowsFormsApp1
         {
             Process.Start("mstsc");
         }
-        private void buttonLogs_Click(object sender, EventArgs e)
+        /*private void buttonLogs_Click(object sender, EventArgs e)
         {
             textBoxOutput.Visible = !textBoxOutput.Visible;
 
@@ -89,7 +181,7 @@ namespace WindowsFormsApp1
             {
                 this.Height = this.Height - textBoxOutput.Height;
             }
-        }
+        }*/
         private void btnCurDir_Click(object sender, EventArgs e)
         {
             string folderPath = Application.StartupPath;
@@ -98,6 +190,32 @@ namespace WindowsFormsApp1
         private void buttonNetwork_Click(object sender, EventArgs e)
         {
             runUtils.RunCmdCommand("control.exe netconnections");
+        }
+
+        private void checkBoxShowLogs_CheckedChanged(object sender, EventArgs e)
+        {
+            Settings.Default.ShowLogs = checkBoxShowLogs.Checked;
+            Settings.Default.Save();
+            textBoxOutput.Visible = Settings.Default.ShowLogs;
+        }
+
+        private void checkBoxCloseToTray_CheckedChanged(object sender, EventArgs e)
+        {
+            Settings.Default.CloseToTray = checkBoxCloseToTray.Checked;
+            Settings.Default.Save();
+        }
+
+        private void LoadSettings()
+        {
+            checkBoxShowLogs.Checked = Settings.Default.ShowLogs;
+            textBoxOutput.Visible = Settings.Default.ShowLogs;
+
+            checkBoxCloseToTray.Checked = Settings.Default.CloseToTray;
+        }
+        private void richTextBox1_LinkClicked(object sender, LinkClickedEventArgs e)
+        {
+            // Call Process.Start method to open a browser, with link text as URL
+            System.Diagnostics.Process.Start(e.LinkText); // call default browser
         }
 
         /* ============================================================ */
@@ -450,5 +568,6 @@ namespace WindowsFormsApp1
         }
 
         /* SWITCH END */
+
     }
 }

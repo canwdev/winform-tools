@@ -51,6 +51,8 @@
             this.buttonNatDelete = new System.Windows.Forms.Button();
             this.buttonNatRefresh = new System.Windows.Forms.Button();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.checkBoxShowLogs = new System.Windows.Forms.CheckBox();
+            this.checkBoxCloseToTray = new System.Windows.Forms.CheckBox();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.buttonMstsc = new System.Windows.Forms.Button();
@@ -58,7 +60,6 @@
             this.textBoxOutput = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.buttonNetwork = new System.Windows.Forms.Button();
-            this.buttonLogs = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage3.SuspendLayout();
@@ -318,6 +319,8 @@
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.checkBoxShowLogs);
+            this.tabPage5.Controls.Add(this.checkBoxCloseToTray);
             this.tabPage5.Controls.Add(this.richTextBox1);
             this.tabPage5.ImageKey = "shell32.dll(16782).ico";
             this.tabPage5.Location = new System.Drawing.Point(4, 33);
@@ -327,6 +330,28 @@
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "About";
             this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxShowLogs
+            // 
+            this.checkBoxShowLogs.AutoSize = true;
+            this.checkBoxShowLogs.Location = new System.Drawing.Point(159, 327);
+            this.checkBoxShowLogs.Name = "checkBoxShowLogs";
+            this.checkBoxShowLogs.Size = new System.Drawing.Size(127, 28);
+            this.checkBoxShowLogs.TabIndex = 3;
+            this.checkBoxShowLogs.Text = "Show Logs";
+            this.checkBoxShowLogs.UseVisualStyleBackColor = true;
+            this.checkBoxShowLogs.CheckedChanged += new System.EventHandler(this.checkBoxShowLogs_CheckedChanged);
+            // 
+            // checkBoxCloseToTray
+            // 
+            this.checkBoxCloseToTray.AutoSize = true;
+            this.checkBoxCloseToTray.Location = new System.Drawing.Point(6, 327);
+            this.checkBoxCloseToTray.Name = "checkBoxCloseToTray";
+            this.checkBoxCloseToTray.Size = new System.Drawing.Size(147, 28);
+            this.checkBoxCloseToTray.TabIndex = 2;
+            this.checkBoxCloseToTray.Text = "Close to Tray";
+            this.checkBoxCloseToTray.UseVisualStyleBackColor = true;
+            this.checkBoxCloseToTray.CheckedChanged += new System.EventHandler(this.checkBoxCloseToTray_CheckedChanged);
             // 
             // richTextBox1
             // 
@@ -338,10 +363,11 @@
             this.richTextBox1.Location = new System.Drawing.Point(6, 6);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(680, 386);
+            this.richTextBox1.Size = new System.Drawing.Size(680, 315);
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = resources.GetString("richTextBox1.Text");
             this.richTextBox1.WordWrap = false;
+            this.richTextBox1.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.richTextBox1_LinkClicked);
             // 
             // imageList1
             // 
@@ -395,6 +421,7 @@
             this.textBoxOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.textBoxOutput.Size = new System.Drawing.Size(692, 257);
             this.textBoxOutput.TabIndex = 10;
+            this.textBoxOutput.Visible = false;
             this.textBoxOutput.WordWrap = false;
             // 
             // toolTip1
@@ -415,18 +442,6 @@
             this.buttonNetwork.UseVisualStyleBackColor = true;
             this.buttonNetwork.Click += new System.EventHandler(this.buttonNetwork_Click);
             // 
-            // buttonLogs
-            // 
-            this.buttonLogs.Location = new System.Drawing.Point(16, 414);
-            this.buttonLogs.Margin = new System.Windows.Forms.Padding(5);
-            this.buttonLogs.Name = "buttonLogs";
-            this.buttonLogs.Size = new System.Drawing.Size(77, 48);
-            this.buttonLogs.TabIndex = 18;
-            this.buttonLogs.Text = "&Logs";
-            this.buttonLogs.UseVisualStyleBackColor = true;
-            this.buttonLogs.Visible = false;
-            this.buttonLogs.Click += new System.EventHandler(this.buttonLogs_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
@@ -434,7 +449,6 @@
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(724, 744);
             this.Controls.Add(this.progressBar1);
-            this.Controls.Add(this.buttonLogs);
             this.Controls.Add(this.buttonNetwork);
             this.Controls.Add(this.buttonMmcHyperV);
             this.Controls.Add(this.btnCurDir);
@@ -446,12 +460,14 @@
             this.MinimumSize = new System.Drawing.Size(600, 400);
             this.Name = "Form1";
             this.Text = "Simple Hyper-V";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
             this.tabPage5.ResumeLayout(false);
+            this.tabPage5.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -485,8 +501,9 @@
         private System.Windows.Forms.Button buttonSwitchDelete;
         private System.Windows.Forms.Button buttonSwitchRefresh;
         private System.Windows.Forms.ListBox listBoxSwitch;
-        private System.Windows.Forms.Button buttonLogs;
         private System.Windows.Forms.Button buttonVmInfo;
+        private System.Windows.Forms.CheckBox checkBoxShowLogs;
+        private System.Windows.Forms.CheckBox checkBoxCloseToTray;
     }
 }
 
