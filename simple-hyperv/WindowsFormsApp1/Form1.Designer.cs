@@ -36,10 +36,10 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.buttonVmInfo = new System.Windows.Forms.Button();
             this.buttonConnect = new System.Windows.Forms.Button();
             this.buttonStop = new System.Windows.Forms.Button();
             this.buttonStart = new System.Windows.Forms.Button();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.buttonSwitchCreate = new System.Windows.Forms.Button();
             this.buttonSwitchDelete = new System.Windows.Forms.Button();
@@ -75,6 +75,7 @@
             this.btnCurDir.Size = new System.Drawing.Size(41, 48);
             this.btnCurDir.TabIndex = 3;
             this.btnCurDir.Text = "&.";
+            this.toolTip1.SetToolTip(this.btnCurDir, "打开当前程序所在目录");
             this.btnCurDir.UseVisualStyleBackColor = true;
             this.btnCurDir.Click += new System.EventHandler(this.btnCurDir_Click);
             // 
@@ -103,17 +104,17 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(101, 429);
+            this.progressBar1.Location = new System.Drawing.Point(16, 432);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(102, 16);
             this.progressBar1.TabIndex = 7;
+            this.progressBar1.UseWaitCursor = true;
             // 
             // tabControl1
             // 
             this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage5);
@@ -129,6 +130,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.buttonVmInfo);
             this.tabPage1.Controls.Add(this.buttonConnect);
             this.tabPage1.Controls.Add(this.buttonStop);
             this.tabPage1.Controls.Add(this.buttonStart);
@@ -143,6 +145,17 @@
             this.tabPage1.Text = "VM";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // buttonVmInfo
+            // 
+            this.buttonVmInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonVmInfo.Location = new System.Drawing.Point(228, 253);
+            this.buttonVmInfo.Name = "buttonVmInfo";
+            this.buttonVmInfo.Size = new System.Drawing.Size(72, 44);
+            this.buttonVmInfo.TabIndex = 14;
+            this.buttonVmInfo.Text = "&Info";
+            this.buttonVmInfo.UseVisualStyleBackColor = true;
+            this.buttonVmInfo.Click += new System.EventHandler(this.buttonVmInfo_Click);
+            // 
             // buttonConnect
             // 
             this.buttonConnect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -153,18 +166,21 @@
             this.buttonConnect.Size = new System.Drawing.Size(122, 44);
             this.buttonConnect.TabIndex = 12;
             this.buttonConnect.Text = "&Connect";
-            this.toolTip1.SetToolTip(this.buttonConnect, "为了保证兼容性，请手动复制 C:\\Windows\\System32\\vmconnect.exe 到程序同目录，否则可能无法正常运行");
+            this.toolTip1.SetToolTip(this.buttonConnect, resources.GetString("buttonConnect.ToolTip"));
             this.buttonConnect.UseVisualStyleBackColor = true;
             this.buttonConnect.Click += new System.EventHandler(this.buttonVmConnect_Click);
             // 
             // buttonStop
             // 
             this.buttonStop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonStop.Cursor = System.Windows.Forms.Cursors.Help;
             this.buttonStop.Location = new System.Drawing.Point(434, 254);
             this.buttonStop.Name = "buttonStop";
             this.buttonStop.Size = new System.Drawing.Size(122, 44);
             this.buttonStop.TabIndex = 11;
             this.buttonStop.Text = "St&op";
+            this.toolTip1.SetToolTip(this.buttonStop, "Press Shift simultaneously to force shut down the virtual machine.\r\n同时按下Shift以强制关" +
+        "闭虚拟机。");
             this.buttonStop.UseVisualStyleBackColor = true;
             this.buttonStop.Click += new System.EventHandler(this.buttonVmStop_Click);
             // 
@@ -178,17 +194,6 @@
             this.buttonStart.Text = "&Start";
             this.buttonStart.UseVisualStyleBackColor = true;
             this.buttonStart.Click += new System.EventHandler(this.buttonVmStart_Click);
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.ImageKey = "shell32.dll(19).ico";
-            this.tabPage2.Location = new System.Drawing.Point(4, 33);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(692, 361);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Network";
-            this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // tabPage3
             // 
@@ -249,6 +254,7 @@
             this.listBoxSwitch.Size = new System.Drawing.Size(678, 244);
             this.listBoxSwitch.TabIndex = 16;
             this.listBoxSwitch.SelectedIndexChanged += new System.EventHandler(this.listBoxSwitch_SelectedIndexChanged);
+            this.listBoxSwitch.DoubleClick += new System.EventHandler(this.listBoxSwitch_DoubleClick);
             // 
             // tabPage4
             // 
@@ -286,6 +292,7 @@
             this.listBoxNat.Name = "listBoxNat";
             this.listBoxNat.Size = new System.Drawing.Size(678, 244);
             this.listBoxNat.TabIndex = 15;
+            this.listBoxNat.DoubleClick += new System.EventHandler(this.listBoxNat_DoubleClick);
             // 
             // buttonNatDelete
             // 
@@ -356,6 +363,7 @@
             this.buttonMstsc.Size = new System.Drawing.Size(85, 48);
             this.buttonMstsc.TabIndex = 14;
             this.buttonMstsc.Text = "&mstsc";
+            this.toolTip1.SetToolTip(this.buttonMstsc, "远程桌面连接");
             this.buttonMstsc.UseVisualStyleBackColor = true;
             this.buttonMstsc.Click += new System.EventHandler(this.buttonMstsc_Click);
             // 
@@ -364,27 +372,35 @@
             this.buttonMmcHyperV.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonMmcHyperV.Location = new System.Drawing.Point(499, 414);
             this.buttonMmcHyperV.Margin = new System.Windows.Forms.Padding(5);
+            this.buttonMmcHyperV.MinimumSize = new System.Drawing.Size(100, 30);
             this.buttonMmcHyperV.Name = "buttonMmcHyperV";
             this.buttonMmcHyperV.Size = new System.Drawing.Size(158, 48);
             this.buttonMmcHyperV.TabIndex = 13;
             this.buttonMmcHyperV.Text = "&virtmgmt.msc";
+            this.toolTip1.SetToolTip(this.buttonMmcHyperV, "Hyper-V 管理器");
             this.buttonMmcHyperV.UseVisualStyleBackColor = true;
             this.buttonMmcHyperV.Click += new System.EventHandler(this.buttonMmcHyperV_Click);
             // 
             // textBoxOutput
             // 
-            this.textBoxOutput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.textBoxOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxOutput.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxOutput.Location = new System.Drawing.Point(16, 470);
+            this.textBoxOutput.MinimumSize = new System.Drawing.Size(500, 100);
             this.textBoxOutput.Multiline = true;
             this.textBoxOutput.Name = "textBoxOutput";
             this.textBoxOutput.ReadOnly = true;
             this.textBoxOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.textBoxOutput.Size = new System.Drawing.Size(692, 257);
             this.textBoxOutput.TabIndex = 10;
-            this.textBoxOutput.Visible = false;
             this.textBoxOutput.WordWrap = false;
+            // 
+            // toolTip1
+            // 
+            this.toolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.toolTip1.ToolTipTitle = "Tips";
             // 
             // buttonNetwork
             // 
@@ -395,6 +411,7 @@
             this.buttonNetwork.Size = new System.Drawing.Size(119, 48);
             this.buttonNetwork.TabIndex = 17;
             this.buttonNetwork.Text = "&Network";
+            this.toolTip1.SetToolTip(this.buttonNetwork, "打开网络和共享中心");
             this.buttonNetwork.UseVisualStyleBackColor = true;
             this.buttonNetwork.Click += new System.EventHandler(this.buttonNetwork_Click);
             // 
@@ -407,13 +424,15 @@
             this.buttonLogs.TabIndex = 18;
             this.buttonLogs.Text = "&Logs";
             this.buttonLogs.UseVisualStyleBackColor = true;
+            this.buttonLogs.Visible = false;
             this.buttonLogs.Click += new System.EventHandler(this.buttonLogs_Click);
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(724, 474);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.AutoScroll = true;
+            this.ClientSize = new System.Drawing.Size(724, 744);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.buttonLogs);
             this.Controls.Add(this.buttonNetwork);
@@ -422,10 +441,9 @@
             this.Controls.Add(this.buttonMstsc);
             this.Controls.Add(this.textBoxOutput);
             this.Controls.Add(this.tabControl1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(5);
-            this.MaximizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(600, 400);
             this.Name = "Form1";
             this.Text = "Simple Hyper-V";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -446,7 +464,6 @@
         public System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.Button buttonConnect;
@@ -469,6 +486,7 @@
         private System.Windows.Forms.Button buttonSwitchRefresh;
         private System.Windows.Forms.ListBox listBoxSwitch;
         private System.Windows.Forms.Button buttonLogs;
+        private System.Windows.Forms.Button buttonVmInfo;
     }
 }
 

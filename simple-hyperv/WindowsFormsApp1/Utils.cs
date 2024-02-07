@@ -2,11 +2,12 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
+// C:\Windows\assembly\GAC_MSIL\System.Management.Automation\1.0.0.0__31bf3856ad364e35
 using System.Management.Automation;
+using System.Reflection;
+using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Linq;
 using WindowsFormsApp1;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace MyUtilsNamespace
 {
@@ -33,25 +34,51 @@ namespace MyUtilsNamespace
             textBoxOutput.ScrollToCaret();
         }
 
-        public Collection<PSObject> RunPowerShellScript(string script)
+        public async Task<Collection<PSObject>> RunPowerShellScriptAsync(string script, bool isDetailLog = false)
         {
             using (PowerShell PowerShellInstance = PowerShell.Create())
             {
+                _form.UseWaitCursor = true;
                 _form.progressBar1.Visible = true;
                 AppendLog(">>> " + script);
 
 
                 PowerShellInstance.AddScript(script);
-                Collection<PSObject> PSOutput = PowerShellInstance.Invoke();
+
+                Collection<PSObject> PSOutput = await Task.Run(() =>
+                {
+                    return PowerShellInstance.Invoke();
+                });
 
                 foreach (var result in PSOutput)
                 {
-                    AppendLog(result.ToString());
+
+                    if (result != null)
+                    {
+                        if (isDetailLog)
+                        {
+                            AppendLog("===========================");
+                            foreach (PropertyInfo prop in result.BaseObject.GetType().GetProperties())
+                            {
+                                AppendLog(prop.Name + ": " + prop.GetValue(result.BaseObject));
+                            }
+
+                            foreach (FieldInfo field in result.BaseObject.GetType().GetFields())
+                            {
+                                AppendLog(field.Name + ": " + field.GetValue(result.BaseObject));
+                            }
+                            AppendLog("===========================");
+                        } else
+                        {
+                            AppendLog(result.BaseObject.ToString());
+                        }
+                    }
                 }
 
 
                 // 执行完成后隐藏进度条
                 _form.progressBar1.Visible = false;
+                _form.UseWaitCursor = false;
 
                 return PSOutput;
             }

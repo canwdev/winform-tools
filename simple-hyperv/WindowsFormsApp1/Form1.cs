@@ -16,6 +16,7 @@ namespace WindowsFormsApp1
         public Form1()
         {
             InitializeComponent();
+
             // 实例化 ToolClass 并传递 Form 实例到构造函数
             runUtils = new RunUtils(this);
 
@@ -44,12 +45,12 @@ namespace WindowsFormsApp1
                 buttonVmRefresh_Click_1(this, EventArgs.Empty);
                 isVMLoaded = true;
             }
-            else if (selectedIndex == 2 && !isSwitchLoaded)
+            else if (selectedIndex == 1 && !isSwitchLoaded)
             {
                 buttonSwitchRefresh_Click(this, EventArgs.Empty);
                 isSwitchLoaded = true;
             }
-            else if (selectedIndex == 3 && !isNatLoaded)
+            else if (selectedIndex == 2 && !isNatLoaded)
             {
                 buttonNatRefresh_Click(this, EventArgs.Empty);
                 isNatLoaded = true;
@@ -107,10 +108,10 @@ namespace WindowsFormsApp1
         private Collection<PSObject> VMList;
         private int lastSelectedIndex = -1;
 
-        private void buttonVmRefresh_Click_1(object sender, EventArgs e)
+        private async void buttonVmRefresh_Click_1(object sender, EventArgs e)
         {
             buttonVmRefresh.Enabled = false;
-            VMList = runUtils.RunPowerShellScript("Get-VM");
+            VMList = await runUtils.RunPowerShellScriptAsync("Get-VM");
 
             lastSelectedIndex = listBoxVM.SelectedIndex;
             listBoxVM.Items.Clear(); // 清空 ListBox 中的所有项
@@ -151,10 +152,10 @@ namespace WindowsFormsApp1
         private void listBoxVM_DoubleClick(object sender, EventArgs e)
         {
             // 在此处添加双击列表框项时要执行的操作
-            PSObject vm = getSelectedVM();
-            if (null != vm)
+            PSObject item = getSelectedVM();
+            if (null != item)
             {
-                if (CheckVmIsStarted(vm))
+                if (CheckVmIsStarted(item))
                 {
                     buttonVmStop_Click(this, EventArgs.Empty);
                 }
@@ -183,6 +184,7 @@ namespace WindowsFormsApp1
             buttonStart.Enabled = isEnabled;
             buttonStop.Enabled = isEnabled;
             buttonConnect.Enabled = isEnabled;
+            buttonVmInfo.Enabled = isEnabled;
         }
         private void AutoSetVmButtonsEnabled()
         {
@@ -211,29 +213,50 @@ namespace WindowsFormsApp1
             }
         }
 
-        private void buttonVmStart_Click(object sender, EventArgs e)
+        private async void buttonVmInfo_Click(object sender, EventArgs e)
+        {
+            PSObject item = getSelectedVM();
+            if (null != item)
+            {
+                // 打印详细信息
+                await runUtils.RunPowerShellScriptAsync("Get-VM -Name \"" + item.Properties["Name"].Value + "\"", true);
+            }
+        }
+
+        private async void buttonVmStart_Click(object sender, EventArgs e)
         {
             PSObject vm = getSelectedVM();
             if (null != vm)
             {
                 string script = "Start-VM -Name \"" + vm.Properties["Name"].Value + "\"";
-                runUtils.RunPowerShellScript(script);
+                await runUtils.RunPowerShellScriptAsync(script);
 
                 buttonVmRefresh.PerformClick();
             }
         }
 
-        private void buttonVmStop_Click(object sender, EventArgs e)
+        private async void buttonVmStop_Click(object sender, EventArgs e)
         {
             PSObject vm = getSelectedVM();
             if (null != vm)
             {
+                if (Control.ModifierKeys == Keys.Shift)
+                {
+                    // 如果按下了 Shift 键，强行停止
+
+                    string script = "Stop-VM -Name \"" + vm.Properties["Name"].Value + "\" -Force";
+                    await runUtils.RunPowerShellScriptAsync(script);
+
+                    buttonVmRefresh.PerformClick();
+
+                    return;
+                }
 
                 DialogResult result = MessageBox.Show(this, "Shut down selected VM?", "Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if (result == DialogResult.OK)
                 {
                     string script = "Stop-VM -Name \"" + vm.Properties["Name"].Value + "\"";
-                    runUtils.RunPowerShellScript(script);
+                    await runUtils.RunPowerShellScriptAsync(script);
 
                     buttonVmRefresh.PerformClick();
                 }
@@ -289,10 +312,10 @@ namespace WindowsFormsApp1
             }
             return null;
         }
-        private void buttonNatRefresh_Click(object sender, EventArgs e)
+        private async void buttonNatRefresh_Click(object sender, EventArgs e)
         {
             buttonNatRefresh.Enabled = false;
-            NatList = runUtils.RunPowerShellScript("Get-NetNat");
+            NatList = await runUtils.RunPowerShellScriptAsync("Get-NetNat");
 
             listBoxNat.Items.Clear(); // 清空 ListBox 中的所有项
             foreach (PSObject outputItem in NatList)
@@ -305,13 +328,16 @@ namespace WindowsFormsApp1
 
             buttonNatRefresh.Enabled = true;
         }
-
-        private void listViewNat_SelectedIndexChanged(object sender, EventArgs e)
+        private async void listBoxNat_DoubleClick(object sender, EventArgs e)
         {
-
+            PSObject item = getSelectedNat();
+            if (null != item)
+            {
+                await runUtils.RunPowerShellScriptAsync("Get-NetNat -Name \"" + item.Properties["Name"].Value + "\"", true);
+            }
         }
 
-        private void buttonNatDelete_Click(object sender, EventArgs e)
+        private async void buttonNatDelete_Click(object sender, EventArgs e)
         {
             PSObject item = getSelectedNat();
             if (null != item)
@@ -320,14 +346,14 @@ namespace WindowsFormsApp1
                 if (result == DialogResult.OK)
                 {
                     string script = "Remove-NetNat -Name \"" + item.Properties["Name"].Value + "\" -Confirm:$false";
-                    runUtils.RunPowerShellScript(script);
+                    await runUtils.RunPowerShellScriptAsync(script);
 
                     buttonNatRefresh.PerformClick();
                 }
             }
         }
 
-        private void buttonNatCreate_Click(object sender, EventArgs e)
+        private async void buttonNatCreate_Click(object sender, EventArgs e)
         {
             PopupNetworkCreateForm popup = new PopupNetworkCreateForm();
             popup.Text = "Create NetNat";
@@ -337,7 +363,7 @@ namespace WindowsFormsApp1
                 string ipAddress = popup.textBoxIP.Text;
 
                 string script = "New-NetNat -Name \"" + name + "\" -InternalIPInterfaceAddressPrefix " + ipAddress;
-                runUtils.RunPowerShellScript(script);
+                await runUtils.RunPowerShellScriptAsync(script);
 
                 buttonNatRefresh.PerformClick();
             }
@@ -357,11 +383,11 @@ namespace WindowsFormsApp1
             }
             return null;
         }
-        private void buttonSwitchRefresh_Click(object sender, EventArgs e)
+        private async void buttonSwitchRefresh_Click(object sender, EventArgs e)
         {
 
             buttonSwitchRefresh.Enabled = false;
-            SwitchList = runUtils.RunPowerShellScript("Get-VMSwitch");
+            SwitchList = await runUtils.RunPowerShellScriptAsync("Get-VMSwitch");
 
             listBoxSwitch.Items.Clear(); // 清空 ListBox 中的所有项
             foreach (PSObject outputItem in SwitchList)
@@ -379,8 +405,15 @@ namespace WindowsFormsApp1
         {
 
         }
+        private async void listBoxSwitch_DoubleClick(object sender, EventArgs e)
+        {
+            PSObject item = getSelectedSwitch();
+            if (null != item) {
+                await runUtils.RunPowerShellScriptAsync("Get-VMSwitch -Name \"" + item.Properties["Name"].Value + "\"", true);
+            }
+        }
 
-        private void buttonSwitchDelete_Click(object sender, EventArgs e)
+        private async void buttonSwitchDelete_Click(object sender, EventArgs e)
         {
             PSObject item = getSelectedSwitch();
             if (null != item)
@@ -389,14 +422,14 @@ namespace WindowsFormsApp1
                 if (result == DialogResult.OK)
                 {
                     string script = "Remove-VMSwitch -Name \"" + item.Properties["Name"].Value + "\" -Force";
-                    runUtils.RunPowerShellScript(script);
+                    await runUtils.RunPowerShellScriptAsync(script);
 
                     buttonSwitchRefresh.PerformClick();
                 }
             }
         }
 
-        private void buttonSwitchCreate_Click(object sender, EventArgs e)
+        private async void buttonSwitchCreate_Click(object sender, EventArgs e)
         {
             PopupNetworkCreateForm popup = new PopupNetworkCreateForm();
             popup.Text = "Create Internal Switch With Static IP";
@@ -408,9 +441,9 @@ namespace WindowsFormsApp1
                 string ipAddress = parts[0]; // "192.168.56.1"
                 string subnet = parts[1]; // "24"
 
-                runUtils.RunPowerShellScript("New-VMSwitch -SwitchName \"" + name + "\" -SwitchType Internal");
-                string ifindex = runUtils.RunPowerShellScript("Get-NetAdapter -Name \"vEthernet (" + name + ")\" | Select-Object -ExpandProperty 'ifIndex'")[0].ToString();
-                runUtils.RunPowerShellScript("New-NetIPAddress -IPAddress "+ ipAddress + " -PrefixLength "+ subnet + " -InterfaceIndex "+ ifindex);
+                await runUtils.RunPowerShellScriptAsync("New-VMSwitch -SwitchName \"" + name + "\" -SwitchType Internal");
+                string ifindex = (await runUtils.RunPowerShellScriptAsync("Get-NetAdapter -Name \"vEthernet (" + name + ")\" | Select-Object -ExpandProperty 'ifIndex'"))[0].ToString();
+                await runUtils.RunPowerShellScriptAsync("New-NetIPAddress -IPAddress "+ ipAddress + " -PrefixLength "+ subnet + " -InterfaceIndex "+ ifindex);
 
                 buttonSwitchRefresh.PerformClick();
             }
