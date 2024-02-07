@@ -36,51 +36,75 @@ namespace MyUtilsNamespace
 
         public async Task<Collection<PSObject>> RunPowerShellScriptAsync(string script, bool isDetailLog = false)
         {
-            using (PowerShell PowerShellInstance = PowerShell.Create())
+            try
             {
-                _form.UseWaitCursor = true;
-                _form.progressBar1.Visible = true;
-                AppendLog(">>> " + script);
-
-
-                PowerShellInstance.AddScript(script);
-
-                Collection<PSObject> PSOutput = await Task.Run(() =>
+                using (PowerShell PowerShellInstance = PowerShell.Create())
                 {
-                    return PowerShellInstance.Invoke();
-                });
+                    _form.UseWaitCursor = true;
+                    _form.progressBar1.Visible = true;
+                    AppendLog(">>> " + script);
 
-                foreach (var result in PSOutput)
-                {
 
-                    if (result != null)
+                    PowerShellInstance.AddScript(script);
+
+
+                    // 捕获Powershell的错误信息
+                    PowerShellInstance.Streams.Error.DataAdded += (sender, eventArgs) =>
                     {
-                        if (isDetailLog)
+                        foreach (var errorRecord in PowerShellInstance.Streams.Error)
                         {
-                            AppendLog("===========================");
-                            foreach (PropertyInfo prop in result.BaseObject.GetType().GetProperties())
-                            {
-                                AppendLog(prop.Name + ": " + prop.GetValue(result.BaseObject));
-                            }
+                            _form.Invoke((MethodInvoker)delegate {
+                                AppendLog("PowerShell Error: " + errorRecord.ToString());
+                            });
+                        }
+                    };
 
-                            foreach (FieldInfo field in result.BaseObject.GetType().GetFields())
-                            {
-                                AppendLog(field.Name + ": " + field.GetValue(result.BaseObject));
-                            }
-                            AppendLog("===========================");
-                        } else
+                    Collection<PSObject> PSOutput = await Task.Run(() =>
+                    {
+                        return PowerShellInstance.Invoke();
+                    });
+
+                    foreach (var result in PSOutput)
+                    {
+
+                        if (result != null)
                         {
-                            AppendLog(result.BaseObject.ToString());
+                            if (isDetailLog)
+                            {
+                                AppendLog("===========================");
+                                foreach (PropertyInfo prop in result.BaseObject.GetType().GetProperties())
+                                {
+                                    AppendLog(prop.Name + ": " + prop.GetValue(result.BaseObject));
+                                }
+
+                                foreach (FieldInfo field in result.BaseObject.GetType().GetFields())
+                                {
+                                    AppendLog(field.Name + ": " + field.GetValue(result.BaseObject));
+                                }
+                                AppendLog("===========================");
+                            }
+                            else
+                            {
+                                AppendLog(result.BaseObject.ToString());
+                            }
                         }
                     }
+
+
+                    // 执行完成后隐藏进度条
+                    _form.progressBar1.Visible = false;
+                    _form.UseWaitCursor = false;
+
+                    return PSOutput;
                 }
-
-
-                // 执行完成后隐藏进度条
+            }
+            catch (Exception ex)
+            {
+                // 捕获错误并记录日志或者进行其他处理
+                AppendLog("Error occurred: " + ex.Message);
                 _form.progressBar1.Visible = false;
                 _form.UseWaitCursor = false;
-
-                return PSOutput;
+                return null;
             }
         }
 

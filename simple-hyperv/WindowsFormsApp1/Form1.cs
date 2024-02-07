@@ -302,7 +302,6 @@ namespace WindowsFormsApp1
             buttonStart.Enabled = isEnabled;
             buttonStop.Enabled = isEnabled;
             buttonConnect.Enabled = isEnabled;
-            buttonVmInfo.Enabled = isEnabled;
         }
         private void AutoSetVmButtonsEnabled()
         {
@@ -331,15 +330,6 @@ namespace WindowsFormsApp1
             }
         }
 
-        private async void buttonVmInfo_Click(object sender, EventArgs e)
-        {
-            PSObject item = getSelectedVM();
-            if (null != item)
-            {
-                // 打印详细信息
-                await runUtils.RunPowerShellScriptAsync("Get-VM -Name \"" + item.Properties["Name"].Value + "\"", true);
-            }
-        }
 
         private async void buttonVmStart_Click(object sender, EventArgs e)
         {
@@ -395,7 +385,12 @@ namespace WindowsFormsApp1
                     MyUtils.StartCurDirProgram("vmconnect.exe", paramsStr);
                     return;
                 }
+
+
+                MessageBox.Show(@"To ensure compatibility, please manually copy C:\Windows\System32\vmconnect.exe to the same directory as the program, otherwise it may not run properly.
+为了保证兼容性，请手动复制 C:\Windows\System32\vmconnect.exe 到程序同目录，否则可能无法正常运行。", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 
+
                 //string commandPath = @"C:\Windows\System32\vmconnect.exe";
                 // 只有这条路径可以正常运行，但为了保证兼容性，请手动复制 vmconnect.exe 到程序同目录
                 //string commandPath2 = @"C:\Windows\Microsoft.NET\assembly\GAC_64\vmconnect\v4.0_10.0.0.0__31bf3856ad364e35\vmconnect.exe";
@@ -403,17 +398,63 @@ namespace WindowsFormsApp1
 
                 /*Console.WriteLine(system32Path);*/
                 // 这些代码不能正常运行，提示：An attempt was made to reference a token that does not exist，测试环境：Win11 22631
-                // RunCmdCommand(system32Path+" "+paramsStr);
+                Process.Start(system32Path+" "+paramsStr);
 
                 // 经过测试，即使是vbs脚本，也不能正常运行
                 // 注意：这里有两对双引号，是为了适应vbs脚本
-                string paramsStrVbs = " localhost \"\"" + vm.Properties["Name"].Value + "\"\"";
+                /*string paramsStrVbs = " localhost \"\"" + vm.Properties["Name"].Value + "\"\"";
 
                 MyUtils.WriteToFile("start-vmconnect.vbs", MyUtils.GenerateVbsScript(system32Path, paramsStrVbs), true);
-                MyUtils.StartCurDirProgram("start-vmconnect.vbs");
+                MyUtils.StartCurDirProgram("start-vmconnect.vbs");*/
             }
         }
 
+        private async void HandleOptimizeVHD()
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Filter = "VHDX Files|*.vhdx|VHD Files|*.vhd";
+                openFileDialog.Multiselect = false;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string selectedFilePath = openFileDialog.FileName;
+                    if (!string.IsNullOrEmpty(selectedFilePath))
+                    {
+                        await runUtils.RunPowerShellScriptAsync("Optimize-VHD -Path \""+ selectedFilePath + "\" -Mode Full", true);
+                    }
+                }
+            }
+        }
+
+        private async void comboBoxVm_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            PSObject vm = getSelectedVM();
+
+            int selectedIndex = comboBoxVm.SelectedIndex;
+            if (selectedIndex == 0)
+            {
+                if (null != vm)
+                {
+
+                    // 打印详细信息
+                    await runUtils.RunPowerShellScriptAsync("Get-VM -Name \"" + vm.Properties["Name"].Value + "\"", true);
+                }
+            }
+            else if (selectedIndex == 1)
+            {
+                if (null != vm)
+                {
+                    await runUtils.RunPowerShellScriptAsync("Set-VMProcessor -VMName \"" + vm.Properties["Name"].Value + "\" -ExposeVirtualizationExtensions $true", true);
+                }
+            }
+            else if (selectedIndex == 2)
+            {
+                HandleOptimizeVHD();
+            }
+
+            comboBoxVm.SelectedIndex = -1;
+        }
 
         /* VM END */
 

@@ -36,7 +36,8 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.buttonVmInfo = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.comboBoxVm = new System.Windows.Forms.ComboBox();
             this.buttonConnect = new System.Windows.Forms.Button();
             this.buttonStop = new System.Windows.Forms.Button();
             this.buttonStart = new System.Windows.Forms.Button();
@@ -82,7 +83,7 @@
             // 
             // buttonVmRefresh
             // 
-            this.buttonVmRefresh.Location = new System.Drawing.Point(6, 253);
+            this.buttonVmRefresh.Location = new System.Drawing.Point(6, 233);
             this.buttonVmRefresh.Name = "buttonVmRefresh";
             this.buttonVmRefresh.Size = new System.Drawing.Size(134, 45);
             this.buttonVmRefresh.TabIndex = 5;
@@ -94,11 +95,12 @@
             // 
             this.listBoxVM.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.listBoxVM.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listBoxVM.FormattingEnabled = true;
-            this.listBoxVM.ItemHeight = 24;
+            this.listBoxVM.ItemHeight = 22;
             this.listBoxVM.Location = new System.Drawing.Point(6, 3);
             this.listBoxVM.Name = "listBoxVM";
-            this.listBoxVM.Size = new System.Drawing.Size(678, 244);
+            this.listBoxVM.Size = new System.Drawing.Size(678, 224);
             this.listBoxVM.TabIndex = 6;
             this.listBoxVM.SelectedIndexChanged += new System.EventHandler(this.listBoxVM_SelectedIndexChanged);
             this.listBoxVM.DoubleClick += new System.EventHandler(this.listBoxVM_DoubleClick);
@@ -131,7 +133,8 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.buttonVmInfo);
+            this.tabPage1.Controls.Add(this.label1);
+            this.tabPage1.Controls.Add(this.comboBoxVm);
             this.tabPage1.Controls.Add(this.buttonConnect);
             this.tabPage1.Controls.Add(this.buttonStop);
             this.tabPage1.Controls.Add(this.buttonStart);
@@ -146,28 +149,43 @@
             this.tabPage1.Text = "VM";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // buttonVmInfo
+            // label1
             // 
-            this.buttonVmInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonVmInfo.Location = new System.Drawing.Point(228, 253);
-            this.buttonVmInfo.Name = "buttonVmInfo";
-            this.buttonVmInfo.Size = new System.Drawing.Size(72, 44);
-            this.buttonVmInfo.TabIndex = 14;
-            this.buttonVmInfo.Text = "&Info";
-            this.buttonVmInfo.UseVisualStyleBackColor = true;
-            this.buttonVmInfo.Click += new System.EventHandler(this.buttonVmInfo_Click);
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft YaHei UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.Location = new System.Drawing.Point(312, 287);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(116, 21);
+            this.label1.TabIndex = 17;
+            this.label1.Text = "More Actions:";
+            // 
+            // comboBoxVm
+            // 
+            this.comboBoxVm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxVm.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxVm.Font = new System.Drawing.Font("Microsoft YaHei UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.comboBoxVm.FormattingEnabled = true;
+            this.comboBoxVm.Items.AddRange(new object[] {
+            "VM Info",
+            "Expose Virtualization Extensions",
+            "Optimize VHD..."});
+            this.comboBoxVm.Location = new System.Drawing.Point(435, 284);
+            this.comboBoxVm.Name = "comboBoxVm";
+            this.comboBoxVm.Size = new System.Drawing.Size(249, 29);
+            this.comboBoxVm.TabIndex = 16;
+            this.comboBoxVm.SelectedIndexChanged += new System.EventHandler(this.comboBoxVm_SelectedIndexChanged);
             // 
             // buttonConnect
             // 
             this.buttonConnect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonConnect.Cursor = System.Windows.Forms.Cursors.Help;
+            this.buttonConnect.Cursor = System.Windows.Forms.Cursors.Default;
             this.buttonConnect.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.buttonConnect.Location = new System.Drawing.Point(562, 254);
+            this.buttonConnect.Location = new System.Drawing.Point(562, 234);
             this.buttonConnect.Name = "buttonConnect";
             this.buttonConnect.Size = new System.Drawing.Size(122, 44);
             this.buttonConnect.TabIndex = 12;
             this.buttonConnect.Text = "&Connect";
-            this.toolTip1.SetToolTip(this.buttonConnect, resources.GetString("buttonConnect.ToolTip"));
             this.buttonConnect.UseVisualStyleBackColor = true;
             this.buttonConnect.Click += new System.EventHandler(this.buttonVmConnect_Click);
             // 
@@ -175,7 +193,7 @@
             // 
             this.buttonStop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonStop.Cursor = System.Windows.Forms.Cursors.Help;
-            this.buttonStop.Location = new System.Drawing.Point(434, 254);
+            this.buttonStop.Location = new System.Drawing.Point(434, 234);
             this.buttonStop.Name = "buttonStop";
             this.buttonStop.Size = new System.Drawing.Size(122, 44);
             this.buttonStop.TabIndex = 11;
@@ -188,7 +206,7 @@
             // buttonStart
             // 
             this.buttonStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonStart.Location = new System.Drawing.Point(306, 254);
+            this.buttonStart.Location = new System.Drawing.Point(306, 234);
             this.buttonStart.Name = "buttonStart";
             this.buttonStart.Size = new System.Drawing.Size(122, 44);
             this.buttonStart.TabIndex = 10;
@@ -214,7 +232,7 @@
             // 
             this.buttonSwitchCreate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonSwitchCreate.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.buttonSwitchCreate.Location = new System.Drawing.Point(520, 253);
+            this.buttonSwitchCreate.Location = new System.Drawing.Point(520, 233);
             this.buttonSwitchCreate.Name = "buttonSwitchCreate";
             this.buttonSwitchCreate.Size = new System.Drawing.Size(164, 45);
             this.buttonSwitchCreate.TabIndex = 20;
@@ -226,7 +244,7 @@
             // 
             this.buttonSwitchDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonSwitchDelete.ForeColor = System.Drawing.Color.DarkRed;
-            this.buttonSwitchDelete.Location = new System.Drawing.Point(402, 253);
+            this.buttonSwitchDelete.Location = new System.Drawing.Point(402, 233);
             this.buttonSwitchDelete.Name = "buttonSwitchDelete";
             this.buttonSwitchDelete.Size = new System.Drawing.Size(112, 45);
             this.buttonSwitchDelete.TabIndex = 19;
@@ -236,7 +254,7 @@
             // 
             // buttonSwitchRefresh
             // 
-            this.buttonSwitchRefresh.Location = new System.Drawing.Point(6, 253);
+            this.buttonSwitchRefresh.Location = new System.Drawing.Point(6, 233);
             this.buttonSwitchRefresh.Name = "buttonSwitchRefresh";
             this.buttonSwitchRefresh.Size = new System.Drawing.Size(134, 45);
             this.buttonSwitchRefresh.TabIndex = 18;
@@ -248,11 +266,12 @@
             // 
             this.listBoxSwitch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.listBoxSwitch.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listBoxSwitch.FormattingEnabled = true;
-            this.listBoxSwitch.ItemHeight = 24;
+            this.listBoxSwitch.ItemHeight = 22;
             this.listBoxSwitch.Location = new System.Drawing.Point(6, 3);
             this.listBoxSwitch.Name = "listBoxSwitch";
-            this.listBoxSwitch.Size = new System.Drawing.Size(678, 244);
+            this.listBoxSwitch.Size = new System.Drawing.Size(678, 224);
             this.listBoxSwitch.TabIndex = 16;
             this.listBoxSwitch.SelectedIndexChanged += new System.EventHandler(this.listBoxSwitch_SelectedIndexChanged);
             this.listBoxSwitch.DoubleClick += new System.EventHandler(this.listBoxSwitch_DoubleClick);
@@ -275,7 +294,7 @@
             // 
             this.buttonNatCreate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonNatCreate.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.buttonNatCreate.Location = new System.Drawing.Point(520, 253);
+            this.buttonNatCreate.Location = new System.Drawing.Point(520, 233);
             this.buttonNatCreate.Name = "buttonNatCreate";
             this.buttonNatCreate.Size = new System.Drawing.Size(164, 45);
             this.buttonNatCreate.TabIndex = 16;
@@ -287,11 +306,12 @@
             // 
             this.listBoxNat.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.listBoxNat.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listBoxNat.FormattingEnabled = true;
-            this.listBoxNat.ItemHeight = 24;
+            this.listBoxNat.ItemHeight = 22;
             this.listBoxNat.Location = new System.Drawing.Point(6, 3);
             this.listBoxNat.Name = "listBoxNat";
-            this.listBoxNat.Size = new System.Drawing.Size(678, 244);
+            this.listBoxNat.Size = new System.Drawing.Size(678, 224);
             this.listBoxNat.TabIndex = 15;
             this.listBoxNat.DoubleClick += new System.EventHandler(this.listBoxNat_DoubleClick);
             // 
@@ -299,7 +319,7 @@
             // 
             this.buttonNatDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonNatDelete.ForeColor = System.Drawing.Color.DarkRed;
-            this.buttonNatDelete.Location = new System.Drawing.Point(402, 253);
+            this.buttonNatDelete.Location = new System.Drawing.Point(402, 233);
             this.buttonNatDelete.Name = "buttonNatDelete";
             this.buttonNatDelete.Size = new System.Drawing.Size(112, 45);
             this.buttonNatDelete.TabIndex = 14;
@@ -309,7 +329,7 @@
             // 
             // buttonNatRefresh
             // 
-            this.buttonNatRefresh.Location = new System.Drawing.Point(6, 253);
+            this.buttonNatRefresh.Location = new System.Drawing.Point(6, 233);
             this.buttonNatRefresh.Name = "buttonNatRefresh";
             this.buttonNatRefresh.Size = new System.Drawing.Size(134, 45);
             this.buttonNatRefresh.TabIndex = 6;
@@ -464,6 +484,7 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
             this.tabPage5.ResumeLayout(false);
@@ -501,9 +522,10 @@
         private System.Windows.Forms.Button buttonSwitchDelete;
         private System.Windows.Forms.Button buttonSwitchRefresh;
         private System.Windows.Forms.ListBox listBoxSwitch;
-        private System.Windows.Forms.Button buttonVmInfo;
         private System.Windows.Forms.CheckBox checkBoxShowLogs;
         private System.Windows.Forms.CheckBox checkBoxCloseToTray;
+        private System.Windows.Forms.ComboBox comboBoxVm;
+        private System.Windows.Forms.Label label1;
     }
 }
 
