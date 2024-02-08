@@ -35,8 +35,6 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.label2 = new System.Windows.Forms.Label();
-            this.comboBoxVmTools = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.comboBoxVmActions = new System.Windows.Forms.ComboBox();
             this.buttonConnect = new System.Windows.Forms.Button();
@@ -55,10 +53,12 @@
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.checkBoxShowLogs = new System.Windows.Forms.CheckBox();
             this.checkBoxCloseToTray = new System.Windows.Forms.CheckBox();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.label2 = new System.Windows.Forms.Label();
+            this.comboBoxVmTools = new System.Windows.Forms.ComboBox();
             this.textBoxOutput = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage3.SuspendLayout();
@@ -135,46 +135,6 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "VM";
             this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // label2
-            // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label2.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label2.Location = new System.Drawing.Point(394, 417);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(59, 24);
-            this.label2.TabIndex = 19;
-            this.label2.Text = "Tools:";
-            // 
-            // comboBoxVmTools
-            // 
-            this.comboBoxVmTools.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBoxVmTools.BackColor = System.Drawing.SystemColors.Window;
-            this.comboBoxVmTools.Cursor = System.Windows.Forms.Cursors.Default;
-            this.comboBoxVmTools.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxVmTools.Font = new System.Drawing.Font("Microsoft YaHei UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.comboBoxVmTools.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.comboBoxVmTools.FormattingEnabled = true;
-            this.comboBoxVmTools.ItemHeight = 27;
-            this.comboBoxVmTools.Items.AddRange(new object[] {
-            "Hyper-V Manager",
-            "Hyper-V Settings",
-            "Virtual Switch Manager",
-            "Edit Disk",
-            "Optimize VHD...",
-            "Create VM",
-            "------",
-            "Network Connections",
-            "Remote Desktop",
-            "Open ./"});
-            this.comboBoxVmTools.Location = new System.Drawing.Point(459, 412);
-            this.comboBoxVmTools.Name = "comboBoxVmTools";
-            this.comboBoxVmTools.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.comboBoxVmTools.Size = new System.Drawing.Size(249, 35);
-            this.comboBoxVmTools.TabIndex = 18;
-            this.comboBoxVmTools.SelectedIndexChanged += new System.EventHandler(this.comboBoxVmTools_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -401,6 +361,22 @@
             this.checkBoxCloseToTray.UseVisualStyleBackColor = true;
             this.checkBoxCloseToTray.CheckedChanged += new System.EventHandler(this.checkBoxCloseToTray_CheckedChanged);
             // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.richTextBox1.AutoWordSelection = true;
+            this.richTextBox1.BackColor = System.Drawing.SystemColors.Window;
+            this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.richTextBox1.Location = new System.Drawing.Point(6, 6);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.ReadOnly = true;
+            this.richTextBox1.Size = new System.Drawing.Size(680, 315);
+            this.richTextBox1.TabIndex = 0;
+            this.richTextBox1.Text = resources.GetString("richTextBox1.Text");
+            this.richTextBox1.WordWrap = false;
+            this.richTextBox1.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.richTextBox1_LinkClicked);
+            // 
             // imageList1
             // 
             this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
@@ -411,6 +387,47 @@
             this.imageList1.Images.SetKeyName(3, "shell32.dll(176).ico");
             this.imageList1.Images.SetKeyName(4, "shell32.dll(244).ico");
             this.imageList1.Images.SetKeyName(5, "shell32.dll(16782).ico");
+            // 
+            // label2
+            // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label2.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label2.Location = new System.Drawing.Point(394, 417);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(59, 24);
+            this.label2.TabIndex = 19;
+            this.label2.Text = "Tools:";
+            // 
+            // comboBoxVmTools
+            // 
+            this.comboBoxVmTools.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxVmTools.BackColor = System.Drawing.SystemColors.Window;
+            this.comboBoxVmTools.Cursor = System.Windows.Forms.Cursors.Default;
+            this.comboBoxVmTools.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxVmTools.Font = new System.Drawing.Font("Microsoft YaHei UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.comboBoxVmTools.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.comboBoxVmTools.FormattingEnabled = true;
+            this.comboBoxVmTools.ItemHeight = 27;
+            this.comboBoxVmTools.Items.AddRange(new object[] {
+            "Hyper-V Manager",
+            "Hyper-V Settings",
+            "Virtual Switch Manager",
+            "Edit Disk",
+            "Optimize VHD...",
+            "Create VM",
+            "------",
+            "Network Connections",
+            "Remote Desktop",
+            "Open ./",
+            "Exit"});
+            this.comboBoxVmTools.Location = new System.Drawing.Point(459, 412);
+            this.comboBoxVmTools.Name = "comboBoxVmTools";
+            this.comboBoxVmTools.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.comboBoxVmTools.Size = new System.Drawing.Size(249, 35);
+            this.comboBoxVmTools.TabIndex = 18;
+            this.comboBoxVmTools.SelectedIndexChanged += new System.EventHandler(this.comboBoxVmTools_SelectedIndexChanged);
             // 
             // textBoxOutput
             // 
@@ -433,22 +450,6 @@
             // 
             this.toolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.toolTip1.ToolTipTitle = "Tips";
-            // 
-            // richTextBox1
-            // 
-            this.richTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.richTextBox1.AutoWordSelection = true;
-            this.richTextBox1.BackColor = System.Drawing.SystemColors.Window;
-            this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.richTextBox1.Location = new System.Drawing.Point(6, 6);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(680, 315);
-            this.richTextBox1.TabIndex = 0;
-            this.richTextBox1.Text = resources.GetString("richTextBox1.Text");
-            this.richTextBox1.WordWrap = false;
-            this.richTextBox1.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.richTextBox1_LinkClicked);
             // 
             // Form1
             // 

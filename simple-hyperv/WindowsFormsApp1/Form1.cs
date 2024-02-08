@@ -9,7 +9,6 @@ using MyUtilsNamespace;
 using SimpleHyperV;
 using SimpleHyperV.Properties;
 using System.Threading.Tasks;
-using System.Drawing;
 using System.Collections.Generic;
 
 namespace SimpleHyperVForm1
@@ -29,7 +28,7 @@ namespace SimpleHyperVForm1
             progressBar1.Style = ProgressBarStyle.Marquee; // 设置进度条为滚动条样式，表示正在进行中
             progressBar1.Visible = false;
 
-            Task.Run(() =>
+            /*Task.Run(() =>
             {
                 // 定义回调函数
                 SingleInstanceNamedPipeServer.Callback callbackFunction = (string message) =>
@@ -43,7 +42,16 @@ namespace SimpleHyperVForm1
                     }
                 };
                 SingleInstanceNamedPipeServer.StartClient(callbackFunction, "simpleHyperVPipe");
-            });
+            });*/
+
+            // 启动 NamedPipe Server
+            NamedPipeServer server = new NamedPipeServer("simpleHyperVPipe");
+            NamedPipeServer.Callback callback = (string message) =>
+            {
+               NotifyIconRestore(null, EventArgs.Empty);
+            };
+            server.StartServer(callback);
+
 
             // 常用工具下拉框，按选择的顺序执行
             commonToolActions = new List<Action>
@@ -82,8 +90,13 @@ namespace SimpleHyperVForm1
                     string folderPath = Application.StartupPath;
                     Process.Start(folderPath);
                 },
-            
-            
+                // Exit
+                () =>
+                {
+                    NotifyIcon_Exit_Click(null, EventArgs.Empty);
+                },
+
+
             };
 
         }
@@ -171,16 +184,15 @@ namespace SimpleHyperVForm1
         }
         public void NotifyIcon_Exit_Click(object sender, EventArgs e)
         {
-            // Perform any cleanup or save operations before exiting
             Application.Exit();
         }
 
-        
+
 
         private bool isVMLoaded = false;
         private bool isSwitchLoaded = false;
         private bool isNatLoaded = false;
-        
+
         private void tabControl1_Selected(object sender, TabControlEventArgs e)
         {
             //TabPage selectedTab = tabControl1.SelectedTab;
@@ -437,7 +449,7 @@ namespace SimpleHyperVForm1
 
                 MessageBox.Show(@"To ensure compatibility, please manually copy C:\Windows\System32\vmconnect.exe to the same directory as the program, otherwise it may not run properly.
 为了保证兼容性，请手动复制 C:\Windows\System32\vmconnect.exe 到程序同目录，否则可能无法正常运行。", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                
+
 
                 //string commandPath = @"C:\Windows\System32\vmconnect.exe";
                 // 只有这条路径可以正常运行，但为了保证兼容性，请手动复制 vmconnect.exe 到程序同目录
@@ -446,7 +458,7 @@ namespace SimpleHyperVForm1
 
                 /*Console.WriteLine(system32Path);*/
                 // 这些代码不能正常运行，提示：An attempt was made to reference a token that does not exist，测试环境：Win11 22631
-                Process.Start(system32Path+" "+paramsStr);
+                Process.Start(system32Path + " " + paramsStr);
 
                 // 经过测试，即使是vbs脚本，也不能正常运行
                 // 注意：这里有两对双引号，是为了适应vbs脚本
@@ -475,7 +487,7 @@ namespace SimpleHyperVForm1
             else if (selectedIndex == 1)
             {
                 // VM Settings
-                RunHvintegrate("vm "+ vm.Properties["Id"].Value);
+                RunHvintegrate("vm " + vm.Properties["Id"].Value);
             }
             else if (selectedIndex == 2)
             {
@@ -523,7 +535,7 @@ namespace SimpleHyperVForm1
             {
                 if (outputItem != null)
                 {
-                    listBoxNat.Items.Add(outputItem.Properties["Name"].Value+"");
+                    listBoxNat.Items.Add(outputItem.Properties["Name"].Value + "");
                 }
             }
 
@@ -609,7 +621,8 @@ namespace SimpleHyperVForm1
         private async void listBoxSwitch_DoubleClick(object sender, EventArgs e)
         {
             PSObject item = getSelectedSwitch();
-            if (null != item) {
+            if (null != item)
+            {
                 await runUtils.RunPowerShellScriptAsync("Get-VMSwitch -Name \"" + item.Properties["Name"].Value + "\"", true);
             }
         }
@@ -644,7 +657,7 @@ namespace SimpleHyperVForm1
 
                 await runUtils.RunPowerShellScriptAsync("New-VMSwitch -SwitchName \"" + name + "\" -SwitchType Internal");
                 string ifindex = (await runUtils.RunPowerShellScriptAsync("Get-NetAdapter -Name \"vEthernet (" + name + ")\" | Select-Object -ExpandProperty 'ifIndex'"))[0].ToString();
-                await runUtils.RunPowerShellScriptAsync("New-NetIPAddress -IPAddress "+ ipAddress + " -PrefixLength "+ subnet + " -InterfaceIndex "+ ifindex);
+                await runUtils.RunPowerShellScriptAsync("New-NetIPAddress -IPAddress " + ipAddress + " -PrefixLength " + subnet + " -InterfaceIndex " + ifindex);
 
                 buttonSwitchRefresh.PerformClick();
             }

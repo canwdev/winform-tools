@@ -30,6 +30,7 @@ namespace SimpleHyperVForm1
                     Application.EnableVisualStyles();
                     Application.SetCompatibleTextRenderingDefault(false);
                     Application.Run(new Form1());
+
                     mutex.ReleaseMutex();
                 }
                 else
@@ -44,7 +45,9 @@ namespace SimpleHyperVForm1
             {
                 // Another instance is already running
                 // MessageBox.Show("Application already started!", "", MessageBoxButtons.OK);
-                SingleInstanceNamedPipeServer.StartServer("simpleHyperVPipe");
+
+                NamedPipeClient client = new NamedPipeClient("simpleHyperVPipe");
+                client.StartClient();
             }
         }
 

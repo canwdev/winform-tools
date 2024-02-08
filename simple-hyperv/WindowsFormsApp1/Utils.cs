@@ -3,8 +3,8 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Pipes;
-
-// C:\Windows\assembly\GAC_MSIL\System.Management.Automation\1.0.0.0__31bf3856ad364e35
+// .NET 8.0 请安装 NuGet 包：Microsoft.PowerShell.SDK; System.Configuration.ConfigurationManager; System.Management.Automation
+// .NET 4.7.2 不支持，请添加 Reference C:\Windows\assembly\GAC_MSIL\System.Management.Automation\1.0.0.0__31bf3856ad364e35\System.Management.Automation.dll
 using System.Management.Automation;
 using System.Reflection;
 using System.Threading;
@@ -67,7 +67,8 @@ namespace MyUtilsNamespace
                             });
                         }*/
 
-                        _form.Invoke((MethodInvoker)delegate {
+                        _form.Invoke((MethodInvoker)delegate
+                        {
                             AppendLog("PowerShell Error: " + ps.Streams.Error[0].ToString());
                         });
                     };
@@ -296,4 +297,82 @@ objShell.ShellExecute ""{programName}"", ""{paramsText}"", """", ""runas"", 1";
             }
         }
     }
+    public class NamedPipeServer
+    {
+        private string pipeName;
+        private NamedPipeServerStream serverStream;
+        public delegate void Callback(string message);
+
+        public NamedPipeServer(string pipeName)
+        {
+            this.pipeName = pipeName;
+        }
+
+        public void StartServer(Callback callback)
+        {
+            Console.WriteLine("[{0}] Start NamedPipe Server", pipeName);
+
+            serverStream = new NamedPipeServerStream(pipeName, PipeDirection.InOut, -1, PipeTransmissionMode.Message, PipeOptions.Asynchronous);
+            serverStream.BeginWaitForConnection(r => WaitForConnectionCallback(r, callback), null);
+        }
+
+        private void WaitForConnectionCallback(IAsyncResult result, Callback callback)
+        {
+            serverStream.EndWaitForConnection(result);
+            Console.WriteLine("Client connected");
+
+            // Read data from client
+            StreamReader reader = new StreamReader(serverStream);
+            string message = reader.ReadLine();
+            Console.WriteLine("Received message from client: " + message);
+
+            // Disconnect and start waiting for new connection
+            serverStream.Disconnect();
+            Console.WriteLine("Client disconnected");
+            StartServer(callback);
+        }
+    }
+
+
+    public class NamedPipeClient
+    {
+        private string pipeName;
+        private NamedPipeClientStream clientStream;
+
+        public NamedPipeClient(string pipeName)
+        {
+            this.pipeName = pipeName;
+        }
+
+        public void StartClient(string message = "Hello from client")
+        {
+            while (true)
+            {
+                /*try
+                {*/
+                    Console.WriteLine("[{0}] Connecting to NamedPipe server...", pipeName);
+                    clientStream = new NamedPipeClientStream(".", pipeName, PipeDirection.InOut, PipeOptions.Asynchronous);
+                    clientStream.Connect();
+                    Console.WriteLine("Connected to server");
+
+                    Console.WriteLine("Send message to server: " + message);
+                    StreamWriter writer = new StreamWriter(clientStream);
+                    writer.WriteLine(message);
+                    writer.Flush();
+
+                    // Wait for a few seconds before attempting to reconnect
+                    Thread.Sleep(2000);
+                /*}
+                catch (Exception)
+                {
+                    // Handle connection error and attempt to reconnect
+                    Console.WriteLine("Connection error. Attempting to reconnect...");
+                    clientStream.Close();
+                    Thread.Sleep(2000); // Wait before reconnecting
+                }*/
+            }
+        }
+    }
+
+
 }
