@@ -2,6 +2,8 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
+using System.IO.Pipes;
+
 // C:\Windows\assembly\GAC_MSIL\System.Management.Automation\1.0.0.0__31bf3856ad364e35
 using System.Management.Automation;
 using System.Reflection;
@@ -24,14 +26,20 @@ namespace MyUtilsNamespace
         public void AppendLog(string log)
         {
             System.Windows.Forms.TextBox textBoxOutput = _form.textBoxOutput;
-            if (textBoxOutput.Text.Length + log.Length > textBoxOutput.MaxLength)
+
+            //在UI线程中执行
+            textBoxOutput.BeginInvoke(new Action(() =>
             {
-                int excessLength = (textBoxOutput.Text.Length + log.Length) - textBoxOutput.MaxLength;
-                textBoxOutput.Text = textBoxOutput.Text.Remove(0, excessLength);
-            }
-            textBoxOutput.AppendText(log + Environment.NewLine);
+                if (textBoxOutput.Text.Length + log.Length > textBoxOutput.MaxLength)
+                {
+                    int excessLength = (textBoxOutput.Text.Length + log.Length) - textBoxOutput.MaxLength;
+                    textBoxOutput.Text = textBoxOutput.Text.Remove(0, excessLength);
+                }
+                textBoxOutput.AppendText(log + Environment.NewLine);
+            }));
             textBoxOutput.SelectionStart = textBoxOutput.Text.Length;
             textBoxOutput.ScrollToCaret();
+
         }
 
         public async Task<Collection<PSObject>> RunPowerShellScriptAsync(string script, bool isDetailLog = false)
@@ -190,5 +198,75 @@ namespace MyUtilsNamespace
 objShell.ShellExecute ""{programName}"", ""{paramsText}"", """", ""runas"", 1";
         }
 
+    }
+
+    public static class SingleInstanceNamedPipeServer
+    {
+        public static void StartServer(string name = "SingleInstancePipe", string message = "OnSecondInstance")
+        {
+            using (NamedPipeServerStream pipeServer =
+                new NamedPipeServerStream(name, PipeDirection.Out))
+            {
+                Console.WriteLine("[{0}] NamedPipeServerStream object created.", name);
+
+                // Wait for a client to connect
+                Console.Write("Waiting for client connection...");
+                pipeServer.WaitForConnection();
+
+                Console.WriteLine("Client connected.");
+                try
+                {
+                    // Read user input and send that to the client process.
+                    using (StreamWriter sw = new StreamWriter(pipeServer))
+                    {
+                        sw.AutoFlush = true;
+                        Console.Write("Send message: {0}", message);
+                        sw.WriteLine(message);
+                    }
+                }
+                // Catch the IOException that is raised if the pipe is broken
+                // or disconnected.
+                catch (IOException e)
+                {
+                    Console.WriteLine("ERROR: {0}", e.Message);
+                }
+            }
+        }
+        public delegate void Callback(string message);
+        public static void StartPipeClient(Callback callback, string name = "SingleInstancePipe")
+        {
+            while (true)
+            {
+                using (NamedPipeClientStream pipeClient =
+                    new NamedPipeClientStream(".", name, PipeDirection.In))
+                {
+                    try
+                    {
+                        // Connect to the pipe or wait until the pipe is available.
+                        Console.Write("[{0}] Attempting to connect to pipe... ", name);
+                        pipeClient.Connect();
+
+                        Console.WriteLine("Connected to pipe.");
+                        Console.WriteLine("There are currently {0} pipe server instances open.",
+                            pipeClient.NumberOfServerInstances);
+                        using (StreamReader sr = new StreamReader(pipeClient))
+                        {
+                            // Display the read text to the console
+                            string message;
+                            while ((message = sr.ReadLine()) != null)
+                            {
+                                Console.WriteLine("Received from server: {0}", message);
+                                callback(message);
+                            }
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("Error occurred while connecting to pipe: {0}", e.Message);
+                        // 可添加重连延迟
+                    }
+                }
+            }
+        }
     }
 }

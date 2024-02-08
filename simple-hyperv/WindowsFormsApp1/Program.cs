@@ -5,6 +5,7 @@ using System.Threading;
 using System.Linq;
 using System.IO.Pipes;
 using System.IO;
+using MyUtilsNamespace;
 
 namespace WindowsFormsApp1
 {
@@ -42,7 +43,8 @@ namespace WindowsFormsApp1
             else
             {
                 // Another instance is already running
-                MessageBox.Show("Application already started!", "", MessageBoxButtons.OK);
+                // MessageBox.Show("Application already started!", "", MessageBoxButtons.OK);
+                SingleInstanceNamedPipeServer.StartServer("simpleHyperVPipe");
             }
         }
 

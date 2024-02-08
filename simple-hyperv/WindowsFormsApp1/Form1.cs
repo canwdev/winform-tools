@@ -9,6 +9,9 @@ using MyUtilsNamespace;
 using SimpleHyperV;
 using SimpleHyperV.Properties;
 using System.Drawing;
+using System.IO.Pipes;
+using System.Threading.Tasks;
+using static MyUtilsNamespace.SingleInstanceNamedPipeServer;
 
 namespace WindowsFormsApp1
 {
@@ -24,19 +27,23 @@ namespace WindowsFormsApp1
 
             progressBar1.Style = ProgressBarStyle.Marquee; // 设置进度条为滚动条样式，表示正在进行中
             progressBar1.Visible = false;
-        }
 
-        /* 单例模式相关 START */
-        protected override void WndProc(ref Message m)
-        {
-            if (m.Msg == NativeMethods.WM_SHOWME)
+            Task.Run(() =>
             {
-                MessageBox.Show("Application already started!", "", MessageBoxButtons.OK);
-                NotifyIconRestore(this, EventArgs.Empty);
-            }
-            base.WndProc(ref m);
+                // 定义回调函数
+                Callback callbackFunction = (string message) =>
+                {
+                    if (message == "OnSecondInstance")
+                    {
+                        this.Invoke((MethodInvoker)delegate
+                        {
+                            NotifyIconRestore(null, EventArgs.Empty);
+                        });
+                    }
+                };
+                SingleInstanceNamedPipeServer.StartPipeClient(callbackFunction, "simpleHyperVPipe");
+            });
         }
-        /* 单例模式相关 END */
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -63,19 +70,20 @@ namespace WindowsFormsApp1
         }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-
-            // 保存窗口大小和位置
-            Settings.Default.WindowSize = this.Size;
-            Settings.Default.WindowLocation = this.Location;
-            Settings.Default.Save();
-
-
+            if (WindowState == FormWindowState.Normal)
+            {
+                // 保存窗口大小和位置
+                Settings.Default.WindowSize = this.Size;
+                Settings.Default.WindowLocation = this.Location;
+                Settings.Default.Save();
+            }
             if (checkBoxCloseToTray.Checked && e.CloseReason == CloseReason.UserClosing)
             {
                 WindowState = FormWindowState.Minimized;
                 notifyIcon.Visible = true;
                 ShowInTaskbar = false;
                 e.Cancel = true; // Prevent the form from closing
+                return;
             }
         }
 
@@ -116,12 +124,15 @@ namespace WindowsFormsApp1
             WindowState = FormWindowState.Normal;
             notifyIcon.Visible = false;
             ShowInTaskbar = true;
+            BringToFront();
         }
         public void NotifyIcon_Exit_Click(object sender, EventArgs e)
         {
             // Perform any cleanup or save operations before exiting
             Application.Exit();
         }
+
+        
 
         private bool isVMLoaded = false;
         private bool isSwitchLoaded = false;
@@ -413,7 +424,7 @@ namespace WindowsFormsApp1
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                openFileDialog.Filter = "VHDX Files|*.vhdx|VHD Files|*.vhd";
+                openFileDialog.Filter = "VHDX Files|*.vhdx;*.vhd";
                 openFileDialog.Multiselect = false;
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
