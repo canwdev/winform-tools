@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsApp1
+﻿namespace SimpleHyperVForm1
 {
     partial class Form1
     {
@@ -30,14 +30,15 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.btnCurDir = new System.Windows.Forms.Button();
             this.buttonVmRefresh = new System.Windows.Forms.Button();
             this.listBoxVM = new System.Windows.Forms.ListBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label2 = new System.Windows.Forms.Label();
+            this.comboBoxVmTools = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.comboBoxVm = new System.Windows.Forms.ComboBox();
+            this.comboBoxVmActions = new System.Windows.Forms.ComboBox();
             this.buttonConnect = new System.Windows.Forms.Button();
             this.buttonStop = new System.Windows.Forms.Button();
             this.buttonStart = new System.Windows.Forms.Button();
@@ -54,32 +55,16 @@
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.checkBoxShowLogs = new System.Windows.Forms.CheckBox();
             this.checkBoxCloseToTray = new System.Windows.Forms.CheckBox();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.buttonMstsc = new System.Windows.Forms.Button();
-            this.buttonMmcHyperV = new System.Windows.Forms.Button();
             this.textBoxOutput = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.buttonNetwork = new System.Windows.Forms.Button();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.tabPage5.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // btnCurDir
-            // 
-            this.btnCurDir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCurDir.Location = new System.Drawing.Point(667, 414);
-            this.btnCurDir.Margin = new System.Windows.Forms.Padding(5);
-            this.btnCurDir.Name = "btnCurDir";
-            this.btnCurDir.Size = new System.Drawing.Size(41, 48);
-            this.btnCurDir.TabIndex = 3;
-            this.btnCurDir.Text = "&.";
-            this.toolTip1.SetToolTip(this.btnCurDir, "打开当前程序所在目录");
-            this.btnCurDir.UseVisualStyleBackColor = true;
-            this.btnCurDir.Click += new System.EventHandler(this.btnCurDir_Click);
             // 
             // buttonVmRefresh
             // 
@@ -95,21 +80,23 @@
             // 
             this.listBoxVM.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.listBoxVM.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listBoxVM.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listBoxVM.FormattingEnabled = true;
-            this.listBoxVM.ItemHeight = 22;
+            this.listBoxVM.ItemHeight = 23;
             this.listBoxVM.Location = new System.Drawing.Point(6, 3);
             this.listBoxVM.Name = "listBoxVM";
-            this.listBoxVM.Size = new System.Drawing.Size(678, 224);
+            this.listBoxVM.Size = new System.Drawing.Size(678, 211);
             this.listBoxVM.TabIndex = 6;
             this.listBoxVM.SelectedIndexChanged += new System.EventHandler(this.listBoxVM_SelectedIndexChanged);
             this.listBoxVM.DoubleClick += new System.EventHandler(this.listBoxVM_DoubleClick);
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(16, 432);
+            this.progressBar1.Location = new System.Drawing.Point(16, 425);
+            this.progressBar1.MarqueeAnimationSpeed = 50;
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(102, 16);
+            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
             this.progressBar1.TabIndex = 7;
             this.progressBar1.UseWaitCursor = true;
             // 
@@ -134,7 +121,7 @@
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.label1);
-            this.tabPage1.Controls.Add(this.comboBoxVm);
+            this.tabPage1.Controls.Add(this.comboBoxVmActions);
             this.tabPage1.Controls.Add(this.buttonConnect);
             this.tabPage1.Controls.Add(this.buttonStop);
             this.tabPage1.Controls.Add(this.buttonStart);
@@ -149,32 +136,73 @@
             this.tabPage1.Text = "VM";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // label2
+            // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label2.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label2.Location = new System.Drawing.Point(394, 417);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(59, 24);
+            this.label2.TabIndex = 19;
+            this.label2.Text = "Tools:";
+            // 
+            // comboBoxVmTools
+            // 
+            this.comboBoxVmTools.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxVmTools.BackColor = System.Drawing.SystemColors.Window;
+            this.comboBoxVmTools.Cursor = System.Windows.Forms.Cursors.Default;
+            this.comboBoxVmTools.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxVmTools.Font = new System.Drawing.Font("Microsoft YaHei UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.comboBoxVmTools.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.comboBoxVmTools.FormattingEnabled = true;
+            this.comboBoxVmTools.ItemHeight = 27;
+            this.comboBoxVmTools.Items.AddRange(new object[] {
+            "Hyper-V Manager",
+            "Hyper-V Settings",
+            "Virtual Switch Manager",
+            "Edit Disk",
+            "Optimize VHD...",
+            "Create VM",
+            "------",
+            "Network Connections",
+            "Remote Desktop",
+            "Open ./"});
+            this.comboBoxVmTools.Location = new System.Drawing.Point(459, 412);
+            this.comboBoxVmTools.Name = "comboBoxVmTools";
+            this.comboBoxVmTools.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.comboBoxVmTools.Size = new System.Drawing.Size(249, 35);
+            this.comboBoxVmTools.TabIndex = 18;
+            this.comboBoxVmTools.SelectedIndexChanged += new System.EventHandler(this.comboBoxVmTools_SelectedIndexChanged);
+            // 
             // label1
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft YaHei UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.Location = new System.Drawing.Point(312, 287);
+            this.label1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.Location = new System.Drawing.Point(300, 289);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(116, 21);
+            this.label1.Size = new System.Drawing.Size(129, 24);
             this.label1.TabIndex = 17;
             this.label1.Text = "More Actions:";
             // 
-            // comboBoxVm
+            // comboBoxVmActions
             // 
-            this.comboBoxVm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBoxVm.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxVm.Font = new System.Drawing.Font("Microsoft YaHei UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.comboBoxVm.FormattingEnabled = true;
-            this.comboBoxVm.Items.AddRange(new object[] {
-            "VM Info",
-            "Expose Virtualization Extensions",
-            "Optimize VHD..."});
-            this.comboBoxVm.Location = new System.Drawing.Point(435, 284);
-            this.comboBoxVm.Name = "comboBoxVm";
-            this.comboBoxVm.Size = new System.Drawing.Size(249, 29);
-            this.comboBoxVm.TabIndex = 16;
-            this.comboBoxVm.SelectedIndexChanged += new System.EventHandler(this.comboBoxVm_SelectedIndexChanged);
+            this.comboBoxVmActions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxVmActions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxVmActions.Font = new System.Drawing.Font("Microsoft YaHei UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.comboBoxVmActions.FormattingEnabled = true;
+            this.comboBoxVmActions.Items.AddRange(new object[] {
+            "Print VM Info",
+            "VM Settings",
+            "Enable Nested VM",
+            "Delete VM..."});
+            this.comboBoxVmActions.Location = new System.Drawing.Point(435, 284);
+            this.comboBoxVmActions.Name = "comboBoxVmActions";
+            this.comboBoxVmActions.Size = new System.Drawing.Size(249, 35);
+            this.comboBoxVmActions.TabIndex = 16;
+            this.comboBoxVmActions.SelectedIndexChanged += new System.EventHandler(this.comboBoxVmActions_SelectedIndexChanged);
             // 
             // buttonConnect
             // 
@@ -266,12 +294,12 @@
             // 
             this.listBoxSwitch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.listBoxSwitch.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listBoxSwitch.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listBoxSwitch.FormattingEnabled = true;
-            this.listBoxSwitch.ItemHeight = 22;
+            this.listBoxSwitch.ItemHeight = 23;
             this.listBoxSwitch.Location = new System.Drawing.Point(6, 3);
             this.listBoxSwitch.Name = "listBoxSwitch";
-            this.listBoxSwitch.Size = new System.Drawing.Size(678, 224);
+            this.listBoxSwitch.Size = new System.Drawing.Size(678, 211);
             this.listBoxSwitch.TabIndex = 16;
             this.listBoxSwitch.SelectedIndexChanged += new System.EventHandler(this.listBoxSwitch_SelectedIndexChanged);
             this.listBoxSwitch.DoubleClick += new System.EventHandler(this.listBoxSwitch_DoubleClick);
@@ -306,12 +334,12 @@
             // 
             this.listBoxNat.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.listBoxNat.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listBoxNat.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listBoxNat.FormattingEnabled = true;
-            this.listBoxNat.ItemHeight = 22;
+            this.listBoxNat.ItemHeight = 23;
             this.listBoxNat.Location = new System.Drawing.Point(6, 3);
             this.listBoxNat.Name = "listBoxNat";
-            this.listBoxNat.Size = new System.Drawing.Size(678, 224);
+            this.listBoxNat.Size = new System.Drawing.Size(678, 211);
             this.listBoxNat.TabIndex = 15;
             this.listBoxNat.DoubleClick += new System.EventHandler(this.listBoxNat_DoubleClick);
             // 
@@ -373,6 +401,39 @@
             this.checkBoxCloseToTray.UseVisualStyleBackColor = true;
             this.checkBoxCloseToTray.CheckedChanged += new System.EventHandler(this.checkBoxCloseToTray_CheckedChanged);
             // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "icon.ico");
+            this.imageList1.Images.SetKeyName(1, "icon-hyperv.ico");
+            this.imageList1.Images.SetKeyName(2, "shell32.dll(19).ico");
+            this.imageList1.Images.SetKeyName(3, "shell32.dll(176).ico");
+            this.imageList1.Images.SetKeyName(4, "shell32.dll(244).ico");
+            this.imageList1.Images.SetKeyName(5, "shell32.dll(16782).ico");
+            // 
+            // textBoxOutput
+            // 
+            this.textBoxOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxOutput.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxOutput.Location = new System.Drawing.Point(16, 453);
+            this.textBoxOutput.MinimumSize = new System.Drawing.Size(500, 100);
+            this.textBoxOutput.Multiline = true;
+            this.textBoxOutput.Name = "textBoxOutput";
+            this.textBoxOutput.ReadOnly = true;
+            this.textBoxOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.textBoxOutput.Size = new System.Drawing.Size(692, 274);
+            this.textBoxOutput.TabIndex = 10;
+            this.textBoxOutput.Visible = false;
+            this.textBoxOutput.WordWrap = false;
+            // 
+            // toolTip1
+            // 
+            this.toolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.toolTip1.ToolTipTitle = "Tips";
+            // 
             // richTextBox1
             // 
             this.richTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -389,90 +450,15 @@
             this.richTextBox1.WordWrap = false;
             this.richTextBox1.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.richTextBox1_LinkClicked);
             // 
-            // imageList1
-            // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "icon.ico");
-            this.imageList1.Images.SetKeyName(1, "icon-hyperv.ico");
-            this.imageList1.Images.SetKeyName(2, "shell32.dll(19).ico");
-            this.imageList1.Images.SetKeyName(3, "shell32.dll(176).ico");
-            this.imageList1.Images.SetKeyName(4, "shell32.dll(244).ico");
-            this.imageList1.Images.SetKeyName(5, "shell32.dll(16782).ico");
-            // 
-            // buttonMstsc
-            // 
-            this.buttonMstsc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonMstsc.Location = new System.Drawing.Point(404, 414);
-            this.buttonMstsc.Margin = new System.Windows.Forms.Padding(5);
-            this.buttonMstsc.Name = "buttonMstsc";
-            this.buttonMstsc.Size = new System.Drawing.Size(85, 48);
-            this.buttonMstsc.TabIndex = 14;
-            this.buttonMstsc.Text = "&mstsc";
-            this.toolTip1.SetToolTip(this.buttonMstsc, "远程桌面连接");
-            this.buttonMstsc.UseVisualStyleBackColor = true;
-            this.buttonMstsc.Click += new System.EventHandler(this.buttonMstsc_Click);
-            // 
-            // buttonMmcHyperV
-            // 
-            this.buttonMmcHyperV.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonMmcHyperV.Location = new System.Drawing.Point(499, 414);
-            this.buttonMmcHyperV.Margin = new System.Windows.Forms.Padding(5);
-            this.buttonMmcHyperV.MinimumSize = new System.Drawing.Size(100, 30);
-            this.buttonMmcHyperV.Name = "buttonMmcHyperV";
-            this.buttonMmcHyperV.Size = new System.Drawing.Size(158, 48);
-            this.buttonMmcHyperV.TabIndex = 13;
-            this.buttonMmcHyperV.Text = "&virtmgmt.msc";
-            this.toolTip1.SetToolTip(this.buttonMmcHyperV, "Hyper-V 管理器");
-            this.buttonMmcHyperV.UseVisualStyleBackColor = true;
-            this.buttonMmcHyperV.Click += new System.EventHandler(this.buttonMmcHyperV_Click);
-            // 
-            // textBoxOutput
-            // 
-            this.textBoxOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxOutput.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxOutput.Location = new System.Drawing.Point(16, 470);
-            this.textBoxOutput.MinimumSize = new System.Drawing.Size(500, 100);
-            this.textBoxOutput.Multiline = true;
-            this.textBoxOutput.Name = "textBoxOutput";
-            this.textBoxOutput.ReadOnly = true;
-            this.textBoxOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxOutput.Size = new System.Drawing.Size(692, 257);
-            this.textBoxOutput.TabIndex = 10;
-            this.textBoxOutput.Visible = false;
-            this.textBoxOutput.WordWrap = false;
-            // 
-            // toolTip1
-            // 
-            this.toolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
-            this.toolTip1.ToolTipTitle = "Tips";
-            // 
-            // buttonNetwork
-            // 
-            this.buttonNetwork.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonNetwork.Location = new System.Drawing.Point(275, 414);
-            this.buttonNetwork.Margin = new System.Windows.Forms.Padding(5);
-            this.buttonNetwork.Name = "buttonNetwork";
-            this.buttonNetwork.Size = new System.Drawing.Size(119, 48);
-            this.buttonNetwork.TabIndex = 17;
-            this.buttonNetwork.Text = "&Network";
-            this.toolTip1.SetToolTip(this.buttonNetwork, "打开网络和共享中心");
-            this.buttonNetwork.UseVisualStyleBackColor = true;
-            this.buttonNetwork.Click += new System.EventHandler(this.buttonNetwork_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(724, 744);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.progressBar1);
-            this.Controls.Add(this.buttonNetwork);
-            this.Controls.Add(this.buttonMmcHyperV);
-            this.Controls.Add(this.btnCurDir);
-            this.Controls.Add(this.buttonMstsc);
+            this.Controls.Add(this.comboBoxVmTools);
             this.Controls.Add(this.textBoxOutput);
             this.Controls.Add(this.tabControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -495,7 +481,6 @@
         }
 
         #endregion
-        private System.Windows.Forms.Button btnCurDir;
         private System.Windows.Forms.Button buttonVmRefresh;
         private System.Windows.Forms.ListBox listBoxVM;
         public System.Windows.Forms.ProgressBar progressBar1;
@@ -507,25 +492,24 @@
         private System.Windows.Forms.Button buttonStop;
         private System.Windows.Forms.Button buttonStart;
         public System.Windows.Forms.TextBox textBoxOutput;
-        private System.Windows.Forms.Button buttonMmcHyperV;
-        private System.Windows.Forms.Button buttonMstsc;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.TabPage tabPage5;
-        private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.Button buttonNatDelete;
         private System.Windows.Forms.Button buttonNatRefresh;
         private System.Windows.Forms.ListBox listBoxNat;
         private System.Windows.Forms.Button buttonNatCreate;
         private System.Windows.Forms.ImageList imageList1;
-        private System.Windows.Forms.Button buttonNetwork;
         private System.Windows.Forms.Button buttonSwitchCreate;
         private System.Windows.Forms.Button buttonSwitchDelete;
         private System.Windows.Forms.Button buttonSwitchRefresh;
         private System.Windows.Forms.ListBox listBoxSwitch;
         private System.Windows.Forms.CheckBox checkBoxShowLogs;
         private System.Windows.Forms.CheckBox checkBoxCloseToTray;
-        private System.Windows.Forms.ComboBox comboBoxVm;
+        private System.Windows.Forms.ComboBox comboBoxVmActions;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox comboBoxVmTools;
+        private System.Windows.Forms.RichTextBox richTextBox1;
     }
 }
 

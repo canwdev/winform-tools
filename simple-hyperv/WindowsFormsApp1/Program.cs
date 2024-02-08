@@ -7,7 +7,7 @@ using System.IO.Pipes;
 using System.IO;
 using MyUtilsNamespace;
 
-namespace WindowsFormsApp1
+namespace SimpleHyperVForm1
 {
     internal static class Program
     {

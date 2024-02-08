@@ -8,16 +8,17 @@ using System.IO;
 using MyUtilsNamespace;
 using SimpleHyperV;
 using SimpleHyperV.Properties;
-using System.Drawing;
-using System.IO.Pipes;
 using System.Threading.Tasks;
-using static MyUtilsNamespace.SingleInstanceNamedPipeServer;
+using System.Drawing;
+using System.Collections.Generic;
 
-namespace WindowsFormsApp1
+namespace SimpleHyperVForm1
 {
     public partial class Form1 : Form
     {
         private RunUtils runUtils;
+        private List<Action> commonToolActions;
+
         public Form1()
         {
             InitializeComponent();
@@ -31,7 +32,7 @@ namespace WindowsFormsApp1
             Task.Run(() =>
             {
                 // 定义回调函数
-                Callback callbackFunction = (string message) =>
+                SingleInstanceNamedPipeServer.Callback callbackFunction = (string message) =>
                 {
                     if (message == "OnSecondInstance")
                     {
@@ -41,8 +42,50 @@ namespace WindowsFormsApp1
                         });
                     }
                 };
-                SingleInstanceNamedPipeServer.StartPipeClient(callbackFunction, "simpleHyperVPipe");
+                SingleInstanceNamedPipeServer.StartClient(callbackFunction, "simpleHyperVPipe");
             });
+
+            // 常用工具下拉框，按选择的顺序执行
+            commonToolActions = new List<Action>
+            {
+                // Hyper-V Manager (virtmgmt.msc)
+                () =>
+                {
+                    // Hyper-V Manager (virtmgmt.msc)
+                    /*Process procAD = new Process();
+                    procAD.StartInfo.FileName = "C:\\Windows\\System32\\mmc.exe";
+                    procAD.StartInfo.Arguments = "C:\\Windows\\System32\\virtmgmt.msc";
+                    procAD.Start();*/
+                    // 以上方式不能启动，可能是权限问题，因此必须使用外部bat脚本启动
+                    MyUtils.WriteToFile("start-virtmgmt.vbs", MyUtils.GenerateVbsScript("mmc.exe", "virtmgmt.msc"));
+                    MyUtils.StartCurDirProgram("start-virtmgmt.vbs");
+                },
+                // Hyper-V Settings
+                () => RunHvintegrate("hv"),
+                // Virtual Switch Manager
+                () => RunHvintegrate("vs"),
+                // Edit Disk
+                () => RunHvintegrate("ed"),
+                // Optimize VHD...
+                () => HandleOptimizeVHD(),
+                // Create VM
+                () => RunHvintegrate("av"),
+                // ------
+                () => { },
+                // Network Connections
+                () => runUtils.RunCmdCommand("control.exe netconnections"),
+                // Remote Desktop
+                () => Process.Start("mstsc"),
+                // Open Program Dir(./)
+                () =>
+                {
+                    string folderPath = Application.StartupPath;
+                    Process.Start(folderPath);
+                },
+            
+            
+            };
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -124,7 +167,7 @@ namespace WindowsFormsApp1
             WindowState = FormWindowState.Normal;
             notifyIcon.Visible = false;
             ShowInTaskbar = true;
-            BringToFront();
+            Activate();
         }
         public void NotifyIcon_Exit_Click(object sender, EventArgs e)
         {
@@ -160,49 +203,6 @@ namespace WindowsFormsApp1
             }
         }
 
-
-        private void buttonMmcHyperV_Click(object sender, EventArgs e)
-        {
-            /*Process procAD = new Process();
-            procAD.StartInfo.FileName = "C:\\Windows\\System32\\mmc.exe";
-            procAD.StartInfo.Arguments = "C:\\Windows\\System32\\virtmgmt.msc";
-            procAD.Start();*/
-            // 以上方式不能启动，可能是权限问题，因此必须使用外部bat脚本启动
-
-            /*MyUtils.WriteToFile("start-virtmgmt.bat", "mmc.exe virtmgmt.msc");
-            MyUtils.StartCurDirProgram("start-virtmgmt.bat");*/
-
-            MyUtils.WriteToFile("start-virtmgmt.vbs", MyUtils.GenerateVbsScript("mmc.exe", "virtmgmt.msc"));
-            MyUtils.StartCurDirProgram("start-virtmgmt.vbs");
-        }
-
-        private void buttonMstsc_Click(object sender, EventArgs e)
-        {
-            Process.Start("mstsc");
-        }
-        /*private void buttonLogs_Click(object sender, EventArgs e)
-        {
-            textBoxOutput.Visible = !textBoxOutput.Visible;
-
-            if (textBoxOutput.Visible)
-            {
-                this.Height = this.Height + textBoxOutput.Height;
-            }
-            else
-            {
-                this.Height = this.Height - textBoxOutput.Height;
-            }
-        }*/
-        private void btnCurDir_Click(object sender, EventArgs e)
-        {
-            string folderPath = Application.StartupPath;
-            Process.Start(folderPath);
-        }
-        private void buttonNetwork_Click(object sender, EventArgs e)
-        {
-            runUtils.RunCmdCommand("control.exe netconnections");
-        }
-
         private void checkBoxShowLogs_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.ShowLogs = checkBoxShowLogs.Checked;
@@ -227,6 +227,42 @@ namespace WindowsFormsApp1
         {
             // Call Process.Start method to open a browser, with link text as URL
             System.Diagnostics.Process.Start(e.LinkText); // call default browser
+        }
+
+        private async void HandleOptimizeVHD()
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Filter = "VHDX Files|*.vhdx;*.vhd";
+                openFileDialog.Multiselect = false;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string selectedFilePath = openFileDialog.FileName;
+                    if (!string.IsNullOrEmpty(selectedFilePath))
+                    {
+                        await runUtils.RunPowerShellScriptAsync("Optimize-VHD -Path \"" + selectedFilePath + "\" -Mode Full", true);
+                    }
+                }
+            }
+        }
+
+        // 运行辅助工具，启动相关功能
+        private void RunHvintegrate(string args)
+        {
+            string HVIntegrateFileName = MyUtils.ExtractResourceIfNotExist("hvintegrate.exe");
+            MyUtils.StartCurDirProgram(HVIntegrateFileName, args);
+        }
+
+        private void comboBoxVmTools_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            int selectedIndex = comboBoxVmTools.SelectedIndex;
+            if (selectedIndex >= 0 && selectedIndex < commonToolActions.Count)
+            {
+                commonToolActions[selectedIndex]();
+            }
+            comboBoxVmTools.SelectedIndex = -1;
         }
 
         /* ============================================================ */
@@ -313,6 +349,7 @@ namespace WindowsFormsApp1
             buttonStart.Enabled = isEnabled;
             buttonStop.Enabled = isEnabled;
             buttonConnect.Enabled = isEnabled;
+            comboBoxVmActions.Enabled = isEnabled;
         }
         private void AutoSetVmButtonsEnabled()
         {
@@ -420,51 +457,45 @@ namespace WindowsFormsApp1
             }
         }
 
-        private async void HandleOptimizeVHD()
-        {
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
-            {
-                openFileDialog.Filter = "VHDX Files|*.vhdx;*.vhd";
-                openFileDialog.Multiselect = false;
-
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    string selectedFilePath = openFileDialog.FileName;
-                    if (!string.IsNullOrEmpty(selectedFilePath))
-                    {
-                        await runUtils.RunPowerShellScriptAsync("Optimize-VHD -Path \""+ selectedFilePath + "\" -Mode Full", true);
-                    }
-                }
-            }
-        }
-
-        private async void comboBoxVm_SelectedIndexChanged(object sender, EventArgs e)
+        private async void comboBoxVmActions_SelectedIndexChanged(object sender, EventArgs e)
         {
             PSObject vm = getSelectedVM();
+            if (null == vm)
+            {
+                comboBoxVmActions.SelectedIndex = -1;
+                return;
+            }
 
-            int selectedIndex = comboBoxVm.SelectedIndex;
+            int selectedIndex = comboBoxVmActions.SelectedIndex;
             if (selectedIndex == 0)
             {
-                if (null != vm)
-                {
-
-                    // 打印详细信息
-                    await runUtils.RunPowerShellScriptAsync("Get-VM -Name \"" + vm.Properties["Name"].Value + "\"", true);
-                }
+                // 打印详细信息
+                await runUtils.RunPowerShellScriptAsync("Get-VM -Name \"" + vm.Properties["Name"].Value + "\"", true);
             }
             else if (selectedIndex == 1)
             {
-                if (null != vm)
-                {
-                    await runUtils.RunPowerShellScriptAsync("Set-VMProcessor -VMName \"" + vm.Properties["Name"].Value + "\" -ExposeVirtualizationExtensions $true", true);
-                }
+                // VM Settings
+                RunHvintegrate("vm "+ vm.Properties["Id"].Value);
             }
             else if (selectedIndex == 2)
             {
-                HandleOptimizeVHD();
+                // Enable Nested VM
+                await runUtils.RunPowerShellScriptAsync("Set-VMProcessor -VMName \"" + vm.Properties["Name"].Value + "\" -ExposeVirtualizationExtensions $true", true);
+            }
+            else if (selectedIndex == 3)
+            {
+                // Delete VM
+
+                DialogResult result = MessageBox.Show(this, $"Are you sure you want to delete {vm.Properties["Name"].Value}?" +
+                "This can not be undone.", $"Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                if (result == DialogResult.OK)
+                {
+                    await runUtils.RunPowerShellScriptAsync("Remove-VM -VMName \"" + vm.Properties["Name"].Value + "\" -Force");
+                    buttonVmRefresh.PerformClick();
+                }
             }
 
-            comboBoxVm.SelectedIndex = -1;
+            comboBoxVmActions.SelectedIndex = -1;
         }
 
         /* VM END */
@@ -512,7 +543,7 @@ namespace WindowsFormsApp1
             PSObject item = getSelectedNat();
             if (null != item)
             {
-                DialogResult result = MessageBox.Show(this, "Delete selected NAT?", "Confirm", MessageBoxButtons.OKCancel);
+                DialogResult result = MessageBox.Show(this, "Delete selected NAT?", "Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if (result == DialogResult.OK)
                 {
                     string script = "Remove-NetNat -Name \"" + item.Properties["Name"].Value + "\" -Confirm:$false";
@@ -588,7 +619,7 @@ namespace WindowsFormsApp1
             PSObject item = getSelectedSwitch();
             if (null != item)
             {
-                DialogResult result = MessageBox.Show(this, "Delete selected Switch?", "Confirm", MessageBoxButtons.OKCancel);
+                DialogResult result = MessageBox.Show(this, "Delete selected Switch?", "Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if (result == DialogResult.OK)
                 {
                     string script = "Remove-VMSwitch -Name \"" + item.Properties["Name"].Value + "\" -Force";

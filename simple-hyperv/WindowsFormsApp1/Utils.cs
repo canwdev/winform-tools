@@ -7,9 +7,10 @@ using System.IO.Pipes;
 // C:\Windows\assembly\GAC_MSIL\System.Management.Automation\1.0.0.0__31bf3856ad364e35
 using System.Management.Automation;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using WindowsFormsApp1;
+using SimpleHyperVForm1;
 
 namespace MyUtilsNamespace
 {
@@ -46,30 +47,34 @@ namespace MyUtilsNamespace
         {
             try
             {
-                using (PowerShell PowerShellInstance = PowerShell.Create())
+                using (PowerShell ps = PowerShell.Create())
                 {
                     _form.UseWaitCursor = true;
                     _form.progressBar1.Visible = true;
                     AppendLog(">>> " + script);
 
-
-                    PowerShellInstance.AddScript(script);
+                    ps.AddScript(script);
 
 
                     // 捕获Powershell的错误信息
-                    PowerShellInstance.Streams.Error.DataAdded += (sender, eventArgs) =>
+                    ps.Streams.Error.DataAdded += (sender, eventArgs) =>
                     {
-                        foreach (var errorRecord in PowerShellInstance.Streams.Error)
+                        // 以下方式可能导致powershell无法退出，故不使用。
+                        /*foreach (var errorRecord in ps.Streams.Error)
                         {
                             _form.Invoke((MethodInvoker)delegate {
                                 AppendLog("PowerShell Error: " + errorRecord.ToString());
                             });
-                        }
+                        }*/
+
+                        _form.Invoke((MethodInvoker)delegate {
+                            AppendLog("PowerShell Error: " + ps.Streams.Error[0].ToString());
+                        });
                     };
 
                     Collection<PSObject> PSOutput = await Task.Run(() =>
                     {
-                        return PowerShellInstance.Invoke();
+                        return ps.Invoke();
                     });
 
                     foreach (var result in PSOutput)
@@ -84,11 +89,6 @@ namespace MyUtilsNamespace
                                 {
                                     AppendLog(prop.Name + ": " + prop.GetValue(result.BaseObject));
                                 }
-
-                                foreach (FieldInfo field in result.BaseObject.GetType().GetFields())
-                                {
-                                    AppendLog(field.Name + ": " + field.GetValue(result.BaseObject));
-                                }
                                 AppendLog("===========================");
                             }
                             else
@@ -98,21 +98,20 @@ namespace MyUtilsNamespace
                         }
                     }
 
-
-                    // 执行完成后隐藏进度条
-                    _form.progressBar1.Visible = false;
-                    _form.UseWaitCursor = false;
-
                     return PSOutput;
                 }
             }
             catch (Exception ex)
             {
                 // 捕获错误并记录日志或者进行其他处理
-                AppendLog("Error occurred: " + ex.Message);
+                AppendLog("catch error: " + ex.Message);
+                return null;
+            }
+            finally
+            {
+                // 执行完成后隐藏进度条
                 _form.progressBar1.Visible = false;
                 _form.UseWaitCursor = false;
-                return null;
             }
         }
 
@@ -198,6 +197,34 @@ namespace MyUtilsNamespace
 objShell.ShellExecute ""{programName}"", ""{paramsText}"", """", ""runas"", 1";
         }
 
+        public static string ExtractResourceIfNotExist(string filename)
+        {
+            // 获取要提取的资源文件路径
+            // 必须和项目中的命名空间一致！
+            string localNameSpace = Assembly.GetEntryAssembly().GetName().Name;
+            string resFilePath = localNameSpace + ".Resources." + filename;
+            Console.WriteLine(resFilePath);
+
+            // 获取提取后dll文件的目标路径
+            string targetFilePath = Path.Combine(Application.StartupPath, filename);
+
+            if (!File.Exists(targetFilePath))
+            {
+                Console.WriteLine(targetFilePath);
+
+                // 从资源文件中读取dll文件并复制
+                using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resFilePath))
+                {
+                    using (FileStream fileStream = new FileStream(targetFilePath, FileMode.Create))
+                    {
+                        stream.CopyTo(fileStream);
+                    }
+                }
+            }
+
+            return targetFilePath;
+        }
+
     }
 
     public static class SingleInstanceNamedPipeServer
@@ -233,7 +260,7 @@ objShell.ShellExecute ""{programName}"", ""{paramsText}"", """", ""runas"", 1";
             }
         }
         public delegate void Callback(string message);
-        public static void StartPipeClient(Callback callback, string name = "SingleInstancePipe")
+        public static void StartClient(Callback callback, string name = "SingleInstancePipe")
         {
             while (true)
             {
