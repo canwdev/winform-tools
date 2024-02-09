@@ -44,10 +44,10 @@ namespace SimpleHyperVForm1
             else
             {
                 // Another instance is already running
-                // MessageBox.Show("Application already started!", "", MessageBoxButtons.OK);
+                MessageBox.Show("Application already started!", "", MessageBoxButtons.OK);
 
-                NamedPipeClient client = new NamedPipeClient("simpleHyperVPipe");
-                client.StartClient();
+                /*amedPipeClient client = new NamedPipeClient("simpleHyperVPipe");
+                client.StartClient();*/
             }
         }
 

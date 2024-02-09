@@ -45,12 +45,12 @@ namespace SimpleHyperVForm1
             });*/
 
             // 启动 NamedPipe Server
-            NamedPipeServer server = new NamedPipeServer("simpleHyperVPipe");
+            /*NamedPipeServer server = new NamedPipeServer("simpleHyperVPipe");
             NamedPipeServer.Callback callback = (string message) =>
             {
                NotifyIconRestore(null, EventArgs.Empty);
             };
-            server.StartServer(callback);
+            server.StartServer(callback);*/
 
 
             // 常用工具下拉框，按选择的顺序执行

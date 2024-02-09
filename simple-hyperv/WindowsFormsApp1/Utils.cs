@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.IO.Pipes;
 // .NET 8.0 请安装 NuGet 包：Microsoft.PowerShell.SDK; System.Configuration.ConfigurationManager; System.Management.Automation
-// .NET 4.7.2 不支持，请添加 Reference C:\Windows\assembly\GAC_MSIL\System.Management.Automation\1.0.0.0__31bf3856ad364e35\System.Management.Automation.dll
+// .NET Framework 4.7.2 不支持，请添加 Reference C:\Windows\assembly\GAC_MSIL\System.Management.Automation\1.0.0.0__31bf3856ad364e35\System.Management.Automation.dll
 using System.Management.Automation;
 using System.Reflection;
 using System.Threading;
