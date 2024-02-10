@@ -17,9 +17,11 @@ namespace SimpleHyperVForm1
     public partial class Form1 : Form
     {
         private RunUtils runUtils;
+        private string[] args;
 
-        public Form1()
+        public Form1(string[] _args)
         {
+            args = _args;
             InitializeComponent();
 
             // 实例化 ToolClass 并传递 Form 实例到构造函数
@@ -69,7 +71,26 @@ namespace SimpleHyperVForm1
             // 通知区域图标
             SetupNotifyIcon();
 
+            // 启动参数 静默启动
+            if (args.Length > 0 && args[0] == "-m")
+            {
+                if (closeToTrayToolStripMenuItem.Checked)
+                {
+                    CloseToTray();
+                } else
+                {
+                    WindowState = FormWindowState.Minimized;
+                }
+            }
         }
+
+        public void CloseToTray()
+        {
+            WindowState = FormWindowState.Minimized;
+            notifyIcon.Visible = true;
+            ShowInTaskbar = false;
+        }
+
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (WindowState == FormWindowState.Normal)
@@ -81,9 +102,7 @@ namespace SimpleHyperVForm1
             }
             if (closeToTrayToolStripMenuItem.Checked && e.CloseReason == CloseReason.UserClosing)
             {
-                WindowState = FormWindowState.Minimized;
-                notifyIcon.Visible = true;
-                ShowInTaskbar = false;
+                CloseToTray();
                 e.Cancel = true; // Prevent the form from closing
                 return;
             }

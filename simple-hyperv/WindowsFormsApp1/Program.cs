@@ -19,7 +19,7 @@ namespace SimpleHyperVForm1
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
 
             if (mutex.WaitOne(TimeSpan.Zero, true))
@@ -28,10 +28,13 @@ namespace SimpleHyperVForm1
                 // 检查当前用户是否拥有管理员权限
                 if (IsAdministrator())
                 {
+
                     // 如果有管理员权限，则以管理员身份启动应用程序
                     Application.EnableVisualStyles();
                     Application.SetCompatibleTextRenderingDefault(false);
-                    Application.Run(new Form1());
+
+                    Form1 mainForm = new Form1(args);
+                    Application.Run(mainForm);
 
                     mutex.ReleaseMutex();
                 }
@@ -40,6 +43,8 @@ namespace SimpleHyperVForm1
                     // 如果没有管理员权限，则重新以管理员权限启动应用程序
                     var processInfo = new System.Diagnostics.ProcessStartInfo(Application.ExecutablePath);
                     processInfo.Verb = "runas";
+                    //传递args
+                    processInfo.Arguments = String.Join(" ", args);
                     System.Diagnostics.Process.Start(processInfo);
                 }
             }
