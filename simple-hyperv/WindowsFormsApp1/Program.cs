@@ -6,6 +6,8 @@ using System.Linq;
 using System.IO.Pipes;
 using System.IO;
 using MyUtilsNamespace;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace SimpleHyperVForm1
 {
@@ -44,10 +46,8 @@ namespace SimpleHyperVForm1
             else
             {
                 // Another instance is already running
-                MessageBox.Show("Application already started!", "", MessageBoxButtons.OK);
-
-                /*amedPipeClient client = new NamedPipeClient("simpleHyperVPipe");
-                client.StartClient();*/
+                // MessageBox.Show("Application already started!", "", MessageBoxButtons.OK);
+                SingleInstanceNamedPipeServer.StartClient();
             }
         }
 

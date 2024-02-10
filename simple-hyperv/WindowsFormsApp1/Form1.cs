@@ -10,6 +10,7 @@ using SimpleHyperV;
 using SimpleHyperV.Properties;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.IO.Pipes;
 
 namespace SimpleHyperVForm1
 {
@@ -27,7 +28,7 @@ namespace SimpleHyperVForm1
             progressBar1.Style = ProgressBarStyle.Marquee; // 设置进度条为滚动条样式，表示正在进行中
             progressBar1.Visible = false;
 
-            /*Task.Run(() =>
+            Task.Run(() =>
             {
                 // 定义回调函数
                 SingleInstanceNamedPipeServer.Callback callbackFunction = (string message) =>
@@ -40,17 +41,8 @@ namespace SimpleHyperVForm1
                         });
                     }
                 };
-                SingleInstanceNamedPipeServer.StartClient(callbackFunction, "simpleHyperVPipe");
-            });*/
-
-            // 启动 NamedPipe Server
-            /*NamedPipeServer server = new NamedPipeServer("simpleHyperVPipe");
-            NamedPipeServer.Callback callback = (string message) =>
-            {
-               NotifyIconRestore(null, EventArgs.Empty);
-            };
-            server.StartServer(callback);*/
-
+                SingleInstanceNamedPipeServer.StartServer(callbackFunction);
+            });
 
 
         }

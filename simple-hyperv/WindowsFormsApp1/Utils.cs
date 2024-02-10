@@ -7,6 +7,7 @@ using System.IO.Pipes;
 // .NET Framework 4.7.2 不支持，请添加 Reference C:\Windows\assembly\GAC_MSIL\System.Management.Automation\1.0.0.0__31bf3856ad364e35\System.Management.Automation.dll
 using System.Management.Automation;
 using System.Reflection;
+using System.Security.AccessControl;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -228,151 +229,97 @@ objShell.ShellExecute ""{programName}"", ""{paramsText}"", """", ""runas"", 1";
 
     }
 
+    // 命名管道，进程间通信方式，用于控制第二个实例调起第一个实例显示窗口
     public static class SingleInstanceNamedPipeServer
     {
-        public static void StartServer(string name = "SingleInstancePipe", string message = "OnSecondInstance")
+        private static string pipeName = "SingleInstancePipe";
+        public delegate void Callback(string message);
+        // 启动命名管道服务器，回调函数用作显示主窗口
+        public static void StartServer(Callback callback)
         {
-            using (NamedPipeServerStream pipeServer =
-                new NamedPipeServerStream(name, PipeDirection.Out))
+            Debug.WriteLine("[Server] [" + pipeName + "] Start NamedPipe Server");
+
+            // 允许普通权限客户端 可以连接管理员权限的服务器
+            PipeSecurity pipeSecurity = new PipeSecurity();
+            pipeSecurity.AddAccessRule(new PipeAccessRule("Everyone", PipeAccessRights.ReadWrite, AccessControlType.Allow));
+
+            // 服务器如果正常断开，需要重新启动
+            while (true)
             {
-                Console.WriteLine("[{0}] NamedPipeServerStream object created.", name);
-
-                // Wait for a client to connect
-                Console.Write("Waiting for client connection...");
-                pipeServer.WaitForConnection();
-
-                Console.WriteLine("Client connected.");
-                try
+                using (NamedPipeServerStream pipeServer =
+                new NamedPipeServerStream(pipeName, PipeDirection.InOut, 1, PipeTransmissionMode.Byte, PipeOptions.Asynchronous, 1024, 1024, pipeSecurity))
                 {
-                    // Read user input and send that to the client process.
-                    using (StreamWriter sw = new StreamWriter(pipeServer))
+                    Debug.WriteLine("[Server] Waiting for client connection...");
+                    pipeServer.WaitForConnection();
+                    Debug.WriteLine("[Server] Client connected.");
+                    try
                     {
-                        sw.AutoFlush = true;
-                        Console.Write("Send message: {0}", message);
-                        sw.WriteLine(message);
+                        // Read data from client
+                        StreamReader reader = new StreamReader(pipeServer);
+                        string message = reader.ReadLine();
+                        Debug.WriteLine("[Server] Received message from client: " + message);
+                        callback(message);
+
+                        // Wait for a few seconds before attempting to reconnect
+                        Thread.Sleep(2000);
                     }
-                }
-                // Catch the IOException that is raised if the pipe is broken
-                // or disconnected.
-                catch (IOException e)
-                {
-                    Console.WriteLine("ERROR: {0}", e.Message);
+                    // Catch the IOException that is raised if the pipe is broken
+                    // or disconnected.
+                    catch (IOException e)
+                    {
+                        Debug.WriteLine("[Server] ERROR: " + e.Message);
+
+                        Thread.Sleep(2000); // Wait before reconnecting
+                    }
+
                 }
             }
         }
-        public delegate void Callback(string message);
-        public static void StartClient(Callback callback, string name = "SingleInstancePipe")
+        
+        // 启动命名管道客户端，第二个实例启动时调用
+        public static void StartClient(string message = "OnSecondInstance")
         {
+            Debug.WriteLine("[Client] StartClient");
             while (true)
             {
                 using (NamedPipeClientStream pipeClient =
-                    new NamedPipeClientStream(".", name, PipeDirection.In))
+                    new NamedPipeClientStream(".", pipeName, PipeDirection.InOut))
                 {
                     try
                     {
                         // Connect to the pipe or wait until the pipe is available.
-                        Console.Write("[{0}] Attempting to connect to pipe... ", name);
+                        Debug.WriteLine("[Client] [" + pipeName + "] Connecting to NamedPipe server...");
                         pipeClient.Connect();
 
-                        Console.WriteLine("Connected to pipe.");
+                        Debug.WriteLine("[Client] Connected to server");
                         Console.WriteLine("There are currently {0} pipe server instances open.",
                             pipeClient.NumberOfServerInstances);
-                        using (StreamReader sr = new StreamReader(pipeClient))
-                        {
-                            // Display the read text to the console
-                            string message;
-                            while ((message = sr.ReadLine()) != null)
-                            {
-                                Console.WriteLine("Received from server: {0}", message);
-                                callback(message);
-                            }
-                        }
+
+
+                        Debug.WriteLine("[Client] Send message to server: " + message);
+                        StreamWriter writer = new StreamWriter(pipeClient);
+                        writer.WriteLine(message);
+                        writer.Flush();
+
+                        // Wait for a few seconds before attempting to reconnect
+                        //Thread.Sleep(2000);
+
+                        // 由于是第二个实例，执行完成后直接退出
+                        break;
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine("Error occurred while connecting to pipe: {0}", e.Message);
-                        // 可添加重连延迟
+                        Console.WriteLine("[Client] Error occurred while connecting to pipe: " + e.Message);
+                        pipeClient.Close();
+                        Thread.Sleep(2000); // Wait before reconnecting
+
+                        // 由于是第二个实例，执行完成后直接退出
+                        break;
                     }
                 }
             }
+
         }
     }
-    public class NamedPipeServer
-    {
-        private string pipeName;
-        private NamedPipeServerStream serverStream;
-        public delegate void Callback(string message);
-
-        public NamedPipeServer(string pipeName)
-        {
-            this.pipeName = pipeName;
-        }
-
-        public void StartServer(Callback callback)
-        {
-            Console.WriteLine("[{0}] Start NamedPipe Server", pipeName);
-
-            serverStream = new NamedPipeServerStream(pipeName, PipeDirection.InOut, -1, PipeTransmissionMode.Message, PipeOptions.Asynchronous);
-            serverStream.BeginWaitForConnection(r => WaitForConnectionCallback(r, callback), null);
-        }
-
-        private void WaitForConnectionCallback(IAsyncResult result, Callback callback)
-        {
-            serverStream.EndWaitForConnection(result);
-            Console.WriteLine("Client connected");
-
-            // Read data from client
-            StreamReader reader = new StreamReader(serverStream);
-            string message = reader.ReadLine();
-            Console.WriteLine("Received message from client: " + message);
-
-            // Disconnect and start waiting for new connection
-            serverStream.Disconnect();
-            Console.WriteLine("Client disconnected");
-            StartServer(callback);
-        }
-    }
-
-
-    public class NamedPipeClient
-    {
-        private string pipeName;
-        private NamedPipeClientStream clientStream;
-
-        public NamedPipeClient(string pipeName)
-        {
-            this.pipeName = pipeName;
-        }
-
-        public void StartClient(string message = "Hello from client")
-        {
-            while (true)
-            {
-                /*try
-                {*/
-                    Console.WriteLine("[{0}] Connecting to NamedPipe server...", pipeName);
-                    clientStream = new NamedPipeClientStream(".", pipeName, PipeDirection.InOut, PipeOptions.Asynchronous);
-                    clientStream.Connect();
-                    Console.WriteLine("Connected to server");
-
-                    Console.WriteLine("Send message to server: " + message);
-                    StreamWriter writer = new StreamWriter(clientStream);
-                    writer.WriteLine(message);
-                    writer.Flush();
-
-                    // Wait for a few seconds before attempting to reconnect
-                    Thread.Sleep(2000);
-                /*}
-                catch (Exception)
-                {
-                    // Handle connection error and attempt to reconnect
-                    Console.WriteLine("Connection error. Attempting to reconnect...");
-                    clientStream.Close();
-                    Thread.Sleep(2000); // Wait before reconnecting
-                }*/
-            }
-        }
-    }
-
 
 }

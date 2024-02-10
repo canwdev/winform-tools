@@ -37,6 +37,10 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.menuStripVmActions = new System.Windows.Forms.MenuStrip();
             this.moreActionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.printVMInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.vMSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.enableNestedVMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteVMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonConnect = new System.Windows.Forms.Button();
             this.buttonStop = new System.Windows.Forms.Button();
             this.buttonStart = new System.Windows.Forms.Button();
@@ -71,10 +75,6 @@
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showLogsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeToTrayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.printVMInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.vMSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.enableNestedVMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.deleteVMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.menuStripVmActions.SuspendLayout();
@@ -170,6 +170,7 @@
             // 
             // moreActionsToolStripMenuItem
             // 
+            this.moreActionsToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.moreActionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.printVMInfoToolStripMenuItem,
             this.vMSettingsToolStripMenuItem,
@@ -178,6 +179,35 @@
             this.moreActionsToolStripMenuItem.Name = "moreActionsToolStripMenuItem";
             this.moreActionsToolStripMenuItem.Size = new System.Drawing.Size(134, 29);
             this.moreActionsToolStripMenuItem.Text = "More Actions";
+            // 
+            // printVMInfoToolStripMenuItem
+            // 
+            this.printVMInfoToolStripMenuItem.Name = "printVMInfoToolStripMenuItem";
+            this.printVMInfoToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.printVMInfoToolStripMenuItem.Text = "Print VM Info";
+            this.printVMInfoToolStripMenuItem.Click += new System.EventHandler(this.printVMInfoToolStripMenuItem_Click);
+            // 
+            // vMSettingsToolStripMenuItem
+            // 
+            this.vMSettingsToolStripMenuItem.Image = global::SimpleHyperV.Properties.Resources.icon_hyperv;
+            this.vMSettingsToolStripMenuItem.Name = "vMSettingsToolStripMenuItem";
+            this.vMSettingsToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.vMSettingsToolStripMenuItem.Text = "VM Settings";
+            this.vMSettingsToolStripMenuItem.Click += new System.EventHandler(this.vMSettingsToolStripMenuItem_Click);
+            // 
+            // enableNestedVMToolStripMenuItem
+            // 
+            this.enableNestedVMToolStripMenuItem.Name = "enableNestedVMToolStripMenuItem";
+            this.enableNestedVMToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.enableNestedVMToolStripMenuItem.Text = "Enable Nested VM";
+            this.enableNestedVMToolStripMenuItem.Click += new System.EventHandler(this.enableNestedVMToolStripMenuItem_Click);
+            // 
+            // deleteVMToolStripMenuItem
+            // 
+            this.deleteVMToolStripMenuItem.Name = "deleteVMToolStripMenuItem";
+            this.deleteVMToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.deleteVMToolStripMenuItem.Text = "Delete VM...";
+            this.deleteVMToolStripMenuItem.Click += new System.EventHandler(this.deleteVMToolStripMenuItem_Click);
             // 
             // buttonConnect
             // 
@@ -412,7 +442,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.menuStrip1.Size = new System.Drawing.Size(724, 33);
+            this.menuStrip1.Size = new System.Drawing.Size(724, 36);
             this.menuStrip1.TabIndex = 20;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -431,7 +461,7 @@
             this.openToolStripMenuItem,
             this.exitStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(69, 29);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(69, 30);
             this.toolsToolStripMenuItem.Text = "&Tools";
             // 
             // hyperVManagerToolStripMenuItem
@@ -444,7 +474,6 @@
             // 
             // hyperVSettingsToolStripMenuItem
             // 
-            this.hyperVSettingsToolStripMenuItem.Image = global::SimpleHyperV.Properties.Resources.icon_hyperv;
             this.hyperVSettingsToolStripMenuItem.Name = "hyperVSettingsToolStripMenuItem";
             this.hyperVSettingsToolStripMenuItem.Size = new System.Drawing.Size(295, 34);
             this.hyperVSettingsToolStripMenuItem.Text = "Hyper-V Settings";
@@ -518,14 +547,14 @@
             this.showLogsToolStripMenuItem,
             this.closeToTrayToolStripMenuItem});
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(92, 29);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(92, 30);
             this.optionsToolStripMenuItem.Text = "O&ptions";
             // 
             // showLogsToolStripMenuItem
             // 
             this.showLogsToolStripMenuItem.CheckOnClick = true;
             this.showLogsToolStripMenuItem.Name = "showLogsToolStripMenuItem";
-            this.showLogsToolStripMenuItem.Size = new System.Drawing.Size(215, 34);
+            this.showLogsToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.showLogsToolStripMenuItem.Text = "Show Logs";
             this.showLogsToolStripMenuItem.Click += new System.EventHandler(this.showLogsToolStripMenuItem_Click);
             // 
@@ -533,37 +562,9 @@
             // 
             this.closeToTrayToolStripMenuItem.CheckOnClick = true;
             this.closeToTrayToolStripMenuItem.Name = "closeToTrayToolStripMenuItem";
-            this.closeToTrayToolStripMenuItem.Size = new System.Drawing.Size(215, 34);
+            this.closeToTrayToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.closeToTrayToolStripMenuItem.Text = "Close to Tray";
             this.closeToTrayToolStripMenuItem.Click += new System.EventHandler(this.closeToTrayToolStripMenuItem_Click);
-            // 
-            // printVMInfoToolStripMenuItem
-            // 
-            this.printVMInfoToolStripMenuItem.Name = "printVMInfoToolStripMenuItem";
-            this.printVMInfoToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
-            this.printVMInfoToolStripMenuItem.Text = "Print VM Info";
-            this.printVMInfoToolStripMenuItem.Click += new System.EventHandler(this.printVMInfoToolStripMenuItem_Click);
-            // 
-            // vMSettingsToolStripMenuItem
-            // 
-            this.vMSettingsToolStripMenuItem.Name = "vMSettingsToolStripMenuItem";
-            this.vMSettingsToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
-            this.vMSettingsToolStripMenuItem.Text = "VM Settings";
-            this.vMSettingsToolStripMenuItem.Click += new System.EventHandler(this.vMSettingsToolStripMenuItem_Click);
-            // 
-            // enableNestedVMToolStripMenuItem
-            // 
-            this.enableNestedVMToolStripMenuItem.Name = "enableNestedVMToolStripMenuItem";
-            this.enableNestedVMToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
-            this.enableNestedVMToolStripMenuItem.Text = "Enable Nested VM";
-            this.enableNestedVMToolStripMenuItem.Click += new System.EventHandler(this.enableNestedVMToolStripMenuItem_Click);
-            // 
-            // deleteVMToolStripMenuItem
-            // 
-            this.deleteVMToolStripMenuItem.Name = "deleteVMToolStripMenuItem";
-            this.deleteVMToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
-            this.deleteVMToolStripMenuItem.Text = "Delete VM...";
-            this.deleteVMToolStripMenuItem.Click += new System.EventHandler(this.deleteVMToolStripMenuItem_Click);
             // 
             // Form1
             // 
