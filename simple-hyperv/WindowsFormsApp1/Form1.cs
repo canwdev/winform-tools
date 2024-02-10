@@ -16,7 +16,6 @@ namespace SimpleHyperVForm1
     public partial class Form1 : Form
     {
         private RunUtils runUtils;
-        private List<Action> commonToolActions;
 
         public Form1()
         {
@@ -53,51 +52,6 @@ namespace SimpleHyperVForm1
             server.StartServer(callback);*/
 
 
-            // 常用工具下拉框，按选择的顺序执行
-            commonToolActions = new List<Action>
-            {
-                // Hyper-V Manager (virtmgmt.msc)
-                () =>
-                {
-                    // Hyper-V Manager (virtmgmt.msc)
-                    /*Process procAD = new Process();
-                    procAD.StartInfo.FileName = "C:\\Windows\\System32\\mmc.exe";
-                    procAD.StartInfo.Arguments = "C:\\Windows\\System32\\virtmgmt.msc";
-                    procAD.Start();*/
-                    // 以上方式不能启动，可能是权限问题，因此必须使用外部bat脚本启动
-                    MyUtils.WriteToFile("start-virtmgmt.vbs", MyUtils.GenerateVbsScript("mmc.exe", "virtmgmt.msc"));
-                    MyUtils.StartCurDirProgram("start-virtmgmt.vbs");
-                },
-                // Hyper-V Settings
-                () => RunHvintegrate("hv"),
-                // Virtual Switch Manager
-                () => RunHvintegrate("vs"),
-                // Edit Disk
-                () => RunHvintegrate("ed"),
-                // Optimize VHD...
-                () => HandleOptimizeVHD(),
-                // Create VM
-                () => RunHvintegrate("av"),
-                // ------
-                () => { },
-                // Network Connections
-                () => runUtils.RunCmdCommand("control.exe netconnections"),
-                // Remote Desktop
-                () => Process.Start("mstsc"),
-                // Open Program Dir(./)
-                () =>
-                {
-                    string folderPath = Application.StartupPath;
-                    Process.Start(folderPath);
-                },
-                // Exit
-                () =>
-                {
-                    NotifyIcon_Exit_Click(null, EventArgs.Empty);
-                },
-
-
-            };
 
         }
 
@@ -133,7 +87,7 @@ namespace SimpleHyperVForm1
                 Settings.Default.WindowLocation = this.Location;
                 Settings.Default.Save();
             }
-            if (checkBoxCloseToTray.Checked && e.CloseReason == CloseReason.UserClosing)
+            if (closeToTrayToolStripMenuItem.Checked && e.CloseReason == CloseReason.UserClosing)
             {
                 WindowState = FormWindowState.Minimized;
                 notifyIcon.Visible = true;
@@ -215,25 +169,12 @@ namespace SimpleHyperVForm1
             }
         }
 
-        private void checkBoxShowLogs_CheckedChanged(object sender, EventArgs e)
-        {
-            Settings.Default.ShowLogs = checkBoxShowLogs.Checked;
-            Settings.Default.Save();
-            textBoxOutput.Visible = Settings.Default.ShowLogs;
-        }
-
-        private void checkBoxCloseToTray_CheckedChanged(object sender, EventArgs e)
-        {
-            Settings.Default.CloseToTray = checkBoxCloseToTray.Checked;
-            Settings.Default.Save();
-        }
-
         private void LoadSettings()
         {
-            checkBoxShowLogs.Checked = Settings.Default.ShowLogs;
+            showLogsToolStripMenuItem.Checked = Settings.Default.ShowLogs;
             textBoxOutput.Visible = Settings.Default.ShowLogs;
 
-            checkBoxCloseToTray.Checked = Settings.Default.CloseToTray;
+            closeToTrayToolStripMenuItem.Checked = Settings.Default.CloseToTray;
         }
         private void richTextBox1_LinkClicked(object sender, LinkClickedEventArgs e)
         {
@@ -266,15 +207,72 @@ namespace SimpleHyperVForm1
             MyUtils.StartCurDirProgram(HVIntegrateFileName, args);
         }
 
-        private void comboBoxVmTools_SelectedIndexChanged(object sender, EventArgs e)
+        // Hyper-V Manager (virtmgmt.msc)
+        private void hyperVManagerToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            // Hyper-V Manager (virtmgmt.msc)
+            /*Process procAD = new Process();
+            procAD.StartInfo.FileName = "C:\\Windows\\System32\\mmc.exe";
+            procAD.StartInfo.Arguments = "C:\\Windows\\System32\\virtmgmt.msc";
+            procAD.Start();*/
+            // 以上方式不能启动，可能是权限问题，因此必须使用外部bat脚本启动
+            MyUtils.WriteToFile("start-virtmgmt.vbs", MyUtils.GenerateVbsScript("mmc.exe", "virtmgmt.msc"));
+            MyUtils.StartCurDirProgram("start-virtmgmt.vbs");
+        }
 
-            int selectedIndex = comboBoxVmTools.SelectedIndex;
-            if (selectedIndex >= 0 && selectedIndex < commonToolActions.Count)
-            {
-                commonToolActions[selectedIndex]();
-            }
-            comboBoxVmTools.SelectedIndex = -1;
+        // Hyper-V Settings
+        private void hyperVSettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RunHvintegrate("hv");
+        }
+
+        // Virtual Switch Manager
+        private void virtualSwitchManagerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RunHvintegrate("vs");
+        }
+
+        // Edit Disk
+        private void editDiskToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RunHvintegrate("ed");
+        }
+
+        // Optimize VHD...
+        private void optimizeVHDToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            HandleOptimizeVHD();
+        }
+
+        // Create VM
+        private void createVMToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RunHvintegrate("av");
+        }
+
+        // Network Connections
+        private void networkConnectionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            runUtils.RunCmdCommand("control.exe netconnections");
+        }
+
+        // Remote Desktop
+        private void remoteDesktopToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("mstsc");
+        }
+
+        // Open Program Dir(./)
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string folderPath = Application.StartupPath;
+            Process.Start(folderPath);
+        }
+
+        // Exit
+        private void exitStripMenuItem_Click(object sender, EventArgs e)
+        {
+            NotifyIcon_Exit_Click(null, EventArgs.Empty);
         }
 
         /* ============================================================ */
@@ -361,7 +359,7 @@ namespace SimpleHyperVForm1
             buttonStart.Enabled = isEnabled;
             buttonStop.Enabled = isEnabled;
             buttonConnect.Enabled = isEnabled;
-            comboBoxVmActions.Enabled = isEnabled;
+            menuStripVmActions.Enabled = isEnabled;
         }
         private void AutoSetVmButtonsEnabled()
         {
@@ -467,47 +465,6 @@ namespace SimpleHyperVForm1
                 MyUtils.WriteToFile("start-vmconnect.vbs", MyUtils.GenerateVbsScript(system32Path, paramsStrVbs), true);
                 MyUtils.StartCurDirProgram("start-vmconnect.vbs");*/
             }
-        }
-
-        private async void comboBoxVmActions_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            PSObject vm = getSelectedVM();
-            if (null == vm)
-            {
-                comboBoxVmActions.SelectedIndex = -1;
-                return;
-            }
-
-            int selectedIndex = comboBoxVmActions.SelectedIndex;
-            if (selectedIndex == 0)
-            {
-                // 打印详细信息
-                await runUtils.RunPowerShellScriptAsync("Get-VM -Name \"" + vm.Properties["Name"].Value + "\"", true);
-            }
-            else if (selectedIndex == 1)
-            {
-                // VM Settings
-                RunHvintegrate("vm " + vm.Properties["Id"].Value);
-            }
-            else if (selectedIndex == 2)
-            {
-                // Enable Nested VM
-                await runUtils.RunPowerShellScriptAsync("Set-VMProcessor -VMName \"" + vm.Properties["Name"].Value + "\" -ExposeVirtualizationExtensions $true", true);
-            }
-            else if (selectedIndex == 3)
-            {
-                // Delete VM
-
-                DialogResult result = MessageBox.Show(this, $"Are you sure you want to delete {vm.Properties["Name"].Value}?" +
-                "This can not be undone.", $"Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-                if (result == DialogResult.OK)
-                {
-                    await runUtils.RunPowerShellScriptAsync("Remove-VM -VMName \"" + vm.Properties["Name"].Value + "\" -Force");
-                    buttonVmRefresh.PerformClick();
-                }
-            }
-
-            comboBoxVmActions.SelectedIndex = -1;
         }
 
         /* VM END */
@@ -660,6 +617,54 @@ namespace SimpleHyperVForm1
                 await runUtils.RunPowerShellScriptAsync("New-NetIPAddress -IPAddress " + ipAddress + " -PrefixLength " + subnet + " -InterfaceIndex " + ifindex);
 
                 buttonSwitchRefresh.PerformClick();
+            }
+        }
+
+        private void showLogsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Settings.Default.ShowLogs = showLogsToolStripMenuItem.Checked;
+            Settings.Default.Save();
+            textBoxOutput.Visible = Settings.Default.ShowLogs;
+        }
+
+        private void closeToTrayToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Settings.Default.CloseToTray = closeToTrayToolStripMenuItem.Checked;
+            Settings.Default.Save();
+        }
+
+        private async void printVMInfoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PSObject vm = getSelectedVM();
+            // 打印详细信息
+            await runUtils.RunPowerShellScriptAsync("Get-VM -Name \"" + vm.Properties["Name"].Value + "\"", true);
+
+        }
+
+        private void vMSettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PSObject vm = getSelectedVM();
+            // VM Settings
+            RunHvintegrate("vm " + vm.Properties["Id"].Value);
+        }
+
+        private async void enableNestedVMToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PSObject vm = getSelectedVM();
+            // Enable Nested VM
+            await runUtils.RunPowerShellScriptAsync("Set-VMProcessor -VMName \"" + vm.Properties["Name"].Value + "\" -ExposeVirtualizationExtensions $true", true);
+        }
+
+        private async void deleteVMToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PSObject vm = getSelectedVM();
+            // Delete VM
+            DialogResult result = MessageBox.Show(this, $"Are you sure you want to delete {vm.Properties["Name"].Value}?" +
+            "This can not be undone.", $"Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+            if (result == DialogResult.OK)
+            {
+                await runUtils.RunPowerShellScriptAsync("Remove-VM -VMName \"" + vm.Properties["Name"].Value + "\" -Force");
+                buttonVmRefresh.PerformClick();
             }
         }
 

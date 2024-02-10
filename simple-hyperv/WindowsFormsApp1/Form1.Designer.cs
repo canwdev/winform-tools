@@ -35,8 +35,8 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.label1 = new System.Windows.Forms.Label();
-            this.comboBoxVmActions = new System.Windows.Forms.ComboBox();
+            this.menuStripVmActions = new System.Windows.Forms.MenuStrip();
+            this.moreActionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonConnect = new System.Windows.Forms.Button();
             this.buttonStop = new System.Windows.Forms.Button();
             this.buttonStart = new System.Windows.Forms.Button();
@@ -51,19 +51,37 @@
             this.buttonNatDelete = new System.Windows.Forms.Button();
             this.buttonNatRefresh = new System.Windows.Forms.Button();
             this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.checkBoxShowLogs = new System.Windows.Forms.CheckBox();
-            this.checkBoxCloseToTray = new System.Windows.Forms.CheckBox();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.label2 = new System.Windows.Forms.Label();
-            this.comboBoxVmTools = new System.Windows.Forms.ComboBox();
             this.textBoxOutput = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hyperVManagerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hyperVSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.createVMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.virtualSwitchManagerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editDiskToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.optimizeVHDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.networkConnectionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.remoteDesktopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showLogsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.closeToTrayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.printVMInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.vMSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.enableNestedVMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteVMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.menuStripVmActions.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.tabPage5.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonVmRefresh
@@ -92,7 +110,7 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(16, 425);
+            this.progressBar1.Location = new System.Drawing.Point(606, 453);
             this.progressBar1.MarqueeAnimationSpeed = 50;
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(102, 16);
@@ -109,60 +127,57 @@
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.ImageList = this.imageList1;
-            this.tabControl1.Location = new System.Drawing.Point(12, 12);
+            this.tabControl1.Location = new System.Drawing.Point(12, 36);
             this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.Padding = new System.Drawing.Point(8, 3);
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(700, 398);
+            this.tabControl1.Size = new System.Drawing.Size(700, 411);
             this.tabControl1.TabIndex = 9;
             this.tabControl1.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControl1_Selected);
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.label1);
-            this.tabPage1.Controls.Add(this.comboBoxVmActions);
+            this.tabPage1.Controls.Add(this.menuStripVmActions);
             this.tabPage1.Controls.Add(this.buttonConnect);
             this.tabPage1.Controls.Add(this.buttonStop);
             this.tabPage1.Controls.Add(this.buttonStart);
-            this.tabPage1.Controls.Add(this.listBoxVM);
             this.tabPage1.Controls.Add(this.buttonVmRefresh);
+            this.tabPage1.Controls.Add(this.listBoxVM);
             this.tabPage1.ImageKey = "icon-hyperv.ico";
             this.tabPage1.Location = new System.Drawing.Point(4, 33);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(692, 361);
+            this.tabPage1.Size = new System.Drawing.Size(692, 374);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "VM";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // label1
+            // menuStripVmActions
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.Location = new System.Drawing.Point(300, 289);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(129, 24);
-            this.label1.TabIndex = 17;
-            this.label1.Text = "More Actions:";
+            this.menuStripVmActions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.menuStripVmActions.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.menuStripVmActions.Dock = System.Windows.Forms.DockStyle.None;
+            this.menuStripVmActions.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
+            this.menuStripVmActions.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.menuStripVmActions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.moreActionsToolStripMenuItem});
+            this.menuStripVmActions.Location = new System.Drawing.Point(542, 281);
+            this.menuStripVmActions.Name = "menuStripVmActions";
+            this.menuStripVmActions.Size = new System.Drawing.Size(142, 33);
+            this.menuStripVmActions.TabIndex = 18;
+            this.menuStripVmActions.Text = "menuStripVmActions";
             // 
-            // comboBoxVmActions
+            // moreActionsToolStripMenuItem
             // 
-            this.comboBoxVmActions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBoxVmActions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxVmActions.Font = new System.Drawing.Font("Microsoft YaHei UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.comboBoxVmActions.FormattingEnabled = true;
-            this.comboBoxVmActions.Items.AddRange(new object[] {
-            "Print VM Info",
-            "VM Settings",
-            "Enable Nested VM",
-            "Delete VM..."});
-            this.comboBoxVmActions.Location = new System.Drawing.Point(435, 284);
-            this.comboBoxVmActions.Name = "comboBoxVmActions";
-            this.comboBoxVmActions.Size = new System.Drawing.Size(249, 35);
-            this.comboBoxVmActions.TabIndex = 16;
-            this.comboBoxVmActions.SelectedIndexChanged += new System.EventHandler(this.comboBoxVmActions_SelectedIndexChanged);
+            this.moreActionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.printVMInfoToolStripMenuItem,
+            this.vMSettingsToolStripMenuItem,
+            this.enableNestedVMToolStripMenuItem,
+            this.deleteVMToolStripMenuItem});
+            this.moreActionsToolStripMenuItem.Name = "moreActionsToolStripMenuItem";
+            this.moreActionsToolStripMenuItem.Size = new System.Drawing.Size(134, 29);
+            this.moreActionsToolStripMenuItem.Text = "More Actions";
             // 
             // buttonConnect
             // 
@@ -211,7 +226,7 @@
             this.tabPage3.ImageKey = "shell32.dll(176).ico";
             this.tabPage3.Location = new System.Drawing.Point(4, 33);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(692, 361);
+            this.tabPage3.Size = new System.Drawing.Size(692, 374);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Switch";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -273,7 +288,7 @@
             this.tabPage4.ImageKey = "shell32.dll(244).ico";
             this.tabPage4.Location = new System.Drawing.Point(4, 33);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(692, 361);
+            this.tabPage4.Size = new System.Drawing.Size(692, 374);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "NetNat";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -327,39 +342,15 @@
             // 
             // tabPage5
             // 
-            this.tabPage5.Controls.Add(this.checkBoxShowLogs);
-            this.tabPage5.Controls.Add(this.checkBoxCloseToTray);
             this.tabPage5.Controls.Add(this.richTextBox1);
             this.tabPage5.ImageKey = "shell32.dll(16782).ico";
             this.tabPage5.Location = new System.Drawing.Point(4, 33);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(692, 361);
+            this.tabPage5.Size = new System.Drawing.Size(692, 374);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "About";
             this.tabPage5.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxShowLogs
-            // 
-            this.checkBoxShowLogs.AutoSize = true;
-            this.checkBoxShowLogs.Location = new System.Drawing.Point(159, 327);
-            this.checkBoxShowLogs.Name = "checkBoxShowLogs";
-            this.checkBoxShowLogs.Size = new System.Drawing.Size(127, 28);
-            this.checkBoxShowLogs.TabIndex = 3;
-            this.checkBoxShowLogs.Text = "Show Logs";
-            this.checkBoxShowLogs.UseVisualStyleBackColor = true;
-            this.checkBoxShowLogs.CheckedChanged += new System.EventHandler(this.checkBoxShowLogs_CheckedChanged);
-            // 
-            // checkBoxCloseToTray
-            // 
-            this.checkBoxCloseToTray.AutoSize = true;
-            this.checkBoxCloseToTray.Location = new System.Drawing.Point(6, 327);
-            this.checkBoxCloseToTray.Name = "checkBoxCloseToTray";
-            this.checkBoxCloseToTray.Size = new System.Drawing.Size(147, 28);
-            this.checkBoxCloseToTray.TabIndex = 2;
-            this.checkBoxCloseToTray.Text = "Close to Tray";
-            this.checkBoxCloseToTray.UseVisualStyleBackColor = true;
-            this.checkBoxCloseToTray.CheckedChanged += new System.EventHandler(this.checkBoxCloseToTray_CheckedChanged);
             // 
             // richTextBox1
             // 
@@ -371,7 +362,7 @@
             this.richTextBox1.Location = new System.Drawing.Point(6, 6);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(680, 315);
+            this.richTextBox1.Size = new System.Drawing.Size(680, 362);
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = resources.GetString("richTextBox1.Text");
             this.richTextBox1.WordWrap = false;
@@ -387,47 +378,6 @@
             this.imageList1.Images.SetKeyName(3, "shell32.dll(176).ico");
             this.imageList1.Images.SetKeyName(4, "shell32.dll(244).ico");
             this.imageList1.Images.SetKeyName(5, "shell32.dll(16782).ico");
-            // 
-            // label2
-            // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label2.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label2.Location = new System.Drawing.Point(394, 417);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(59, 24);
-            this.label2.TabIndex = 19;
-            this.label2.Text = "Tools:";
-            // 
-            // comboBoxVmTools
-            // 
-            this.comboBoxVmTools.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBoxVmTools.BackColor = System.Drawing.SystemColors.Window;
-            this.comboBoxVmTools.Cursor = System.Windows.Forms.Cursors.Default;
-            this.comboBoxVmTools.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxVmTools.Font = new System.Drawing.Font("Microsoft YaHei UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.comboBoxVmTools.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.comboBoxVmTools.FormattingEnabled = true;
-            this.comboBoxVmTools.ItemHeight = 27;
-            this.comboBoxVmTools.Items.AddRange(new object[] {
-            "Hyper-V Manager",
-            "Hyper-V Settings",
-            "Virtual Switch Manager",
-            "Edit Disk",
-            "Optimize VHD...",
-            "Create VM",
-            "------",
-            "Network Connections",
-            "Remote Desktop",
-            "Open ./",
-            "Exit"});
-            this.comboBoxVmTools.Location = new System.Drawing.Point(459, 412);
-            this.comboBoxVmTools.Name = "comboBoxVmTools";
-            this.comboBoxVmTools.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.comboBoxVmTools.Size = new System.Drawing.Size(249, 35);
-            this.comboBoxVmTools.TabIndex = 18;
-            this.comboBoxVmTools.SelectedIndexChanged += new System.EventHandler(this.comboBoxVmTools_SelectedIndexChanged);
             // 
             // textBoxOutput
             // 
@@ -451,18 +401,182 @@
             this.toolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.toolTip1.ToolTipTitle = "Tips";
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.BackColor = System.Drawing.SystemColors.Window;
+            this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolsToolStripMenuItem,
+            this.optionsToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            this.menuStrip1.Size = new System.Drawing.Size(724, 33);
+            this.menuStrip1.TabIndex = 20;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // toolsToolStripMenuItem
+            // 
+            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.hyperVManagerToolStripMenuItem,
+            this.hyperVSettingsToolStripMenuItem,
+            this.createVMToolStripMenuItem,
+            this.virtualSwitchManagerToolStripMenuItem,
+            this.editDiskToolStripMenuItem,
+            this.optimizeVHDToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.networkConnectionsToolStripMenuItem,
+            this.remoteDesktopToolStripMenuItem,
+            this.openToolStripMenuItem,
+            this.exitStripMenuItem});
+            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(69, 29);
+            this.toolsToolStripMenuItem.Text = "&Tools";
+            // 
+            // hyperVManagerToolStripMenuItem
+            // 
+            this.hyperVManagerToolStripMenuItem.Image = global::SimpleHyperV.Properties.Resources.icon_hyperv;
+            this.hyperVManagerToolStripMenuItem.Name = "hyperVManagerToolStripMenuItem";
+            this.hyperVManagerToolStripMenuItem.Size = new System.Drawing.Size(295, 34);
+            this.hyperVManagerToolStripMenuItem.Text = "Hyper-V Manager";
+            this.hyperVManagerToolStripMenuItem.Click += new System.EventHandler(this.hyperVManagerToolStripMenuItem_Click);
+            // 
+            // hyperVSettingsToolStripMenuItem
+            // 
+            this.hyperVSettingsToolStripMenuItem.Image = global::SimpleHyperV.Properties.Resources.icon_hyperv;
+            this.hyperVSettingsToolStripMenuItem.Name = "hyperVSettingsToolStripMenuItem";
+            this.hyperVSettingsToolStripMenuItem.Size = new System.Drawing.Size(295, 34);
+            this.hyperVSettingsToolStripMenuItem.Text = "Hyper-V Settings";
+            this.hyperVSettingsToolStripMenuItem.Click += new System.EventHandler(this.hyperVSettingsToolStripMenuItem_Click);
+            // 
+            // createVMToolStripMenuItem
+            // 
+            this.createVMToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.createVMToolStripMenuItem.Name = "createVMToolStripMenuItem";
+            this.createVMToolStripMenuItem.Size = new System.Drawing.Size(295, 34);
+            this.createVMToolStripMenuItem.Text = "Create VM";
+            this.createVMToolStripMenuItem.Click += new System.EventHandler(this.createVMToolStripMenuItem_Click);
+            // 
+            // virtualSwitchManagerToolStripMenuItem
+            // 
+            this.virtualSwitchManagerToolStripMenuItem.Name = "virtualSwitchManagerToolStripMenuItem";
+            this.virtualSwitchManagerToolStripMenuItem.Size = new System.Drawing.Size(295, 34);
+            this.virtualSwitchManagerToolStripMenuItem.Text = "Virtual Switch Manager";
+            this.virtualSwitchManagerToolStripMenuItem.Click += new System.EventHandler(this.virtualSwitchManagerToolStripMenuItem_Click);
+            // 
+            // editDiskToolStripMenuItem
+            // 
+            this.editDiskToolStripMenuItem.Name = "editDiskToolStripMenuItem";
+            this.editDiskToolStripMenuItem.Size = new System.Drawing.Size(295, 34);
+            this.editDiskToolStripMenuItem.Text = "Edit Disk";
+            this.editDiskToolStripMenuItem.Click += new System.EventHandler(this.editDiskToolStripMenuItem_Click);
+            // 
+            // optimizeVHDToolStripMenuItem
+            // 
+            this.optimizeVHDToolStripMenuItem.Name = "optimizeVHDToolStripMenuItem";
+            this.optimizeVHDToolStripMenuItem.Size = new System.Drawing.Size(295, 34);
+            this.optimizeVHDToolStripMenuItem.Text = "Optimize VHD...";
+            this.optimizeVHDToolStripMenuItem.Click += new System.EventHandler(this.optimizeVHDToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(292, 6);
+            // 
+            // networkConnectionsToolStripMenuItem
+            // 
+            this.networkConnectionsToolStripMenuItem.Name = "networkConnectionsToolStripMenuItem";
+            this.networkConnectionsToolStripMenuItem.Size = new System.Drawing.Size(295, 34);
+            this.networkConnectionsToolStripMenuItem.Text = "Network Connections";
+            this.networkConnectionsToolStripMenuItem.Click += new System.EventHandler(this.networkConnectionsToolStripMenuItem_Click);
+            // 
+            // remoteDesktopToolStripMenuItem
+            // 
+            this.remoteDesktopToolStripMenuItem.Name = "remoteDesktopToolStripMenuItem";
+            this.remoteDesktopToolStripMenuItem.Size = new System.Drawing.Size(295, 34);
+            this.remoteDesktopToolStripMenuItem.Text = "Remote Desktop";
+            this.remoteDesktopToolStripMenuItem.Click += new System.EventHandler(this.remoteDesktopToolStripMenuItem_Click);
+            // 
+            // openToolStripMenuItem
+            // 
+            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(295, 34);
+            this.openToolStripMenuItem.Text = "Open ./";
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            // 
+            // exitStripMenuItem
+            // 
+            this.exitStripMenuItem.Name = "exitStripMenuItem";
+            this.exitStripMenuItem.Size = new System.Drawing.Size(295, 34);
+            this.exitStripMenuItem.Text = "Exit";
+            this.exitStripMenuItem.Click += new System.EventHandler(this.exitStripMenuItem_Click);
+            // 
+            // optionsToolStripMenuItem
+            // 
+            this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.showLogsToolStripMenuItem,
+            this.closeToTrayToolStripMenuItem});
+            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(92, 29);
+            this.optionsToolStripMenuItem.Text = "O&ptions";
+            // 
+            // showLogsToolStripMenuItem
+            // 
+            this.showLogsToolStripMenuItem.CheckOnClick = true;
+            this.showLogsToolStripMenuItem.Name = "showLogsToolStripMenuItem";
+            this.showLogsToolStripMenuItem.Size = new System.Drawing.Size(215, 34);
+            this.showLogsToolStripMenuItem.Text = "Show Logs";
+            this.showLogsToolStripMenuItem.Click += new System.EventHandler(this.showLogsToolStripMenuItem_Click);
+            // 
+            // closeToTrayToolStripMenuItem
+            // 
+            this.closeToTrayToolStripMenuItem.CheckOnClick = true;
+            this.closeToTrayToolStripMenuItem.Name = "closeToTrayToolStripMenuItem";
+            this.closeToTrayToolStripMenuItem.Size = new System.Drawing.Size(215, 34);
+            this.closeToTrayToolStripMenuItem.Text = "Close to Tray";
+            this.closeToTrayToolStripMenuItem.Click += new System.EventHandler(this.closeToTrayToolStripMenuItem_Click);
+            // 
+            // printVMInfoToolStripMenuItem
+            // 
+            this.printVMInfoToolStripMenuItem.Name = "printVMInfoToolStripMenuItem";
+            this.printVMInfoToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.printVMInfoToolStripMenuItem.Text = "Print VM Info";
+            this.printVMInfoToolStripMenuItem.Click += new System.EventHandler(this.printVMInfoToolStripMenuItem_Click);
+            // 
+            // vMSettingsToolStripMenuItem
+            // 
+            this.vMSettingsToolStripMenuItem.Name = "vMSettingsToolStripMenuItem";
+            this.vMSettingsToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.vMSettingsToolStripMenuItem.Text = "VM Settings";
+            this.vMSettingsToolStripMenuItem.Click += new System.EventHandler(this.vMSettingsToolStripMenuItem_Click);
+            // 
+            // enableNestedVMToolStripMenuItem
+            // 
+            this.enableNestedVMToolStripMenuItem.Name = "enableNestedVMToolStripMenuItem";
+            this.enableNestedVMToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.enableNestedVMToolStripMenuItem.Text = "Enable Nested VM";
+            this.enableNestedVMToolStripMenuItem.Click += new System.EventHandler(this.enableNestedVMToolStripMenuItem_Click);
+            // 
+            // deleteVMToolStripMenuItem
+            // 
+            this.deleteVMToolStripMenuItem.Name = "deleteVMToolStripMenuItem";
+            this.deleteVMToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.deleteVMToolStripMenuItem.Text = "Delete VM...";
+            this.deleteVMToolStripMenuItem.Click += new System.EventHandler(this.deleteVMToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(724, 744);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.progressBar1);
-            this.Controls.Add(this.comboBoxVmTools);
             this.Controls.Add(this.textBoxOutput);
             this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(5);
             this.MinimumSize = new System.Drawing.Size(600, 400);
             this.Name = "Form1";
@@ -472,10 +586,13 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.menuStripVmActions.ResumeLayout(false);
+            this.menuStripVmActions.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
             this.tabPage5.ResumeLayout(false);
-            this.tabPage5.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -504,13 +621,29 @@
         private System.Windows.Forms.Button buttonSwitchDelete;
         private System.Windows.Forms.Button buttonSwitchRefresh;
         private System.Windows.Forms.ListBox listBoxSwitch;
-        private System.Windows.Forms.CheckBox checkBoxShowLogs;
-        private System.Windows.Forms.CheckBox checkBoxCloseToTray;
-        private System.Windows.Forms.ComboBox comboBoxVmActions;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox comboBoxVmTools;
         private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem hyperVManagerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem hyperVSettingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem virtualSwitchManagerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editDiskToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem optimizeVHDToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem createVMToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem networkConnectionsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem remoteDesktopToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exitStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem showLogsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem closeToTrayToolStripMenuItem;
+        private System.Windows.Forms.MenuStrip menuStripVmActions;
+        private System.Windows.Forms.ToolStripMenuItem moreActionsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem printVMInfoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem vMSettingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem enableNestedVMToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteVMToolStripMenuItem;
     }
 }
 
