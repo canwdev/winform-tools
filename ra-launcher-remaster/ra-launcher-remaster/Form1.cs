@@ -1,32 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Runtime.InteropServices;
-using System.Runtime.InteropServices.ComTypes;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Linq;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
-namespace ra_launcher_remaster
+namespace RaLauncher
 {
     public partial class Form1 : Form
     {
         public Form1()
         {
             InitializeComponent();
-        }
-
-        private void richTextBox1_TextChanged(object sender, EventArgs e)
-        {
-
         }
         private void richTextBox1_LinkClicked(object sender, LinkClickedEventArgs e)
         {
@@ -49,12 +34,6 @@ namespace ra_launcher_remaster
         {
             linkLabel1.LinkVisited = true;
             openUrlByDefaultBrowser("https://github.com/canwdev/ra-launcher-tools");
-        }
-
-        private void btnCurDir_Click(object sender, EventArgs e)
-        {
-            string folderPath = Application.StartupPath;
-            Process.Start(folderPath);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -90,19 +69,7 @@ namespace ra_launcher_remaster
             // Set the default selected item
             ra3ResComboBox.SelectedItem = "";
 
-            // 设置缩放列表
-            zoomRatioComboBox.Items.Add("100");
-            zoomRatioComboBox.Items.Add("125");
-            zoomRatioComboBox.Items.Add("150");
-            zoomRatioComboBox.Items.Add("175");
-            zoomRatioComboBox.Items.Add("200");
-            zoomRatioComboBox.Items.Add("225");
-            zoomRatioComboBox.Items.Add("250");
-            zoomRatioComboBox.Items.Add("275");
-            zoomRatioComboBox.Items.Add("300");
-            zoomRatioComboBox.Items.Add("400");
-            zoomRatioComboBox.Items.Add("500");
-            zoomRatioComboBox.SelectedItem = "100";
+            InitDPIToolStripMenuItem();
         }
 
         void FnStartCurDirProgram(string exeName, string args = "")
@@ -304,7 +271,77 @@ StretchMovies=no
         // 定义全局变量
         private string setDpiTempPath = "";
         // 修改之前的屏幕DPI
-        private string previousDpi = "";
+        private string defaultDpi = "";
+
+        private void InitDPIToolStripMenuItem()
+        {
+            string[] items = {
+                "100",
+                "125",
+                "150",
+                "175",
+                "200",
+                "225",
+                "250",
+                "275",
+                "300",
+                "400",
+                "500",
+            };
+
+            // 动态添加菜单
+            foreach (string item in items)
+            {
+                ToolStripMenuItem newItem = new ToolStripMenuItem(item);
+                newItem.CheckOnClick = true;
+                newItem.Click += dPIToolSubMenuItem_Click;
+                dPIToolStripMenuItem.DropDownItems.Add(newItem);
+            }
+        }
+
+        private void dPIToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // 仅在第一次获取系统DPI
+            if (!string.IsNullOrEmpty(defaultDpi))
+            {
+                return;
+            }
+            defaultDpi = FnGetDpi();
+
+            // 设置高亮
+            foreach (ToolStripMenuItem item in dPIToolStripMenuItem.DropDownItems)
+            {
+                if (item.Text == defaultDpi)
+                {
+                    // red
+                    item.ForeColor = Color.Red;
+                    item.Checked = true;
+                }
+            }
+        }
+
+        // 单击事件处理程序
+        private void dPIToolSubMenuItem_Click(object sender, EventArgs e)
+        {
+            // 获取点击的菜单项的Text
+            ToolStripMenuItem clickedItem = (ToolStripMenuItem)sender;
+            string dpi = clickedItem.Text;
+
+            FnSetDpi(dpi);
+
+            // 设置单选
+            foreach (ToolStripMenuItem item in dPIToolStripMenuItem.DropDownItems)
+            {
+                if (item.Text == dpi)
+                {
+                    item.Checked = true;
+                }
+                else
+                {
+                    item.Checked = false;
+                }
+            }
+        }
 
         void initSetDpi()
         {
@@ -350,7 +387,7 @@ StretchMovies=no
 
         }
 
-        void FnSetDpi(string args="100")
+        void FnSetDpi(string args = "100")
         {
             if (string.IsNullOrEmpty(setDpiTempPath))
             {
@@ -369,16 +406,6 @@ StretchMovies=no
             process.Start();
             process.StandardOutput.ReadToEnd();
         }
-        private void btnSetDpi_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(previousDpi))
-            {
-                previousDpi = FnGetDpi();
-                btnDpiReset.Visible = true;
-            }
-            string resValue = ra3ResComboBox.SelectedItem != null ? (string)zoomRatioComboBox.SelectedItem : "100";
-            FnSetDpi(resValue);
-        }
 
         private void btnOpenResolutionControl_Click(object sender, EventArgs e)
         {
@@ -395,22 +422,18 @@ StretchMovies=no
             }
         }
 
-        private void btnDpiReset_Click(object sender, EventArgs e)
+        // 打开当前目录
+        private void OpenDirToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(previousDpi))
-            {
-                return;
-            }
-            FnSetDpi(previousDpi);
-            btnDpiReset.Visible = false;
-            previousDpi = "";
+            string folderPath = Application.StartupPath;
+            Process.Start(folderPath);
         }
 
-        private void labelDpi_Click(object sender, EventArgs e)
+        // 系统分辨率设置
+        private void resToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            previousDpi = FnGetDpi();
-            zoomRatioComboBox.SelectedItem = previousDpi;
-            btnDpiReset.Visible = true;
+            Process.Start("control.exe", "desk.cpl,@0,3");
         }
+
     }
 }

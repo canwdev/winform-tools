@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
-namespace ra_launcher_remaster
+namespace RaLauncher
 {
     public partial class FormTextDisplay : Form
     {
@@ -28,7 +28,7 @@ namespace ra_launcher_remaster
         private void btnCopy_Click(object sender, EventArgs e)
         {
             Clipboard.SetDataObject(richTextBox1.Text);
-            // MessageBox.Show("文本已复制到剪贴板！");
+            btnCopy.Text = "Copied!";
         }
     }
 }

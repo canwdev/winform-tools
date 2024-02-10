@@ -1,4 +1,4 @@
-﻿namespace ra_launcher_remaster
+﻿namespace RaLauncher
 {
     partial class Form1
     {
@@ -64,14 +64,12 @@
             this.labelCopyright = new System.Windows.Forms.Label();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.btnSetDpi = new System.Windows.Forms.Button();
-            this.labelDpi = new System.Windows.Forms.Label();
-            this.zoomRatioComboBox = new System.Windows.Forms.ComboBox();
-            this.btnCurDir = new System.Windows.Forms.Button();
-            this.btnOpenResolutionControl = new System.Windows.Forms.Button();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.btnDpiReset = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.工具ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.resToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.OpenDirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dPIToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1.SuspendLayout();
             this.RA2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -85,19 +83,16 @@
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.About.SuspendLayout();
-            this.groupBox7.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.RA2);
             this.tabControl1.Controls.Add(this.RA3);
             this.tabControl1.Controls.Add(this.About);
-            this.tabControl1.Location = new System.Drawing.Point(18, 170);
-            this.tabControl1.Margin = new System.Windows.Forms.Padding(6, 3, 6, 3);
+            this.tabControl1.Location = new System.Drawing.Point(0, 36);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(0);
             this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -129,7 +124,7 @@
             this.groupBox3.Size = new System.Drawing.Size(412, 205);
             this.groupBox3.TabIndex = 4;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "高级功能";
+            this.groupBox3.Text = "补丁";
             // 
             // btnDdrawPatch
             // 
@@ -139,7 +134,7 @@
             this.btnDdrawPatch.Name = "btnDdrawPatch";
             this.btnDdrawPatch.Size = new System.Drawing.Size(188, 48);
             this.btnDdrawPatch.TabIndex = 0;
-            this.btnDdrawPatch.Text = "ddraw.dll 补丁";
+            this.btnDdrawPatch.Text = "ddraw.dll (原版)";
             this.toolTip1.SetToolTip(this.btnDdrawPatch, "一键放置补丁文件到当前目录");
             this.btnDdrawPatch.UseVisualStyleBackColor = true;
             this.btnDdrawPatch.Click += new System.EventHandler(this.btnDdrawPatch_Click);
@@ -147,12 +142,12 @@
             // pictureBox3
             // 
             this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox3.BackgroundImage = global::ra_launcher_remaster.Properties.Resources.bitmap12;
-            this.pictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox3.Location = new System.Drawing.Point(291, 79);
+            this.pictureBox3.BackgroundImage = global::RaLauncher.Properties.Resources.bitmap12;
+            this.pictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.pictureBox3.Location = new System.Drawing.Point(327, 116);
             this.pictureBox3.Margin = new System.Windows.Forms.Padding(6, 3, 6, 3);
             this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(111, 119);
+            this.pictureBox3.Size = new System.Drawing.Size(75, 82);
             this.pictureBox3.TabIndex = 1;
             this.pictureBox3.TabStop = false;
             // 
@@ -169,7 +164,7 @@
             this.groupBox2.Size = new System.Drawing.Size(412, 160);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "YURI (ra2md.exe)";
+            this.groupBox2.Text = "尤里的复仇 (ra2md.exe)";
             // 
             // btnRa2YrIniOpt_Click
             // 
@@ -229,7 +224,7 @@
             this.groupBox1.Size = new System.Drawing.Size(412, 176);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "RA2 (ra2.exe)";
+            this.groupBox1.Text = "Red Alert 2 (ra2.exe)";
             // 
             // btnRa2IniOpt
             // 
@@ -355,13 +350,13 @@
             // 
             // pictureBox2
             // 
-            this.pictureBox2.BackgroundImage = global::ra_launcher_remaster.Properties.Resources.bitmap11;
-            this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBox2.BackgroundImage = global::RaLauncher.Properties.Resources.bitmap11;
+            this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.pictureBox2.InitialImage = null;
-            this.pictureBox2.Location = new System.Drawing.Point(344, 99);
+            this.pictureBox2.Location = new System.Drawing.Point(331, 99);
             this.pictureBox2.Margin = new System.Windows.Forms.Padding(6, 3, 6, 3);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(62, 72);
+            this.pictureBox2.Size = new System.Drawing.Size(75, 72);
             this.pictureBox2.TabIndex = 7;
             this.pictureBox2.TabStop = false;
             // 
@@ -412,17 +407,17 @@
             this.groupBox4.Size = new System.Drawing.Size(412, 179);
             this.groupBox4.TabIndex = 1;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "RA3 (ra3.exe)";
+            this.groupBox4.Text = "Red Alert 3 (ra3.exe)";
             // 
             // pictureBox1
             // 
-            this.pictureBox1.BackgroundImage = global::ra_launcher_remaster.Properties.Resources.bitmap1;
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBox1.BackgroundImage = global::RaLauncher.Properties.Resources.bitmap1;
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.pictureBox1.InitialImage = null;
-            this.pictureBox1.Location = new System.Drawing.Point(344, 101);
+            this.pictureBox1.Location = new System.Drawing.Point(331, 101);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(6, 3, 6, 3);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(62, 72);
+            this.pictureBox1.Size = new System.Drawing.Size(75, 72);
             this.pictureBox1.TabIndex = 6;
             this.pictureBox1.TabStop = false;
             // 
@@ -519,97 +514,6 @@
             this.richTextBox1.Text = resources.GetString("richTextBox1.Text");
             this.richTextBox1.WordWrap = false;
             this.richTextBox1.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.richTextBox1_LinkClicked);
-            this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
-            // 
-            // btnSetDpi
-            // 
-            this.btnSetDpi.Location = new System.Drawing.Point(227, 36);
-            this.btnSetDpi.Margin = new System.Windows.Forms.Padding(6, 3, 6, 3);
-            this.btnSetDpi.Name = "btnSetDpi";
-            this.btnSetDpi.Size = new System.Drawing.Size(76, 31);
-            this.btnSetDpi.TabIndex = 2;
-            this.btnSetDpi.Text = "&OK";
-            this.toolTip1.SetToolTip(this.btnSetDpi, "DPI请勿设置的过大！");
-            this.btnSetDpi.UseVisualStyleBackColor = true;
-            this.btnSetDpi.Click += new System.EventHandler(this.btnSetDpi_Click);
-            // 
-            // labelDpi
-            // 
-            this.labelDpi.AutoSize = true;
-            this.labelDpi.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.labelDpi.Cursor = System.Windows.Forms.Cursors.Help;
-            this.labelDpi.Location = new System.Drawing.Point(19, 39);
-            this.labelDpi.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.labelDpi.Name = "labelDpi";
-            this.labelDpi.Size = new System.Drawing.Size(78, 26);
-            this.labelDpi.TabIndex = 5;
-            this.labelDpi.Text = "缩放DPI";
-            this.toolTip1.SetToolTip(this.labelDpi, "有时候你需要把DPI设置成100才能正常运行红警2\r\n单击此处可以获取你当前的系统DPI！");
-            this.labelDpi.Click += new System.EventHandler(this.labelDpi_Click);
-            // 
-            // zoomRatioComboBox
-            // 
-            this.zoomRatioComboBox.FormattingEnabled = true;
-            this.zoomRatioComboBox.Location = new System.Drawing.Point(113, 35);
-            this.zoomRatioComboBox.Margin = new System.Windows.Forms.Padding(6, 3, 6, 3);
-            this.zoomRatioComboBox.Name = "zoomRatioComboBox";
-            this.zoomRatioComboBox.Size = new System.Drawing.Size(102, 32);
-            this.zoomRatioComboBox.TabIndex = 4;
-            // 
-            // btnCurDir
-            // 
-            this.btnCurDir.Location = new System.Drawing.Point(227, 82);
-            this.btnCurDir.Margin = new System.Windows.Forms.Padding(6, 3, 6, 3);
-            this.btnCurDir.Name = "btnCurDir";
-            this.btnCurDir.Size = new System.Drawing.Size(186, 48);
-            this.btnCurDir.TabIndex = 3;
-            this.btnCurDir.Text = "打开当前目录";
-            this.btnCurDir.UseVisualStyleBackColor = true;
-            this.btnCurDir.Click += new System.EventHandler(this.btnCurDir_Click);
-            // 
-            // btnOpenResolutionControl
-            // 
-            this.btnOpenResolutionControl.Location = new System.Drawing.Point(19, 82);
-            this.btnOpenResolutionControl.Margin = new System.Windows.Forms.Padding(6, 3, 6, 3);
-            this.btnOpenResolutionControl.Name = "btnOpenResolutionControl";
-            this.btnOpenResolutionControl.Size = new System.Drawing.Size(198, 48);
-            this.btnOpenResolutionControl.TabIndex = 6;
-            this.btnOpenResolutionControl.Text = "分辨率设置";
-            this.toolTip1.SetToolTip(this.btnOpenResolutionControl, "打开系统的显示设置");
-            this.btnOpenResolutionControl.UseVisualStyleBackColor = true;
-            this.btnOpenResolutionControl.Click += new System.EventHandler(this.btnOpenResolutionControl_Click);
-            // 
-            // groupBox7
-            // 
-            this.groupBox7.BackColor = System.Drawing.SystemColors.Control;
-            this.groupBox7.Controls.Add(this.btnDpiReset);
-            this.groupBox7.Controls.Add(this.btnOpenResolutionControl);
-            this.groupBox7.Controls.Add(this.btnCurDir);
-            this.groupBox7.Controls.Add(this.zoomRatioComboBox);
-            this.groupBox7.Controls.Add(this.labelDpi);
-            this.groupBox7.Controls.Add(this.btnSetDpi);
-            this.groupBox7.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.groupBox7.Location = new System.Drawing.Point(18, 18);
-            this.groupBox7.Margin = new System.Windows.Forms.Padding(6, 3, 6, 3);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Padding = new System.Windows.Forms.Padding(6, 3, 6, 3);
-            this.groupBox7.Size = new System.Drawing.Size(446, 146);
-            this.groupBox7.TabIndex = 5;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Launcher v1.2.2";
-            // 
-            // btnDpiReset
-            // 
-            this.btnDpiReset.Location = new System.Drawing.Point(313, 36);
-            this.btnDpiReset.Margin = new System.Windows.Forms.Padding(6, 3, 6, 3);
-            this.btnDpiReset.Name = "btnDpiReset";
-            this.btnDpiReset.Size = new System.Drawing.Size(100, 31);
-            this.btnDpiReset.TabIndex = 7;
-            this.btnDpiReset.Text = "&Reset";
-            this.toolTip1.SetToolTip(this.btnDpiReset, "重置为初始的DPI");
-            this.btnDpiReset.UseVisualStyleBackColor = true;
-            this.btnDpiReset.Visible = false;
-            this.btnDpiReset.Click += new System.EventHandler(this.btnDpiReset_Click);
             // 
             // toolTip1
             // 
@@ -619,15 +523,60 @@
             this.toolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.toolTip1.ToolTipTitle = "提示";
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.BackColor = System.Drawing.SystemColors.Window;
+            this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.工具ToolStripMenuItem,
+            this.dPIToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(449, 36);
+            this.menuStrip1.TabIndex = 6;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // 工具ToolStripMenuItem
+            // 
+            this.工具ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.resToolStripMenuItem,
+            this.OpenDirToolStripMenuItem});
+            this.工具ToolStripMenuItem.Name = "工具ToolStripMenuItem";
+            this.工具ToolStripMenuItem.Size = new System.Drawing.Size(90, 29);
+            this.工具ToolStripMenuItem.Text = "工具 (&T)";
+            // 
+            // resToolStripMenuItem
+            // 
+            this.resToolStripMenuItem.Name = "resToolStripMenuItem";
+            this.resToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.resToolStripMenuItem.Text = "系统 - 分辨率设置";
+            this.resToolStripMenuItem.Click += new System.EventHandler(this.resToolStripMenuItem_Click);
+            // 
+            // OpenDirToolStripMenuItem
+            // 
+            this.OpenDirToolStripMenuItem.Name = "OpenDirToolStripMenuItem";
+            this.OpenDirToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.OpenDirToolStripMenuItem.Text = "打开当前目录";
+            this.OpenDirToolStripMenuItem.Click += new System.EventHandler(this.OpenDirToolStripMenuItem_Click);
+            // 
+            // dPIToolStripMenuItem
+            // 
+            this.dPIToolStripMenuItem.Name = "dPIToolStripMenuItem";
+            this.dPIToolStripMenuItem.Size = new System.Drawing.Size(137, 29);
+            this.dPIToolStripMenuItem.Text = "一键设置 &DPI";
+            this.dPIToolStripMenuItem.Click += new System.EventHandler(this.dPIToolStripMenuItem_Click);
+            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(485, 810);
-            this.Controls.Add(this.groupBox7);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.ClientSize = new System.Drawing.Size(449, 656);
             this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(6, 3, 6, 3);
             this.MaximizeBox = false;
             this.Name = "Form1";
@@ -649,9 +598,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.About.ResumeLayout(false);
             this.About.PerformLayout();
-            this.groupBox7.ResumeLayout(false);
-            this.groupBox7.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -691,14 +641,12 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox pictureBox3;
-        private System.Windows.Forms.Button btnSetDpi;
-        private System.Windows.Forms.Label labelDpi;
-        private System.Windows.Forms.ComboBox zoomRatioComboBox;
-        private System.Windows.Forms.Button btnCurDir;
-        private System.Windows.Forms.Button btnOpenResolutionControl;
-        private System.Windows.Forms.GroupBox groupBox7;
-        private System.Windows.Forms.Button btnDpiReset;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem 工具ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem resToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem OpenDirToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dPIToolStripMenuItem;
     }
 }
 

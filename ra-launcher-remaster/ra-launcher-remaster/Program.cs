@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ra_launcher_remaster
+namespace RaLauncher
 {
     internal static class Program
     {

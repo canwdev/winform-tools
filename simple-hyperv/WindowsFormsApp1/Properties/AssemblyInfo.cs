@@ -6,12 +6,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Simple Hyper V")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Simple Hyper-V")]
+[assembly: AssemblyDescription("Solve the problem of slow startup of Hyper-V and add some GUI management utilities.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Simple Hyper V")]
-[assembly: AssemblyCopyright("Copyright © 2023")]
+[assembly: AssemblyCompany("Canwdev")]
+[assembly: AssemblyProduct("Simple Hyper-V")]
+[assembly: AssemblyCopyright("Copyright © 2024")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

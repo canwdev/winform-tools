@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{28ED3186-B5B0-44D6-9446-30C3130B5FCE}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>ra_launcher_remaster</RootNamespace>
-    <AssemblyName>ra-launcher-remaster</AssemblyName>
+    <RootNamespace>RaLauncher</RootNamespace>
+    <AssemblyName>RaLauncher</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -135,7 +135,6 @@
     <Content Include="icon-ra3.ico" />
     <EmbeddedResource Include="Resources\SetDpi.exe" />
     <EmbeddedResource Include="Resources\ddraw.dll" />
-    <None Include="ra-launcher-remaster_TemporaryKey.pfx" />
     <None Include="Resources\bitmap12.bmp" />
     <None Include="Resources\bitmap11.bmp" />
     <None Include="Resources\bitmap1.bmp" />

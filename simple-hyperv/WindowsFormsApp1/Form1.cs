@@ -120,6 +120,9 @@ namespace SimpleHyperVForm1
             notifyIcon.Icon = Resources.icon;
             // notifyIcon.Visible = true;
 
+            // 设置鼠标悬浮提示
+            notifyIcon.Text = "Simple Hyper-V";
+
             notifyIconContextMenu = new ContextMenuStrip();
             restoreToolStripMenuItem = new ToolStripMenuItem("Restore");
             restoreToolStripMenuItem.Click += NotifyIconRestore;
