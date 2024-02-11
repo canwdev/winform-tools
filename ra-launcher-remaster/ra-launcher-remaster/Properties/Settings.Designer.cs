@@ -22,5 +22,29 @@ namespace RaLauncher.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Ra3ConsoleEnabled {
+            get {
+                return ((bool)(this["Ra3ConsoleEnabled"]));
+            }
+            set {
+                this["Ra3ConsoleEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Ra3CustomResolution {
+            get {
+                return ((string)(this["Ra3CustomResolution"]));
+            }
+            set {
+                this["Ra3CustomResolution"] = value;
+            }
+        }
     }
 }

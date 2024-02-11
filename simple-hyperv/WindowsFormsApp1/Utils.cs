@@ -199,7 +199,7 @@ namespace MyUtilsNamespace
 objShell.ShellExecute ""{programName}"", ""{paramsText}"", """", ""runas"", 1";
         }
 
-        public static string ExtractResourceIfNotExist(string filename)
+        public static string ExtractResource(string filename)
         {
             // 获取要提取的资源文件路径
             // 必须和项目中的命名空间一致！

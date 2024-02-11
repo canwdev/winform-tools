@@ -35,18 +35,18 @@
             // richTextBox1
             // 
             this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.richTextBox1.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.richTextBox1.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.richTextBox1.Location = new System.Drawing.Point(14, 19);
-            this.richTextBox1.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.richTextBox1.Margin = new System.Windows.Forms.Padding(5);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(633, 424);
+            this.richTextBox1.Size = new System.Drawing.Size(388, 282);
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "";
             // 
             // btnCopy
             // 
-            this.btnCopy.Location = new System.Drawing.Point(529, 453);
-            this.btnCopy.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.btnCopy.Location = new System.Drawing.Point(284, 311);
+            this.btnCopy.Margin = new System.Windows.Forms.Padding(5);
             this.btnCopy.Name = "btnCopy";
             this.btnCopy.Size = new System.Drawing.Size(118, 45);
             this.btnCopy.TabIndex = 1;
@@ -58,11 +58,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(660, 509);
+            this.ClientSize = new System.Drawing.Size(416, 369);
             this.Controls.Add(this.btnCopy);
             this.Controls.Add(this.richTextBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.Margin = new System.Windows.Forms.Padding(5);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormTextDisplay";

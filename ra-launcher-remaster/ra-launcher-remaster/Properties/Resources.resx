@@ -118,11 +118,17 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="bitmap1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\bitmap1.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="game.exe(93)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\game.exe(93).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="bitmap11" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\bitmap11.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ra3ep1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ra3ep1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="gamemd.exe(93)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\gamemd.exe(93).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ra3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ra3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="bitmap12" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bitmap12.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

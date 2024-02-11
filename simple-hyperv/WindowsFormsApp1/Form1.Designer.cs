@@ -424,7 +424,6 @@
             this.textBoxOutput.Size = new System.Drawing.Size(692, 274);
             this.textBoxOutput.TabIndex = 10;
             this.textBoxOutput.Visible = false;
-            this.textBoxOutput.WordWrap = false;
             // 
             // toolTip1
             // 

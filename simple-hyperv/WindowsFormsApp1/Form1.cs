@@ -217,7 +217,7 @@ namespace SimpleHyperVForm1
         // 运行辅助工具，启动相关功能
         private void RunHvintegrate(string args)
         {
-            string HVIntegrateFileName = MyUtils.ExtractResourceIfNotExist("hvintegrate.exe");
+            string HVIntegrateFileName = MyUtils.ExtractResource("hvintegrate.exe");
             MyUtils.StartCurDirProgram(HVIntegrateFileName, args);
         }
 
