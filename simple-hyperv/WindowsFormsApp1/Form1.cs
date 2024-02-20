@@ -86,9 +86,8 @@ namespace SimpleHyperVForm1
 
         public void CloseToTray()
         {
-            WindowState = FormWindowState.Minimized;
+            Hide();
             notifyIcon.Visible = true;
-            ShowInTaskbar = false;
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -145,9 +144,8 @@ namespace SimpleHyperVForm1
         public void NotifyIconRestore(object sender, EventArgs e)
         {
             // 双击通知区域图标时恢复窗口
-            WindowState = FormWindowState.Normal;
+            Show();
             notifyIcon.Visible = false;
-            ShowInTaskbar = true;
             Activate();
         }
         public void NotifyIcon_Exit_Click(object sender, EventArgs e)
