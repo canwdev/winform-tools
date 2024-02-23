@@ -49,7 +49,7 @@ namespace SimpleHyperVForm1
 
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private async void Form1_Load(object sender, EventArgs e)
         {
             // this.Text = "自定义标题";
             buttonVmRefresh.PerformClick();
@@ -76,6 +76,8 @@ namespace SimpleHyperVForm1
             {
                 if (closeToTrayToolStripMenuItem.Checked)
                 {
+                    // 延迟100毫秒，防止无法关闭到托盘
+                    await Task.Delay(100);
                     CloseToTray();
                 } else
                 {
@@ -642,6 +644,20 @@ namespace SimpleHyperVForm1
         private void closeToTrayToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Settings.Default.CloseToTray = closeToTrayToolStripMenuItem.Checked;
+            Settings.Default.Save();
+        }
+        private void autoStartupToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string name = Application.ProductName;
+            if (autoStartupToolStripMenuItem.Checked)
+            {
+                MyUtils.addAutostartup(name);
+            } else
+            {
+                MyUtils.delAutostartup(name);
+            }
+
+            Settings.Default.AutoStartup = autoStartupToolStripMenuItem.Checked;
             Settings.Default.Save();
         }
 

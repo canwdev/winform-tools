@@ -12,6 +12,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using SimpleHyperVForm1;
+// 需要安装 Nuget 包：TaskScheduler 
+using Microsoft.Win32.TaskScheduler;
+using System.Security.Principal;
+using Action = System.Action;
+using Task = System.Threading.Tasks.Task;
 
 namespace MyUtilsNamespace
 {
@@ -225,6 +230,60 @@ objShell.ShellExecute ""{programName}"", ""{paramsText}"", """", ""runas"", 1";
             }
 
             return targetFilePath;
+        }
+
+        public static void addAutostartup(string name = "AutoStartupTaskName")
+        {
+            WindowsIdentity currentUser = WindowsIdentity.GetCurrent();
+            string username = currentUser.Name.Split('\\')[1]; // 获取当前用户的用户名
+
+            // 创建一个新的计划任务
+            using (TaskService taskService = new TaskService())
+            {
+                // 创建一个触发器，以便在用户登录时运行任务
+                LogonTrigger logonTrigger = new LogonTrigger();
+                logonTrigger.UserId = username; // 设置只有指定用户登录时才触发任务
+                logonTrigger.Delay = new TimeSpan(0, 0, 5); // 设置延迟时间为5秒
+
+                // 创建一个新的任务
+                TaskDefinition taskDefinition = taskService.NewTask();
+                taskDefinition.RegistrationInfo.Description = "Auto startup at user login.";
+
+                // 获取当前程序的路径
+                string path = System.Reflection.Assembly.GetEntryAssembly().Location;
+
+                // 设置任务的操作，即要运行的程序或脚本以及参数
+                taskDefinition.Actions.Add(new ExecAction(path, "-m", null) { WorkingDirectory = Application.StartupPath });
+
+                // 设置任务的权限，以最高权限运行
+                taskDefinition.Principal.RunLevel = TaskRunLevel.Highest;
+
+                // 将触发器添加到任务中
+                taskDefinition.Triggers.Add(logonTrigger);
+
+                // 不要勾选“只有在计算机使用交流电源时才启动此任务”
+                taskDefinition.Settings.DisallowStartIfOnBatteries = false;
+
+                // 将任务注册到Windows任务计划程序中
+                taskService.RootFolder.RegisterTaskDefinition(name, taskDefinition);
+            }
+        }
+
+        public static void delAutostartup(string name = "AutoStartupTaskName")
+        {
+
+            // 创建一个新的任务计划服务
+            using (TaskService taskService = new TaskService())
+            {
+                // 从任务计划程序中获取指定的任务
+                Microsoft.Win32.TaskScheduler.Task task = taskService.GetTask(name);
+
+                // 如果找到了指定的任务，则删除它
+                if (task != null)
+                {
+                    taskService.RootFolder.DeleteTask(name);
+                }
+            }
         }
 
     }

@@ -75,6 +75,7 @@
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showLogsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeToTrayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.autoStartupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.menuStripVmActions.SuspendLayout();
@@ -147,7 +148,7 @@
             this.tabPage1.ImageKey = "icon-hyperv.ico";
             this.tabPage1.Location = new System.Drawing.Point(4, 33);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(692, 374);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "VM";
@@ -164,7 +165,6 @@
             this.moreActionsToolStripMenuItem});
             this.menuStripVmActions.Location = new System.Drawing.Point(535, 290);
             this.menuStripVmActions.Name = "menuStripVmActions";
-            this.menuStripVmActions.Padding = new System.Windows.Forms.Padding(6, 2, 0, 2);
             this.menuStripVmActions.Size = new System.Drawing.Size(149, 32);
             this.menuStripVmActions.TabIndex = 18;
             this.menuStripVmActions.Text = "menuStripVmActions";
@@ -375,7 +375,7 @@
             this.tabPage5.ImageKey = "shell32.dll(16782).ico";
             this.tabPage5.Location = new System.Drawing.Point(4, 33);
             this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage5.Size = new System.Drawing.Size(692, 374);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "About";
@@ -440,7 +440,6 @@
             this.optionsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Padding = new System.Windows.Forms.Padding(6, 2, 0, 2);
             this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.menuStrip1.Size = new System.Drawing.Size(724, 32);
             this.menuStrip1.TabIndex = 20;
@@ -461,7 +460,7 @@
             this.openToolStripMenuItem,
             this.exitStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(71, 32);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(71, 28);
             this.toolsToolStripMenuItem.Text = "&Tools";
             // 
             // hyperVManagerToolStripMenuItem
@@ -469,14 +468,14 @@
             this.hyperVManagerToolStripMenuItem.Image = global::SimpleHyperV.Properties.Resources.icon_hyperv;
             this.hyperVManagerToolStripMenuItem.Name = "hyperVManagerToolStripMenuItem";
             this.hyperVManagerToolStripMenuItem.Size = new System.Drawing.Size(311, 34);
-            this.hyperVManagerToolStripMenuItem.Text = "Hyper-V Manager";
+            this.hyperVManagerToolStripMenuItem.Text = "Hyper-V &Manager";
             this.hyperVManagerToolStripMenuItem.Click += new System.EventHandler(this.hyperVManagerToolStripMenuItem_Click);
             // 
             // hyperVSettingsToolStripMenuItem
             // 
             this.hyperVSettingsToolStripMenuItem.Name = "hyperVSettingsToolStripMenuItem";
             this.hyperVSettingsToolStripMenuItem.Size = new System.Drawing.Size(311, 34);
-            this.hyperVSettingsToolStripMenuItem.Text = "Hyper-V Settings";
+            this.hyperVSettingsToolStripMenuItem.Text = "Hyper-V &Settings";
             this.hyperVSettingsToolStripMenuItem.Click += new System.EventHandler(this.hyperVSettingsToolStripMenuItem_Click);
             // 
             // createVMToolStripMenuItem
@@ -484,7 +483,7 @@
             this.createVMToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.createVMToolStripMenuItem.Name = "createVMToolStripMenuItem";
             this.createVMToolStripMenuItem.Size = new System.Drawing.Size(311, 34);
-            this.createVMToolStripMenuItem.Text = "Create VM";
+            this.createVMToolStripMenuItem.Text = "&Create VM";
             this.createVMToolStripMenuItem.Click += new System.EventHandler(this.createVMToolStripMenuItem_Click);
             // 
             // virtualSwitchManagerToolStripMenuItem
@@ -517,54 +516,63 @@
             // 
             this.networkConnectionsToolStripMenuItem.Name = "networkConnectionsToolStripMenuItem";
             this.networkConnectionsToolStripMenuItem.Size = new System.Drawing.Size(311, 34);
-            this.networkConnectionsToolStripMenuItem.Text = "Network Connections";
+            this.networkConnectionsToolStripMenuItem.Text = "&Network Connections";
             this.networkConnectionsToolStripMenuItem.Click += new System.EventHandler(this.networkConnectionsToolStripMenuItem_Click);
             // 
             // remoteDesktopToolStripMenuItem
             // 
             this.remoteDesktopToolStripMenuItem.Name = "remoteDesktopToolStripMenuItem";
             this.remoteDesktopToolStripMenuItem.Size = new System.Drawing.Size(311, 34);
-            this.remoteDesktopToolStripMenuItem.Text = "Remote Desktop";
+            this.remoteDesktopToolStripMenuItem.Text = "&Remote Desktop";
             this.remoteDesktopToolStripMenuItem.Click += new System.EventHandler(this.remoteDesktopToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.Size = new System.Drawing.Size(311, 34);
-            this.openToolStripMenuItem.Text = "Open ./";
+            this.openToolStripMenuItem.Text = "&Open ./";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // exitStripMenuItem
             // 
             this.exitStripMenuItem.Name = "exitStripMenuItem";
             this.exitStripMenuItem.Size = new System.Drawing.Size(311, 34);
-            this.exitStripMenuItem.Text = "Exit";
+            this.exitStripMenuItem.Text = "&Exit";
             this.exitStripMenuItem.Click += new System.EventHandler(this.exitStripMenuItem_Click);
             // 
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.showLogsToolStripMenuItem,
-            this.closeToTrayToolStripMenuItem});
+            this.closeToTrayToolStripMenuItem,
+            this.autoStartupToolStripMenuItem});
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(95, 32);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(95, 28);
             this.optionsToolStripMenuItem.Text = "O&ptions";
             // 
             // showLogsToolStripMenuItem
             // 
             this.showLogsToolStripMenuItem.CheckOnClick = true;
             this.showLogsToolStripMenuItem.Name = "showLogsToolStripMenuItem";
-            this.showLogsToolStripMenuItem.Size = new System.Drawing.Size(221, 34);
-            this.showLogsToolStripMenuItem.Text = "Show Logs";
+            this.showLogsToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.showLogsToolStripMenuItem.Text = "Show &Logs";
             this.showLogsToolStripMenuItem.Click += new System.EventHandler(this.showLogsToolStripMenuItem_Click);
             // 
             // closeToTrayToolStripMenuItem
             // 
             this.closeToTrayToolStripMenuItem.CheckOnClick = true;
             this.closeToTrayToolStripMenuItem.Name = "closeToTrayToolStripMenuItem";
-            this.closeToTrayToolStripMenuItem.Size = new System.Drawing.Size(221, 34);
-            this.closeToTrayToolStripMenuItem.Text = "Close to Tray";
+            this.closeToTrayToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.closeToTrayToolStripMenuItem.Text = "&Close to Tray";
             this.closeToTrayToolStripMenuItem.Click += new System.EventHandler(this.closeToTrayToolStripMenuItem_Click);
+            // 
+            // autoStartupToolStripMenuItem
+            // 
+            this.autoStartupToolStripMenuItem.CheckOnClick = true;
+            this.autoStartupToolStripMenuItem.Name = "autoStartupToolStripMenuItem";
+            this.autoStartupToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.autoStartupToolStripMenuItem.Text = "&Auto Startup";
+            this.autoStartupToolStripMenuItem.Click += new System.EventHandler(this.autoStartupToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -579,7 +587,7 @@
             this.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MinimumSize = new System.Drawing.Size(596, 392);
             this.Name = "Form1";
             this.Text = "Simple Hyper-V";
@@ -646,6 +654,7 @@
         private System.Windows.Forms.ToolStripMenuItem vMSettingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem enableNestedVMToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteVMToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem autoStartupToolStripMenuItem;
     }
 }
 
