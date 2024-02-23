@@ -92,6 +92,18 @@ namespace SimpleHyperVForm1
             notifyIcon.Visible = true;
         }
 
+        private void Form1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (closeToTrayToolStripMenuItem.Checked)
+            {
+                CloseToTray();
+            }
+            else
+            {
+                WindowState = FormWindowState.Minimized;
+            }
+        }
+
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (WindowState == FormWindowState.Normal)
@@ -696,7 +708,6 @@ namespace SimpleHyperVForm1
                 buttonVmRefresh.PerformClick();
             }
         }
-
         /* SWITCH END */
 
     }

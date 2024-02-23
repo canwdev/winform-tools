@@ -554,7 +554,7 @@
             // 
             this.showLogsToolStripMenuItem.CheckOnClick = true;
             this.showLogsToolStripMenuItem.Name = "showLogsToolStripMenuItem";
-            this.showLogsToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.showLogsToolStripMenuItem.Size = new System.Drawing.Size(221, 34);
             this.showLogsToolStripMenuItem.Text = "Show &Logs";
             this.showLogsToolStripMenuItem.Click += new System.EventHandler(this.showLogsToolStripMenuItem_Click);
             // 
@@ -562,7 +562,7 @@
             // 
             this.closeToTrayToolStripMenuItem.CheckOnClick = true;
             this.closeToTrayToolStripMenuItem.Name = "closeToTrayToolStripMenuItem";
-            this.closeToTrayToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.closeToTrayToolStripMenuItem.Size = new System.Drawing.Size(221, 34);
             this.closeToTrayToolStripMenuItem.Text = "&Close to Tray";
             this.closeToTrayToolStripMenuItem.Click += new System.EventHandler(this.closeToTrayToolStripMenuItem_Click);
             // 
@@ -570,7 +570,7 @@
             // 
             this.autoStartupToolStripMenuItem.CheckOnClick = true;
             this.autoStartupToolStripMenuItem.Name = "autoStartupToolStripMenuItem";
-            this.autoStartupToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.autoStartupToolStripMenuItem.Size = new System.Drawing.Size(221, 34);
             this.autoStartupToolStripMenuItem.Text = "&Auto Startup";
             this.autoStartupToolStripMenuItem.Click += new System.EventHandler(this.autoStartupToolStripMenuItem_Click);
             // 
@@ -586,6 +586,7 @@
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MinimumSize = new System.Drawing.Size(596, 392);
@@ -593,6 +594,7 @@
             this.Text = "Simple Hyper-V";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Form1_KeyPress);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();

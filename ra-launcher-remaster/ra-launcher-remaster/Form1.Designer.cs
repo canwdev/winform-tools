@@ -38,11 +38,13 @@
             this.buttonTsDdraw = new System.Windows.Forms.Button();
             this.btnDDrawCompatPatch = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.btnRa2YrIniOpt_Click = new System.Windows.Forms.Button();
             this.btnRa2YrExit = new System.Windows.Forms.Button();
             this.btnRa2YrLaunchWin = new System.Windows.Forms.Button();
             this.btnRa2YrLaunch = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.btnRa2IniOpt = new System.Windows.Forms.Button();
             this.btnRa2Exit = new System.Windows.Forms.Button();
             this.btnRa2LaunchWin = new System.Windows.Forms.Button();
@@ -53,10 +55,12 @@
             this.labelCustomRa3Res = new System.Windows.Forms.Label();
             this.checkBoxRa3ConsoleEnabled = new System.Windows.Forms.CheckBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.btnRa3Ep1Exit = new System.Windows.Forms.Button();
             this.btnRa3Ep1LaunchWin = new System.Windows.Forms.Button();
             this.btnRa3Ep1Launch = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.buttonRa3Tool = new System.Windows.Forms.Button();
             this.btnRa3Exit = new System.Windows.Forms.Button();
             this.btnRa3LaunchWin = new System.Windows.Forms.Button();
@@ -71,26 +75,22 @@
             this.resToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.OpenDirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dPIToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.tabControl1.SuspendLayout();
             this.RA2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.RA3.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.About.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -103,7 +103,7 @@
             this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(450, 622);
+            this.tabControl1.Size = new System.Drawing.Size(449, 622);
             this.tabControl1.TabIndex = 0;
             // 
             // RA2
@@ -197,6 +197,16 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "       尤里的复仇 (ra2md.exe)";
             // 
+            // pictureBox3
+            // 
+            this.pictureBox3.BackgroundImage = global::RaLauncher.Properties.Resources.gamemd_exe_93_;
+            this.pictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBox3.Location = new System.Drawing.Point(11, 0);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(32, 32);
+            this.pictureBox3.TabIndex = 6;
+            this.pictureBox3.TabStop = false;
+            // 
             // btnRa2YrIniOpt_Click
             // 
             this.btnRa2YrIniOpt_Click.Location = new System.Drawing.Point(209, 98);
@@ -259,6 +269,16 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "       Red Alert 2 (ra2.exe)";
             // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BackgroundImage = global::RaLauncher.Properties.Resources.game_exe_93_;
+            this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBox2.Location = new System.Drawing.Point(11, 0);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(32, 32);
+            this.pictureBox2.TabIndex = 5;
+            this.pictureBox2.TabStop = false;
+            // 
             // btnRa2IniOpt
             // 
             this.btnRa2IniOpt.Location = new System.Drawing.Point(209, 98);
@@ -314,7 +334,7 @@
             this.RA3.Margin = new System.Windows.Forms.Padding(6, 3, 6, 3);
             this.RA3.Name = "RA3";
             this.RA3.Padding = new System.Windows.Forms.Padding(6, 3, 6, 3);
-            this.RA3.Size = new System.Drawing.Size(442, 585);
+            this.RA3.Size = new System.Drawing.Size(441, 585);
             this.RA3.TabIndex = 1;
             this.RA3.Text = "RA3";
             this.RA3.UseVisualStyleBackColor = true;
@@ -387,6 +407,16 @@
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "       起义时刻 (ra3ep1.exe)";
             // 
+            // pictureBox5
+            // 
+            this.pictureBox5.BackgroundImage = global::RaLauncher.Properties.Resources.ra3ep1;
+            this.pictureBox5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBox5.Location = new System.Drawing.Point(11, 0);
+            this.pictureBox5.Name = "pictureBox5";
+            this.pictureBox5.Size = new System.Drawing.Size(32, 32);
+            this.pictureBox5.TabIndex = 9;
+            this.pictureBox5.TabStop = false;
+            // 
             // btnRa3Ep1Exit
             // 
             this.btnRa3Ep1Exit.Location = new System.Drawing.Point(11, 98);
@@ -437,6 +467,16 @@
             this.groupBox4.TabIndex = 1;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "       Red Alert 3 (ra3.exe)";
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.BackgroundImage = global::RaLauncher.Properties.Resources.ra3;
+            this.pictureBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBox4.Location = new System.Drawing.Point(11, 0);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(32, 32);
+            this.pictureBox4.TabIndex = 8;
+            this.pictureBox4.TabStop = false;
             // 
             // buttonRa3Tool
             // 
@@ -492,7 +532,7 @@
             this.About.Margin = new System.Windows.Forms.Padding(6, 3, 6, 3);
             this.About.Name = "About";
             this.About.Padding = new System.Windows.Forms.Padding(6, 3, 6, 3);
-            this.About.Size = new System.Drawing.Size(442, 585);
+            this.About.Size = new System.Drawing.Size(441, 585);
             this.About.TabIndex = 2;
             this.About.Text = "关于";
             this.About.UseVisualStyleBackColor = true;
@@ -513,7 +553,7 @@
             // 
             this.linkLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(367, 554);
+            this.linkLabel1.Location = new System.Drawing.Point(366, 554);
             this.linkLabel1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(69, 24);
@@ -534,11 +574,11 @@
             this.richTextBox1.Cursor = System.Windows.Forms.Cursors.Default;
             this.richTextBox1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.richTextBox1.ForeColor = System.Drawing.Color.Navy;
-            this.richTextBox1.Location = new System.Drawing.Point(0, 0);
+            this.richTextBox1.Location = new System.Drawing.Point(6, 0);
             this.richTextBox1.Margin = new System.Windows.Forms.Padding(0);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(442, 551);
+            this.richTextBox1.Size = new System.Drawing.Size(429, 544);
             this.richTextBox1.TabIndex = 1;
             this.richTextBox1.Text = resources.GetString("richTextBox1.Text");
             this.richTextBox1.WordWrap = false;
@@ -562,7 +602,7 @@
             this.dPIToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(449, 33);
+            this.menuStrip1.Size = new System.Drawing.Size(449, 32);
             this.menuStrip1.TabIndex = 6;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -572,69 +612,29 @@
             this.resToolStripMenuItem,
             this.OpenDirToolStripMenuItem});
             this.工具ToolStripMenuItem.Name = "工具ToolStripMenuItem";
-            this.工具ToolStripMenuItem.Size = new System.Drawing.Size(90, 29);
+            this.工具ToolStripMenuItem.Size = new System.Drawing.Size(89, 28);
             this.工具ToolStripMenuItem.Text = "工具 (&T)";
             // 
             // resToolStripMenuItem
             // 
             this.resToolStripMenuItem.Name = "resToolStripMenuItem";
-            this.resToolStripMenuItem.Size = new System.Drawing.Size(264, 34);
+            this.resToolStripMenuItem.Size = new System.Drawing.Size(254, 34);
             this.resToolStripMenuItem.Text = "系统 - 分辨率设置";
             this.resToolStripMenuItem.Click += new System.EventHandler(this.resToolStripMenuItem_Click);
             // 
             // OpenDirToolStripMenuItem
             // 
             this.OpenDirToolStripMenuItem.Name = "OpenDirToolStripMenuItem";
-            this.OpenDirToolStripMenuItem.Size = new System.Drawing.Size(264, 34);
+            this.OpenDirToolStripMenuItem.Size = new System.Drawing.Size(254, 34);
             this.OpenDirToolStripMenuItem.Text = "打开当前目录";
             this.OpenDirToolStripMenuItem.Click += new System.EventHandler(this.OpenDirToolStripMenuItem_Click);
             // 
             // dPIToolStripMenuItem
             // 
             this.dPIToolStripMenuItem.Name = "dPIToolStripMenuItem";
-            this.dPIToolStripMenuItem.Size = new System.Drawing.Size(137, 29);
+            this.dPIToolStripMenuItem.Size = new System.Drawing.Size(133, 28);
             this.dPIToolStripMenuItem.Text = "一键设置 &DPI";
             this.dPIToolStripMenuItem.Click += new System.EventHandler(this.dPIToolStripMenuItem_Click);
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.BackgroundImage = global::RaLauncher.Properties.Resources.game_exe_93_;
-            this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox2.Location = new System.Drawing.Point(11, 0);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox2.TabIndex = 5;
-            this.pictureBox2.TabStop = false;
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.BackgroundImage = global::RaLauncher.Properties.Resources.gamemd_exe_93_;
-            this.pictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox3.Location = new System.Drawing.Point(11, 0);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox3.TabIndex = 6;
-            this.pictureBox3.TabStop = false;
-            // 
-            // pictureBox4
-            // 
-            this.pictureBox4.BackgroundImage = global::RaLauncher.Properties.Resources.ra3;
-            this.pictureBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox4.Location = new System.Drawing.Point(11, 0);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox4.TabIndex = 8;
-            this.pictureBox4.TabStop = false;
-            // 
-            // pictureBox5
-            // 
-            this.pictureBox5.BackgroundImage = global::RaLauncher.Properties.Resources.ra3ep1;
-            this.pictureBox5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox5.Location = new System.Drawing.Point(11, 0);
-            this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox5.TabIndex = 9;
-            this.pictureBox5.TabStop = false;
             // 
             // Form1
             // 
@@ -645,6 +645,7 @@
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(6, 3, 6, 3);
             this.MaximizeBox = false;
@@ -652,25 +653,26 @@
             this.Text = "RA 2/3 Launcher";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.tabControl1.ResumeLayout(false);
             this.RA2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.RA3.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
             this.groupBox5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             this.groupBox4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.About.ResumeLayout(false);
             this.About.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

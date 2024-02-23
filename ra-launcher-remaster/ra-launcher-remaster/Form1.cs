@@ -438,6 +438,14 @@ StretchMovies=no
             OpenDirToolStripMenuItem_Click(sender, e);
         }
 
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
+            }
+        }
+
 
         /* RA3 END */
 
