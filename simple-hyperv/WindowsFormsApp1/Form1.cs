@@ -189,6 +189,7 @@ namespace SimpleHyperVForm1
             textBoxOutput.Visible = Settings.Default.ShowLogs;
 
             closeToTrayToolStripMenuItem.Checked = Settings.Default.CloseToTray;
+            autoStartupToolStripMenuItem.Checked = Settings.Default.AutoStartup;
         }
         private void richTextBox1_LinkClicked(object sender, LinkClickedEventArgs e)
         {

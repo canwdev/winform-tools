@@ -12,7 +12,8 @@ Red Alert Launcher Tools (2023)
 
 ## Simple Hyper-V 管理器
 
-解决了 Hyper-V 官方管理器启动过慢的问题
+解决 Hyper-V 启动过慢的问题，并增加一些 GUI 管理实用工具。
+
 ![img](screenshot-vm.png)
 
 ## HelloWorld
