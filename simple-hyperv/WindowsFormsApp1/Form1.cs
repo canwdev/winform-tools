@@ -11,6 +11,7 @@ using SimpleHyperV.Properties;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.IO.Pipes;
+using System.Drawing;
 
 namespace SimpleHyperVForm1
 {
@@ -84,6 +85,23 @@ namespace SimpleHyperVForm1
                     WindowState = FormWindowState.Minimized;
                 }
             }
+
+            AddHyperlink(richTextBox1, "taskschd.msc");
+        }
+
+        private void AddHyperlink(RichTextBox richTextBox, string text)
+        {
+            int index = richTextBox.Text.IndexOf(text);
+            if (index != -1)
+            {
+                richTextBox.Select(index, text.Length);
+                richTextBox.SelectionColor = SystemColors.Highlight;
+                richTextBox.SelectionFont = new Font(richTextBox.Font, FontStyle.Underline);
+                richTextBox.SelectionStart = richTextBox.TextLength;
+                richTextBox.SelectionLength = 0;
+                richTextBox.SelectionColor = richTextBox.ForeColor;
+                richTextBox.SelectionFont = richTextBox.Font;
+            }
         }
 
         public void CloseToTray()
@@ -94,13 +112,17 @@ namespace SimpleHyperVForm1
 
         private void Form1_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (closeToTrayToolStripMenuItem.Checked)
+            if (e.KeyChar == (char)27) // 27 是Escape键对应的字符
             {
-                CloseToTray();
-            }
-            else
-            {
-                WindowState = FormWindowState.Minimized;
+                // 处理ESC键按下的逻辑
+                if (closeToTrayToolStripMenuItem.Checked)
+                {
+                    CloseToTray();
+                }
+                else
+                {
+                    WindowState = FormWindowState.Minimized;
+                }
             }
         }
 
