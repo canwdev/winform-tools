@@ -86,22 +86,6 @@ namespace SimpleHyperVForm1
                 }
             }
 
-            AddHyperlink(richTextBox1, "taskschd.msc");
-        }
-
-        private void AddHyperlink(RichTextBox richTextBox, string text)
-        {
-            int index = richTextBox.Text.IndexOf(text);
-            if (index != -1)
-            {
-                richTextBox.Select(index, text.Length);
-                richTextBox.SelectionColor = SystemColors.Highlight;
-                richTextBox.SelectionFont = new Font(richTextBox.Font, FontStyle.Underline);
-                richTextBox.SelectionStart = richTextBox.TextLength;
-                richTextBox.SelectionLength = 0;
-                richTextBox.SelectionColor = richTextBox.ForeColor;
-                richTextBox.SelectionFont = richTextBox.Font;
-            }
         }
 
         public void CloseToTray()
@@ -309,6 +293,11 @@ namespace SimpleHyperVForm1
         private void remoteDesktopToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start("mstsc");
+        }
+
+        private void taskschdmscToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("taskschd.msc");
         }
 
         // Open Program Dir(./)
@@ -730,6 +719,7 @@ namespace SimpleHyperVForm1
                 buttonVmRefresh.PerformClick();
             }
         }
+
         /* SWITCH END */
 
     }

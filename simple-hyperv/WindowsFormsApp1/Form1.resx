@@ -120,25 +120,6 @@
   <metadata name="menuStripVmActions.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>460, 17</value>
   </metadata>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <data name="richTextBox1.Text" xml:space="preserve">
-    <value># Simple Hyper-V v1.1.5
-  Copyright © 2024 Canwdev https://github.com/canwdev/winform-tools/tree/master/simple-hyperv
-  Powered By .NET Framework 4.7.2
-  解决 Hyper-V 启动过慢的问题，并增加一些 GUI 管理实用工具。
-  Solve the problem of slow startup of Hyper-V and add some GUI management utilities.
-  
-- 开机自启使用了 taskschd.msc
-- 可选启动参数：-m 静默启动
-
-## 资源
-
-- 配网指南: https://canwdev.github.io/VM%E8%99%9A%E6%8B%9F%E6%9C%BA/Hyper-V/Hyper-V%20%E5%9B%BA%E5%AE%9A%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%BD%91%E7%BB%9C%20IP%20%E5%9C%B0%E5%9D%80%20%E9%85%8D%E7%BD%91%E6%8C%87%E5%8D%97/
-- hvintegrate.exe: https://github.com/0xf005ba11/vmplex-ws
-- RemoteApp Tool: https://github.com/kimmknight/remoteapptool</value>
-  </data>
   <metadata name="imageList1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>150, 17</value>
   </metadata>
@@ -147,12 +128,12 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAAy
-        HAAAAk1TRnQBSQFMAgEBBgEAAbABAQGwAQEBEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
+        HAAAAk1TRnQBSQFMAgEBBgEAAbgBAQG4AQEBEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
         AwABIAMAAQEBAAEgBgABIHoAAyoBQANjAd+kAAHIAb0BiwH/AdABxgGZAf8BhgFqATEB/wGFAWoBMQH/
         AYEBZgEvAf8BeAFfASwB/wNaAb8oAAFLAUwBSwGPAUsBuQFMAf8BZwGxAU8B/wGxAb8BpwH/A10BzANj
         AeQDPgFrmAADOgFgAaEBgQE9Af8B3gHWAbAB/wHlAd0BuwH/AegB4QHAAf8BjgFwATQB/wGLAW8BNAH/
         AYYBagExAf8BfAFjAS0B/wFuAVgBJwH/HAABSwG5AUwB/wFWAcQBVQH/AWEBzwFfAf8BawHZAWcB/wF8
-        AeYBdgH/AcEB0AG3Af8BYAE/ASsB/AH/AbcBQQH/Ac8BmAE/Af+UAAMMARABsAGMAUQB/wGqAYcBQQH/
+        AeYBdgH/AcEB0AG3Af8BYAE+ASsB/AH/AbcBQQH/Ac8BmAE/Af+UAAMMARABsAGMAUQB/wGqAYcBQQH/
         Ae0B5gHIAf8B8gHsAdAB/wH0Ae4B1AH/AfQB7wHUAf8BpQGMAVQB/wGQAXMBNgH/AYgBbAEzAf8BewFi
         ASwB/wFsAVUBJQH/DAADCgENA14BzQNhAdYBawHZAWcB/wFzAeQBbQH/AXEB1QFpAf8BXwFaAT8C/wG3
         AUIC/wGwATAC/wGxATIC/wGyATQB/wHPAZUBNgH/lAABuwGVAUkB/wG4AZMBRwH/Ae8B6QHMAf8B9QHw
@@ -185,9 +166,9 @@
         AXwBQAH/AcgBnQFWAf8DZwHvwAABGgF4AfYB/wHrAeQBxAH/AbcBkQFFAf8B1gHDAZMB/wG1AY8BRQH/
         AbABjAFEAf8BtQGbAWAB/wHmAd8BvQH/AwwBEOQAAzMBUANjAd8BswGQAUoB/wNaAb8DDAEQ/wDYAAH/
         AwAB/wMAAf8DAAH/AwAB/wMAAf8DAAH/AwAB/wMAAf8DAQH/ASQBnAFwAf8BjgH7AdwB/wEBAagBawH/
-        AQEBHQETAf8DAAH/AwAB/xQAAbYBpQF6Af4CbwFUAfMMAAMpAT0BzgG8AUoB/wJcAVkBw3QAAyoBQANj
+        AQEBHQETAf8DAAH/AwAB/xQAAbQBowF7Af4CbwFVAfMMAAMpAT0BzgG8AUoB/wJcAVkBw3QAAyoBQANj
         Ad8TAAH/AwAB/wMAAf8DAQH/ASEBlwFrAf8BPgHVAaMB/wEAAbEBbAH/AQEBWAE5Af8DAAH/AYMB/wHe
-        Af8BeAH5AdQB/wGbAf8B6wH/AQABrwFuAf8BAAGnAWkB/wEAAagBagH/AQEBZAFAAf8IAAG2AaYBeQH+
+        Af8BeAH5AdQB/wGbAf8B6wH/AQABrwFuAf8BAAGnAWkB/wEAAagBagH/AQEBZAFAAf8IAAG0AaQBegH+
         AagBkgEHAf8B+gHxAXwB/wGZAYMBAAH/AawBkgEAAf8BqAGOAQAB/wGmAY0BAAH/AeEB1QFWAf8B+QHw
         AXgB/wHLAbwBQwH/Aa0BkwEAAf8BpwGNAQAB/wGmAY0BAAH/AlcBVgG1NAADGAEgAWQBUwE4Af8cAAFL
         AUwBSwGPAUsBuQFMAf8BZwGxAU8B/wGxAb8BpwH/A10BzANjAeQDPgFrDwAB/wEsAWABTgH/ATABzwGa
@@ -238,7 +219,7 @@
         AS8B/wHCAbwBsgL/Aa0BJgH/AVwBWAFRAf8HAAH/ASMBUwFCAf8BbAG3AaAB/wG/Af8B8wH/AY8B+wHc
         Af8BhQH7AdoB/wEAAcMBegH/AQABxQF8Af8BAAHDAXsB/wEAAcEBegH/AQABvgF5Af8BAAG7AXYB/wMA
         Af8DAAH/AwAB/wMAAf8EAAFmAV4BKAH/AfkB8wGrAf8B+gH1AbAB/wH8AfYBrgH/Af0B9AGIAf8BxgGp
-        AQAB/wHGAakBAAH/AcQBpwEAAf8BwwGmAQAB/wHBAaQBAAH/Ab4BogEAAf8B5QHUASIB/wF6AXkBSAH2
+        AQAB/wHGAakBAAH/AcQBpwEAAf8BwwGmAQAB/wHBAaQBAAH/Ab4BogEAAf8B5QHUASIB/wF5AXgBSAH2
         DAADMwFQEAAB9QG2AU4C/wGwAS4C/wGxATAC/wGxATMC/wGyATUB/xwAAU0BSgFDAv8BwAFYAv8BvgFU
         Av8BvAFNAv8BuQFGAv8BtgE+Af8BhAFqAT8B/wHOAckBwgH/AfgBuwFXAv8BtAE3Av8BsAEwAf8BtwGB
         ASgB/wGmAaIBnAH/BwAB/wEWAUQBNAH/AbUB+AHjAf8BiAHhAcQB/wEAAVUBMAH/AV8BvAGiAf8BAAHD
@@ -270,6 +251,31 @@
         Af8CAAHgAQcE/wIAAfwBPwT/AgAG/ws=
 </value>
   </data>
+  <metadata name="menuStripVmActions.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>460, 17</value>
+  </metadata>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <data name="richTextBox1.Text" xml:space="preserve">
+    <value># Simple Hyper-V v1.1.5
+  Copyright © 2024 Canwdev https://github.com/canwdev/winform-tools/tree/master/simple-hyperv
+  Powered By .NET Framework 4.7.2
+  解决 Hyper-V 启动过慢的问题，并增加一些 GUI 管理实用工具。
+  Solve the problem of slow startup of Hyper-V and add some GUI management utilities.
+  
+- 开机自启使用了 taskschd.msc
+- 可选启动参数：-m 静默启动
+
+## 资源
+
+- 配网指南: https://canwdev.github.io/VM%E8%99%9A%E6%8B%9F%E6%9C%BA/Hyper-V/Hyper-V%20%E5%9B%BA%E5%AE%9A%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%BD%91%E7%BB%9C%20IP%20%E5%9C%B0%E5%9D%80%20%E9%85%8D%E7%BD%91%E6%8C%87%E5%8D%97/
+- hvintegrate.exe: https://github.com/0xf005ba11/vmplex-ws
+- RemoteApp Tool: https://github.com/kimmknight/remoteapptool</value>
+  </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
   <metadata name="menuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>302, 17</value>
   </metadata>
