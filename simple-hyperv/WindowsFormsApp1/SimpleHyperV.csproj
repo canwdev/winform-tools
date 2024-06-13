@@ -28,7 +28,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <AutorunEnabled>true</AutorunEnabled>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.1.0.%2a</ApplicationVersion>
+    <ApplicationVersion>1.1.6.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -307,8 +307,47 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon.ico" />
+    <None Include="Resources\zip.scale-100.png" />
+    <None Include="Resources\WindowsSettings.light.png" />
+    <None Include="Resources\wrench.png" />
+    <None Include="Resources\add.png" />
+    <None Include="Resources\button_edit.png" />
+    <None Include="Resources\button_new.png" />
+    <None Include="Resources\add_row.png" />
+    <None Include="Resources\cardview-addtotable%402x.png" />
+    <None Include="Resources\delete.png" />
+    <None Include="Resources\ComputerToastIcon.contrast-white.png" />
+    <None Include="Resources\dismiss.contrast-white.png" />
+    <None Include="Resources\HandwritingSystemToastIcon.contrast-white.png" />
+    <None Include="Resources\appicondefault-ecaa-32.png" />
+    <None Include="Resources\DefaultSystemNotification.contrast-white_scale-125.png" />
+    <None Include="Resources\DefaultSystemNotification.contrast-white_scale-400.png" />
     <Content Include="Resources\icon-hyperv.ico" />
     <Content Include="Resources\icon.ico" />
+    <None Include="Resources\imageres.dll%2881%29.png" />
+    <None Include="Resources\imageres.dll%2881%291.png" />
+    <None Include="Resources\info.light.png" />
+    <None Include="Resources\icons8-add-50.png" />
+    <None Include="Resources\icons8-plus-math-50.png" />
+    <None Include="Resources\icons8-compress-50.png" />
+    <None Include="Resources\icons8-thin-client-24.png" />
+    <None Include="Resources\icons8-hdd-48.png" />
+    <None Include="Resources\icons8-c-drive-2-24.png" />
+    <None Include="Resources\icons8-compress-24.png" />
+    <None Include="Resources\icons8-settings-24.png" />
+    <None Include="Resources\icons8-add-24.png" />
+    <None Include="Resources\icons8-virtual-24.png" />
+    <None Include="Resources\icons8-support-24.png" />
+    <None Include="Resources\icons8-info-24.png" />
+    <None Include="Resources\icons8-info-24 %281%29.png" />
+    <None Include="Resources\icons8-delete-24.png" />
+    <None Include="Resources\icons8-switch-24.png" />
+    <None Include="Resources\icons8-wired-network-connection-24.png" />
+    <None Include="Resources\icons8-rdp-connection-24.png" />
+    <None Include="Resources\icons8-time-24.png" />
+    <None Include="Resources\icons8-folder-24.png" />
+    <None Include="Resources\icons8-delete-24 %281%29.png" />
+    <None Include="Resources\icons8-refresh-24.png" />
     <Content Include="Resources\shell32.dll%2816782%29.ico" />
     <Content Include="Resources\shell32.dll%28176%29.ico" />
     <Content Include="Resources\shell32.dll%2819%29.ico" />

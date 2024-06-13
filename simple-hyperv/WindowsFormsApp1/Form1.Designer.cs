@@ -88,12 +88,14 @@
             // 
             // buttonVmRefresh
             // 
-            this.buttonVmRefresh.Location = new System.Drawing.Point(4, 155);
-            this.buttonVmRefresh.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonVmRefresh.Image = global::SimpleHyperV.Properties.Resources.icons8_refresh_24;
+            this.buttonVmRefresh.Location = new System.Drawing.Point(5, 186);
+            this.buttonVmRefresh.Margin = new System.Windows.Forms.Padding(2);
             this.buttonVmRefresh.Name = "buttonVmRefresh";
             this.buttonVmRefresh.Size = new System.Drawing.Size(89, 30);
             this.buttonVmRefresh.TabIndex = 5;
             this.buttonVmRefresh.Text = "&Refresh";
+            this.buttonVmRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.buttonVmRefresh.UseVisualStyleBackColor = true;
             this.buttonVmRefresh.Click += new System.EventHandler(this.buttonVmRefresh_Click_1);
             // 
@@ -104,9 +106,9 @@
             this.listBoxVM.FormattingEnabled = true;
             this.listBoxVM.ItemHeight = 17;
             this.listBoxVM.Location = new System.Drawing.Point(4, 2);
-            this.listBoxVM.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.listBoxVM.Margin = new System.Windows.Forms.Padding(2);
             this.listBoxVM.Name = "listBoxVM";
-            this.listBoxVM.Size = new System.Drawing.Size(453, 140);
+            this.listBoxVM.Size = new System.Drawing.Size(453, 174);
             this.listBoxVM.TabIndex = 6;
             this.listBoxVM.SelectedIndexChanged += new System.EventHandler(this.listBoxVM_SelectedIndexChanged);
             this.listBoxVM.DoubleClick += new System.EventHandler(this.listBoxVM_DoubleClick);
@@ -115,7 +117,7 @@
             // 
             this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.progressBar1.Location = new System.Drawing.Point(404, 302);
-            this.progressBar1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.progressBar1.Margin = new System.Windows.Forms.Padding(2);
             this.progressBar1.MarqueeAnimationSpeed = 50;
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(68, 11);
@@ -132,8 +134,8 @@
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.ImageList = this.imageList1;
-            this.tabControl1.Location = new System.Drawing.Point(8, 24);
-            this.tabControl1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabControl1.Location = new System.Drawing.Point(7, 24);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(2);
             this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.Padding = new System.Drawing.Point(8, 3);
@@ -152,9 +154,9 @@
             this.tabPage1.Controls.Add(this.listBoxVM);
             this.tabPage1.ImageKey = "icon-hyperv.ico";
             this.tabPage1.Location = new System.Drawing.Point(4, 26);
-            this.tabPage1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(2);
             this.tabPage1.Size = new System.Drawing.Size(459, 244);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "VM";
@@ -168,7 +170,7 @@
             this.menuStripVmActions.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStripVmActions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.moreActionsToolStripMenuItem});
-            this.menuStripVmActions.Location = new System.Drawing.Point(352, 193);
+            this.menuStripVmActions.Location = new System.Drawing.Point(355, 218);
             this.menuStripVmActions.Name = "menuStripVmActions";
             this.menuStripVmActions.Padding = new System.Windows.Forms.Padding(4, 1, 0, 1);
             this.menuStripVmActions.Size = new System.Drawing.Size(104, 24);
@@ -189,6 +191,7 @@
             // 
             // printVMInfoToolStripMenuItem
             // 
+            this.printVMInfoToolStripMenuItem.Image = global::SimpleHyperV.Properties.Resources.icons8_info_24__1_;
             this.printVMInfoToolStripMenuItem.Name = "printVMInfoToolStripMenuItem";
             this.printVMInfoToolStripMenuItem.Size = new System.Drawing.Size(193, 30);
             this.printVMInfoToolStripMenuItem.Text = "Print VM Info";
@@ -196,7 +199,7 @@
             // 
             // vMSettingsToolStripMenuItem
             // 
-            this.vMSettingsToolStripMenuItem.Image = global::SimpleHyperV.Properties.Resources.icon_hyperv;
+            this.vMSettingsToolStripMenuItem.Image = global::SimpleHyperV.Properties.Resources.icons8_support_24;
             this.vMSettingsToolStripMenuItem.Name = "vMSettingsToolStripMenuItem";
             this.vMSettingsToolStripMenuItem.Size = new System.Drawing.Size(193, 30);
             this.vMSettingsToolStripMenuItem.Text = "VM Settings";
@@ -204,6 +207,7 @@
             // 
             // enableNestedVMToolStripMenuItem
             // 
+            this.enableNestedVMToolStripMenuItem.Image = global::SimpleHyperV.Properties.Resources.icons8_virtual_24;
             this.enableNestedVMToolStripMenuItem.Name = "enableNestedVMToolStripMenuItem";
             this.enableNestedVMToolStripMenuItem.Size = new System.Drawing.Size(193, 30);
             this.enableNestedVMToolStripMenuItem.Text = "Enable Nested VM";
@@ -211,6 +215,7 @@
             // 
             // deleteVMToolStripMenuItem
             // 
+            this.deleteVMToolStripMenuItem.Image = global::SimpleHyperV.Properties.Resources.icons8_delete_24;
             this.deleteVMToolStripMenuItem.Name = "deleteVMToolStripMenuItem";
             this.deleteVMToolStripMenuItem.Size = new System.Drawing.Size(193, 30);
             this.deleteVMToolStripMenuItem.Text = "Delete VM...";
@@ -221,8 +226,8 @@
             this.buttonConnect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonConnect.Cursor = System.Windows.Forms.Cursors.Default;
             this.buttonConnect.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.buttonConnect.Location = new System.Drawing.Point(375, 156);
-            this.buttonConnect.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonConnect.Location = new System.Drawing.Point(376, 187);
+            this.buttonConnect.Margin = new System.Windows.Forms.Padding(2);
             this.buttonConnect.Name = "buttonConnect";
             this.buttonConnect.Size = new System.Drawing.Size(81, 29);
             this.buttonConnect.TabIndex = 12;
@@ -234,22 +239,22 @@
             // 
             this.buttonStop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonStop.Cursor = System.Windows.Forms.Cursors.Help;
-            this.buttonStop.Location = new System.Drawing.Point(289, 156);
-            this.buttonStop.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonStop.Location = new System.Drawing.Point(290, 187);
+            this.buttonStop.Margin = new System.Windows.Forms.Padding(2);
             this.buttonStop.Name = "buttonStop";
             this.buttonStop.Size = new System.Drawing.Size(81, 29);
             this.buttonStop.TabIndex = 11;
             this.buttonStop.Text = "St&op";
             this.toolTip1.SetToolTip(this.buttonStop, "Press Shift simultaneously to force shut down the virtual machine.\r\n同时按下Shift以强制关" +
-        "闭虚拟机。");
+        "闭虚拟机。\r\nPress Ctrl simultaneously  to save state.\r\n同时按下Ctrl以保存虚拟机状态。");
             this.buttonStop.UseVisualStyleBackColor = true;
             this.buttonStop.Click += new System.EventHandler(this.buttonVmStop_Click);
             // 
             // buttonStart
             // 
             this.buttonStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonStart.Location = new System.Drawing.Point(204, 156);
-            this.buttonStart.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonStart.Location = new System.Drawing.Point(205, 187);
+            this.buttonStart.Margin = new System.Windows.Forms.Padding(2);
             this.buttonStart.Name = "buttonStart";
             this.buttonStart.Size = new System.Drawing.Size(81, 29);
             this.buttonStart.TabIndex = 10;
@@ -263,9 +268,9 @@
             this.tabPage3.Controls.Add(this.buttonSwitchDelete);
             this.tabPage3.Controls.Add(this.buttonSwitchRefresh);
             this.tabPage3.Controls.Add(this.listBoxSwitch);
-            this.tabPage3.ImageKey = "shell32.dll(176).ico";
+            this.tabPage3.ImageKey = "icons8-blockchain-technology-24.png";
             this.tabPage3.Location = new System.Drawing.Point(4, 26);
-            this.tabPage3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabPage3.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Size = new System.Drawing.Size(459, 244);
             this.tabPage3.TabIndex = 2;
@@ -277,7 +282,7 @@
             this.buttonSwitchCreate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonSwitchCreate.ForeColor = System.Drawing.SystemColors.MenuHighlight;
             this.buttonSwitchCreate.Location = new System.Drawing.Point(347, 155);
-            this.buttonSwitchCreate.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonSwitchCreate.Margin = new System.Windows.Forms.Padding(2);
             this.buttonSwitchCreate.Name = "buttonSwitchCreate";
             this.buttonSwitchCreate.Size = new System.Drawing.Size(109, 30);
             this.buttonSwitchCreate.TabIndex = 20;
@@ -290,7 +295,7 @@
             this.buttonSwitchDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonSwitchDelete.ForeColor = System.Drawing.Color.DarkRed;
             this.buttonSwitchDelete.Location = new System.Drawing.Point(268, 155);
-            this.buttonSwitchDelete.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonSwitchDelete.Margin = new System.Windows.Forms.Padding(2);
             this.buttonSwitchDelete.Name = "buttonSwitchDelete";
             this.buttonSwitchDelete.Size = new System.Drawing.Size(75, 30);
             this.buttonSwitchDelete.TabIndex = 19;
@@ -301,7 +306,7 @@
             // buttonSwitchRefresh
             // 
             this.buttonSwitchRefresh.Location = new System.Drawing.Point(4, 155);
-            this.buttonSwitchRefresh.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonSwitchRefresh.Margin = new System.Windows.Forms.Padding(2);
             this.buttonSwitchRefresh.Name = "buttonSwitchRefresh";
             this.buttonSwitchRefresh.Size = new System.Drawing.Size(89, 30);
             this.buttonSwitchRefresh.TabIndex = 18;
@@ -316,7 +321,7 @@
             this.listBoxSwitch.FormattingEnabled = true;
             this.listBoxSwitch.ItemHeight = 17;
             this.listBoxSwitch.Location = new System.Drawing.Point(4, 2);
-            this.listBoxSwitch.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.listBoxSwitch.Margin = new System.Windows.Forms.Padding(2);
             this.listBoxSwitch.Name = "listBoxSwitch";
             this.listBoxSwitch.Size = new System.Drawing.Size(453, 140);
             this.listBoxSwitch.TabIndex = 16;
@@ -329,9 +334,9 @@
             this.tabPage4.Controls.Add(this.listBoxNat);
             this.tabPage4.Controls.Add(this.buttonNatDelete);
             this.tabPage4.Controls.Add(this.buttonNatRefresh);
-            this.tabPage4.ImageKey = "shell32.dll(244).ico";
+            this.tabPage4.ImageKey = "icons8-wired-network-connection-24.png";
             this.tabPage4.Location = new System.Drawing.Point(4, 26);
-            this.tabPage4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabPage4.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Size = new System.Drawing.Size(459, 244);
             this.tabPage4.TabIndex = 3;
@@ -343,7 +348,7 @@
             this.buttonNatCreate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonNatCreate.ForeColor = System.Drawing.SystemColors.MenuHighlight;
             this.buttonNatCreate.Location = new System.Drawing.Point(347, 155);
-            this.buttonNatCreate.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonNatCreate.Margin = new System.Windows.Forms.Padding(2);
             this.buttonNatCreate.Name = "buttonNatCreate";
             this.buttonNatCreate.Size = new System.Drawing.Size(109, 30);
             this.buttonNatCreate.TabIndex = 16;
@@ -358,7 +363,7 @@
             this.listBoxNat.FormattingEnabled = true;
             this.listBoxNat.ItemHeight = 17;
             this.listBoxNat.Location = new System.Drawing.Point(4, 2);
-            this.listBoxNat.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.listBoxNat.Margin = new System.Windows.Forms.Padding(2);
             this.listBoxNat.Name = "listBoxNat";
             this.listBoxNat.Size = new System.Drawing.Size(453, 140);
             this.listBoxNat.TabIndex = 15;
@@ -369,7 +374,7 @@
             this.buttonNatDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonNatDelete.ForeColor = System.Drawing.Color.DarkRed;
             this.buttonNatDelete.Location = new System.Drawing.Point(268, 155);
-            this.buttonNatDelete.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonNatDelete.Margin = new System.Windows.Forms.Padding(2);
             this.buttonNatDelete.Name = "buttonNatDelete";
             this.buttonNatDelete.Size = new System.Drawing.Size(75, 30);
             this.buttonNatDelete.TabIndex = 14;
@@ -380,7 +385,7 @@
             // buttonNatRefresh
             // 
             this.buttonNatRefresh.Location = new System.Drawing.Point(4, 155);
-            this.buttonNatRefresh.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonNatRefresh.Margin = new System.Windows.Forms.Padding(2);
             this.buttonNatRefresh.Name = "buttonNatRefresh";
             this.buttonNatRefresh.Size = new System.Drawing.Size(89, 30);
             this.buttonNatRefresh.TabIndex = 6;
@@ -391,11 +396,11 @@
             // tabPage5
             // 
             this.tabPage5.Controls.Add(this.richTextBox1);
-            this.tabPage5.ImageKey = "shell32.dll(16782).ico";
+            this.tabPage5.ImageKey = "icons8-info-24 (1).png";
             this.tabPage5.Location = new System.Drawing.Point(4, 26);
-            this.tabPage5.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabPage5.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(2);
             this.tabPage5.Size = new System.Drawing.Size(459, 244);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "About";
@@ -410,7 +415,7 @@
             this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.richTextBox1.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.richTextBox1.Location = new System.Drawing.Point(4, 4);
-            this.richTextBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.richTextBox1.Margin = new System.Windows.Forms.Padding(2);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ReadOnly = true;
             this.richTextBox1.Size = new System.Drawing.Size(453, 241);
@@ -423,12 +428,10 @@
             // 
             this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "icon.ico");
-            this.imageList1.Images.SetKeyName(1, "icon-hyperv.ico");
-            this.imageList1.Images.SetKeyName(2, "shell32.dll(19).ico");
-            this.imageList1.Images.SetKeyName(3, "shell32.dll(176).ico");
-            this.imageList1.Images.SetKeyName(4, "shell32.dll(244).ico");
-            this.imageList1.Images.SetKeyName(5, "shell32.dll(16782).ico");
+            this.imageList1.Images.SetKeyName(0, "icon-hyperv.ico");
+            this.imageList1.Images.SetKeyName(1, "icons8-blockchain-technology-24.png");
+            this.imageList1.Images.SetKeyName(2, "icons8-wired-network-connection-24.png");
+            this.imageList1.Images.SetKeyName(3, "icons8-info-24 (1).png");
             // 
             // textBoxOutput
             // 
@@ -437,7 +440,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxOutput.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxOutput.Location = new System.Drawing.Point(11, 302);
-            this.textBoxOutput.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxOutput.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxOutput.MinimumSize = new System.Drawing.Size(335, 68);
             this.textBoxOutput.Multiline = true;
             this.textBoxOutput.Name = "textBoxOutput";
@@ -496,6 +499,7 @@
             // 
             // hyperVSettingsToolStripMenuItem
             // 
+            this.hyperVSettingsToolStripMenuItem.Image = global::SimpleHyperV.Properties.Resources.icons8_settings_24;
             this.hyperVSettingsToolStripMenuItem.Name = "hyperVSettingsToolStripMenuItem";
             this.hyperVSettingsToolStripMenuItem.Size = new System.Drawing.Size(227, 30);
             this.hyperVSettingsToolStripMenuItem.Text = "Hyper-V &Settings";
@@ -503,6 +507,7 @@
             // 
             // createVMToolStripMenuItem
             // 
+            this.createVMToolStripMenuItem.Image = global::SimpleHyperV.Properties.Resources.icons8_add_24;
             this.createVMToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.createVMToolStripMenuItem.Name = "createVMToolStripMenuItem";
             this.createVMToolStripMenuItem.Size = new System.Drawing.Size(227, 30);
@@ -511,6 +516,7 @@
             // 
             // virtualSwitchManagerToolStripMenuItem
             // 
+            this.virtualSwitchManagerToolStripMenuItem.Image = global::SimpleHyperV.Properties.Resources.icons8_switch_24;
             this.virtualSwitchManagerToolStripMenuItem.Name = "virtualSwitchManagerToolStripMenuItem";
             this.virtualSwitchManagerToolStripMenuItem.Size = new System.Drawing.Size(227, 30);
             this.virtualSwitchManagerToolStripMenuItem.Text = "Virtual Switch Manager";
@@ -518,6 +524,7 @@
             // 
             // editDiskToolStripMenuItem
             // 
+            this.editDiskToolStripMenuItem.Image = global::SimpleHyperV.Properties.Resources.icons8_c_drive_2_24;
             this.editDiskToolStripMenuItem.Name = "editDiskToolStripMenuItem";
             this.editDiskToolStripMenuItem.Size = new System.Drawing.Size(227, 30);
             this.editDiskToolStripMenuItem.Text = "Edit Disk";
@@ -525,6 +532,7 @@
             // 
             // optimizeVHDToolStripMenuItem
             // 
+            this.optimizeVHDToolStripMenuItem.Image = global::SimpleHyperV.Properties.Resources.icons8_compress_24;
             this.optimizeVHDToolStripMenuItem.Name = "optimizeVHDToolStripMenuItem";
             this.optimizeVHDToolStripMenuItem.Size = new System.Drawing.Size(227, 30);
             this.optimizeVHDToolStripMenuItem.Text = "Optimize VHD...";
@@ -537,6 +545,7 @@
             // 
             // networkConnectionsToolStripMenuItem
             // 
+            this.networkConnectionsToolStripMenuItem.Image = global::SimpleHyperV.Properties.Resources.icons8_wired_network_connection_24;
             this.networkConnectionsToolStripMenuItem.Name = "networkConnectionsToolStripMenuItem";
             this.networkConnectionsToolStripMenuItem.Size = new System.Drawing.Size(227, 30);
             this.networkConnectionsToolStripMenuItem.Text = "&Network Connections";
@@ -544,6 +553,7 @@
             // 
             // remoteDesktopToolStripMenuItem
             // 
+            this.remoteDesktopToolStripMenuItem.Image = global::SimpleHyperV.Properties.Resources.icons8_rdp_connection_24;
             this.remoteDesktopToolStripMenuItem.Name = "remoteDesktopToolStripMenuItem";
             this.remoteDesktopToolStripMenuItem.Size = new System.Drawing.Size(227, 30);
             this.remoteDesktopToolStripMenuItem.Text = "&Remote Desktop (mstsc)";
@@ -551,6 +561,7 @@
             // 
             // taskschdmscToolStripMenuItem
             // 
+            this.taskschdmscToolStripMenuItem.Image = global::SimpleHyperV.Properties.Resources.icons8_time_24;
             this.taskschdmscToolStripMenuItem.Name = "taskschdmscToolStripMenuItem";
             this.taskschdmscToolStripMenuItem.Size = new System.Drawing.Size(227, 30);
             this.taskschdmscToolStripMenuItem.Text = "&taskschd.msc";
@@ -558,6 +569,7 @@
             // 
             // openToolStripMenuItem
             // 
+            this.openToolStripMenuItem.Image = global::SimpleHyperV.Properties.Resources.icons8_folder_24;
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.Size = new System.Drawing.Size(227, 30);
             this.openToolStripMenuItem.Text = "&Open ./";
@@ -565,6 +577,7 @@
             // 
             // exitStripMenuItem
             // 
+            this.exitStripMenuItem.Image = global::SimpleHyperV.Properties.Resources.icons8_delete_24__1_;
             this.exitStripMenuItem.Name = "exitStripMenuItem";
             this.exitStripMenuItem.Size = new System.Drawing.Size(227, 30);
             this.exitStripMenuItem.Text = "&Exit";

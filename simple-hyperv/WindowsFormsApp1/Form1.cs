@@ -167,6 +167,8 @@ namespace SimpleHyperVForm1
             Show();
             notifyIcon.Visible = false;
             Activate();
+            // 同时刷新
+            buttonVmRefresh_Click_1(this, EventArgs.Empty);
         }
         public void NotifyIcon_Exit_Click(object sender, EventArgs e)
         {
@@ -351,6 +353,7 @@ namespace SimpleHyperVForm1
             AutoSetVmButtonsEnabled();
         }
 
+        // 是否正在运行
         private bool CheckVmIsStarted(PSObject vm)
         {
 
@@ -362,13 +365,28 @@ namespace SimpleHyperVForm1
             return false;
         }
 
+        // 是否休眠状态
+        private bool CheckVmIsSaved(PSObject vm)
+        {
+
+            if (null != vm)
+            {
+                string state = "" + vm.Properties["State"].Value;
+                return state == "Saved";
+            }
+            return false;
+        }
+
         private void listBoxVM_DoubleClick(object sender, EventArgs e)
         {
             // 在此处添加双击列表框项时要执行的操作
             PSObject item = getSelectedVM();
             if (null != item)
             {
-                if (CheckVmIsStarted(item))
+                if (CheckVmIsSaved(item)) {
+                    buttonVmStart_Click(this, EventArgs.Empty);
+                } 
+                else if (CheckVmIsStarted(item))
                 {
                     buttonVmStop_Click(this, EventArgs.Empty);
                 }
@@ -413,7 +431,12 @@ namespace SimpleHyperVForm1
             PSObject vm = getSelectedVM();
             if (null != vm)
             {
-                if (CheckVmIsStarted(vm))
+                if (CheckVmIsSaved(vm))
+                {
+                    buttonStart.Enabled = true;
+                    buttonStop.Enabled = false;
+                }
+                else if (CheckVmIsStarted(vm))
                 {
                     buttonStart.Enabled = false;
                     buttonStop.Enabled = true;
@@ -449,6 +472,18 @@ namespace SimpleHyperVForm1
                     // 如果按下了 Shift 键，强行停止
 
                     string script = "Stop-VM -Name \"" + vm.Properties["Name"].Value + "\" -Force";
+                    await runUtils.RunPowerShellScriptAsync(script);
+
+                    buttonVmRefresh.PerformClick();
+
+                    return;
+                }
+
+                if (Control.ModifierKeys == Keys.Control)
+                {
+                    // 如果按下了 Control 键，保存状态
+
+                    string script = "Save-VM -Name \"" + vm.Properties["Name"].Value + "\"";
                     await runUtils.RunPowerShellScriptAsync(script);
 
                     buttonVmRefresh.PerformClick();
