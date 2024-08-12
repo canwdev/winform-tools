@@ -598,7 +598,7 @@ namespace SimpleHyperVForm1
 
         private async void buttonNatCreate_Click(object sender, EventArgs e)
         {
-            PopupNetworkCreateForm popup = new PopupNetworkCreateForm();
+            PopupNetworkCreateForm popup = new PopupNetworkCreateForm("NAT", "192.168.56.0/24");
             popup.Text = "Create NetNat";
             if (popup.ShowDialog() == DialogResult.OK)
             {
@@ -675,7 +675,7 @@ namespace SimpleHyperVForm1
 
         private async void buttonSwitchCreate_Click(object sender, EventArgs e)
         {
-            PopupNetworkCreateForm popup = new PopupNetworkCreateForm();
+            PopupNetworkCreateForm popup = new PopupNetworkCreateForm("DHCP_SWITCH", "192.168.56.1/24");
             popup.Text = "Create Internal Switch With Static IP";
             if (popup.ShowDialog() == DialogResult.OK)
             {

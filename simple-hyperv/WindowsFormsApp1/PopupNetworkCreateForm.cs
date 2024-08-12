@@ -13,9 +13,11 @@ namespace SimpleHyperV
 {
     public partial class PopupNetworkCreateForm : Form
     {
-        public PopupNetworkCreateForm()
+        public PopupNetworkCreateForm(string value1 = "", string value2 = "")
         {
             InitializeComponent();
+            textBoxName.Text = value1;
+            textBoxIP.Text = value2;
         }
 
         private void buttonOK_Click(object sender, EventArgs e)
